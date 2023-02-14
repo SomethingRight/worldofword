@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:worldofword/models/word_model.dart';
+import 'package:worldofword/models/word_translate_model.dart';
 import 'package:worldofword/module/word_details_page/word_details_page.dart';
 
 class WordCard extends StatelessWidget {
-  final WordModel word;
+  final WordTranslateModel word;
   const WordCard({super.key, required this.word});
 
   @override
@@ -24,11 +24,11 @@ class WordCard extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.only(left: 10),
-              child: Text(word.word, style: const TextStyle(fontSize: 18)),
+              child: Text(word.word!, style: const TextStyle(fontSize: 18)),
             ),
             Row(
               children: [
-                Text(word.translate, style: const TextStyle(fontSize: 18)),
+                Text(word.translate!, style: const TextStyle(fontSize: 18)),
                 IconButton(
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

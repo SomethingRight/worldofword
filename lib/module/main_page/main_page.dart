@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'dart:async';
 
-import '../../models/word_model.dart';
+import 'package:flutter/material.dart';
+import 'package:worldofword/api/word_api/word_translate_api.dart';
+import 'package:worldofword/models/word_translate_model.dart';
+
 import '../widgets/word_card.dart';
 
 class MainPage extends StatefulWidget {
@@ -14,9 +16,25 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  final TextEditingController _controller = TextEditingController();
+  late StreamController _streamController;
+  late Stream _stream;
+
+  _search(String word) async {
+    final word = await WordTranslateApi().getWord(_controller.text);
+    _streamController.add(word);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _streamController = StreamController();
+    _stream = _streamController.stream;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final List<WordModel> words = WordModel.words;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -26,46 +44,45 @@ class _MainPageState extends State<MainPage> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
           child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextField(
-                
+                onSubmitted: (String text) {
+                  _search(text = _controller.text);
+                },
+                controller: _controller,
                 textInputAction: TextInputAction.search,
                 decoration: InputDecoration(
                   labelText: 'what a you looking for',
                   prefixIcon: const Icon(Icons.search),
                   fillColor: Colors.black12,
-                  border:
-                      OutlineInputBorder(borderRadius: BorderRadius.circular(50)),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50)),
                 ),
               ),
               const SizedBox(
                 height: 15,
               ),
-              Row(
-                children: const [
-                  SizedBox(width: 15),
-                  Text(
-                    'History :',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-                  ),
-                ],
-              ),
-              Container(
-                padding: const EdgeInsets.only(top: 10),
-                height: MediaQuery.of(context).size.height*0.68,
-                child: ListView.builder(
-                  itemCount: WordModel.words.length,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 7),
-                      child: WordCard(
-                        word: words[index],
-                      ),
-                    );
+          
+              //Here will be results of search
+
+              Center(
+                child: StreamBuilder(
+                  stream: _stream,
+                  builder: (context, snapshot) {
+                    if (snapshot.data == null) {
+                      return const Center(
+                          child: Text(
+                        'enter something...',
+                        style: TextStyle(fontSize: 28),
+                      ));
+                    }
+                    return Container(
+                        padding: const EdgeInsets.all(10),
+                        child: WordCard(word: snapshot.data));
                   },
                 ),
-              ),
+              )
             ],
           ),
         ),

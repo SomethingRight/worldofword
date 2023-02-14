@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:worldofword/api/word_api/word_details_api.dart';
 
 import 'widgets/menu_card.dart';
 

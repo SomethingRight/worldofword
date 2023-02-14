@@ -4,7 +4,6 @@ import 'module/home/home_page.dart';
 
 // словарик
 // список и кнопка добавить
-// toolbar  с поиском добавить поисковую строку
 
 void main() {
   runApp(const MyApp());
