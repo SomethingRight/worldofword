@@ -1,10 +1,14 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:worldofword/api/word_api/word_translate_api.dart';
-import 'package:worldofword/models/word_translate_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
+import 'package:worldofword/api/word_api/word_traslate/word_translate_api.dart';
+import 'package:worldofword/module/main_page/bloc/word_load_bloc.dart';
 
 import '../widgets/word_card.dart';
+
+//TODO
+//авторизация firebase и сохранять там же
+//Добавить фичу контекстное меню, новый пункт сохранения слова с словарь
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
@@ -17,22 +21,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final TextEditingController _controller = TextEditingController();
-  late StreamController _streamController;
-  late Stream _stream;
-
-  _search(String word) async {
-    final word = await WordTranslateApi().getWord(_controller.text);
-    _streamController.add(word);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _streamController = StreamController();
-    _stream = _streamController.stream;
-  }
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +37,10 @@ class _MainPageState extends State<MainPage> {
             children: [
               TextField(
                 onSubmitted: (String text) {
-                  _search(text = _controller.text);
+
+                  Provider.of<WordLoadBloc>(context, listen: false)
+                      .add(WordLoading(_controller.text));
+
                 },
                 controller: _controller,
                 textInputAction: TextInputAction.search,
@@ -63,23 +55,35 @@ class _MainPageState extends State<MainPage> {
               const SizedBox(
                 height: 15,
               ),
-          
+
               //Here will be results of search
 
               Center(
-                child: StreamBuilder(
-                  stream: _stream,
-                  builder: (context, snapshot) {
-                    if (snapshot.data == null) {
-                      return const Center(
-                          child: Text(
-                        'enter something...',
-                        style: TextStyle(fontSize: 28),
-                      ));
+                child: BlocBuilder<WordLoadBloc, WordLoadState>(
+                  builder: (context, state) {
+                    if (state is WordEmptyState) {
+                      return const Offstage();
+                    } else if (state is WordLoadingState) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is WordError){
+                      return  Center(child: Text(state.error));
+                    } 
+                    else if (state is WordLoadedState) {
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: state.words.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                                padding: const EdgeInsets.all(10),
+                                child: WordCard(word: state.words[index]));
+                          });
                     }
-                    return Container(
-                        padding: const EdgeInsets.all(10),
-                        child: WordCard(word: snapshot.data));
+                    return const Center(
+                      child: Text(
+                        'Enter something',
+                        style: TextStyle(fontSize: 25),
+                      ),
+                    );
                   },
                 ),
               )

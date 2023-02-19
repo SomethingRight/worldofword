@@ -14,33 +14,47 @@ class WordCard extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const WordDetailsPage()));
       },
       child: Container(
-        padding: const EdgeInsets.all(5),
+        padding:
+            const EdgeInsets.only(left: 20, top: 10, bottom: 10, right: 10),
+        clipBehavior: Clip.hardEdge,
         decoration: const BoxDecoration(
           color: Colors.black12,
           borderRadius: BorderRadius.all(Radius.circular(15)),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: Text(word.word!, style: const TextStyle(fontSize: 18)),
+            Container(
+              clipBehavior: Clip.none,
+              width: MediaQuery.of(context).size.width * 0.68,
+              child: Row(
+                children: [
+                  Text('${word.word}', style: const TextStyle(fontSize: 18)),
+                  Text('(${word.lexicalCategory})',
+                      style:
+                          const TextStyle(fontSize: 18, color: Colors.black54)),
+                  Expanded(
+                      child: Text(
+                        '${word.translate}',
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.end,
+                        style: const TextStyle(fontSize: 18),
+                        maxLines: 1,
+                      ),
+                    ),
+                  
+                ],
+              ),
             ),
-            Row(
-              children: [
-                Text(word.translate!, style: const TextStyle(fontSize: 18)),
-                IconButton(
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                          duration: Duration(milliseconds: 300),
-                          content: Text('word saved')));
-                    },
-                    icon: const Icon(
-                      Icons.add,
-                      color: Colors.blueAccent,
-                    )),
-              ],
-            ),
+            IconButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      duration: Duration(milliseconds: 300),
+                      content: Text('word saved')));
+                },
+                icon: const Icon(
+                  Icons.add,
+                  color: Colors.blueAccent,
+                )),
           ],
         ),
       ),

@@ -12,28 +12,42 @@ class WordTranslateApi implements WordTranslateApiI {
   static const String targetLang = 'ru';
 
   @override
-  Future<WordTranslateModel> getWord(String wordId) async {
-    final String uri =
+  Future<List<WordTranslateModel>> getWord(String wordId) async {
+    
+      final String uri =
         'https://od-api.oxforddictionaries.com/api/v2/$endpoint/$sourceLang/$targetLang/$wordId';
+      
     final http.Response response = await http
         .get(Uri.parse(uri), headers: {"app_id": appId, "app_key": appKey});
+          debugPrint(response.statusCode.toString());
     if (response.statusCode == 200) {
       final Map<String, dynamic> resp =
           json.decode(response.body) as Map<String, dynamic>;
       final Map<String, dynamic> dataFirstLevel =
           resp['results'][0] as Map<String, dynamic>;
-      final Map<String, dynamic> dataSecondLevel =
-          dataFirstLevel['lexicalEntries'][0] as Map<String, dynamic>;
-      final WordTranslateModel wordData = WordTranslateModel.fromJson(dataSecondLevel);
-      debugPrint(wordData.toString());
-      return wordData;
-    } else {
-      final Error error = ArgumentError('Something went wrong');
-      throw error;
+      final List<dynamic> dataSecondLevel =
+          dataFirstLevel['lexicalEntries'] as List<dynamic>;
+      final List<WordTranslateModel> wordData = dataSecondLevel
+          .map((dynamic e) =>
+              WordTranslateModel.fromJson(e as Map<String, dynamic>))
+          .toList();
+      final List<WordTranslateModel> finalData =
+          wordData.where((e) => e.translate != 'notranslation').toList();
+      return finalData;
+    } else if (response.statusCode == 404) {
+      throw WordExistException();
     }
+    return [];
+    
   }
 }
 
 abstract class WordTranslateApiI {
-  Future<WordTranslateModel> getWord(String wordId);
+  Future<List<WordTranslateModel>> getWord(String wordId);
+}
+
+
+class WordExistException implements Exception{
+  @override
+  String toString() => 'incorrect word';
 }
