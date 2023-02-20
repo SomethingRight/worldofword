@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:worldofword/api/word_api/word_details_api.dart';
+import 'package:worldofword/module/menu/pages/user/user_page.dart';
 
 import 'widgets/menu_card.dart';
 
@@ -35,7 +36,12 @@ class _MenuPageState extends State<MenuPage> {
                   title: 'User',
                   subtitle: 'name, verification data',
                   icon: const Icon(Icons.people),
-                  onTap: () {}),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const UserPage()));
+                  }),
               const SizedBox(height: 5),
               MenuCard(
                   title: 'Share app',

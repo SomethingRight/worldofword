@@ -1,15 +1,19 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:worldofword/api/word_api/word_traslate/word_translate_api.dart';
 import 'package:worldofword/api/word_api/word_traslate/word_translate_repository.dart';
+import 'package:worldofword/firebase_options.dart';
 import 'package:worldofword/module/main_page/bloc/word_load_bloc.dart';
 
 import 'module/home/home_page.dart';
 
-// словарик
-// список и кнопка добавить
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
 
-void main() {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(const MyApp());
 }
 

@@ -23,8 +23,7 @@ class WordCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Container(
-              clipBehavior: Clip.none,
+            SizedBox(
               width: MediaQuery.of(context).size.width * 0.68,
               child: Row(
                 children: [
