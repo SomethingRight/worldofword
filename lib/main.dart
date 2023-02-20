@@ -2,10 +2,10 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldofword/api/word_api/word_traslate/word_translate_repository.dart';
+import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/firebase_options.dart';
 import 'package:worldofword/module/main_page/bloc/word_load_bloc.dart';
 
-import 'module/home/home_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,19 +22,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'WorldOfWord',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MultiBlocProvider(
-        providers: [
-          BlocProvider<WordLoadBloc>(
-            create: (context) => WordLoadBloc(WordTranslateRepository()),
-          )
-        ],
-        child: const HomePage(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<WordLoadBloc>(
+            create: (context) => WordLoadBloc(WordTranslateRepository()))
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'WorldOfWord',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        onGenerateRoute: AppRouter.onGenerateRoute,
+        initialRoute: '/',
       ),
     );
   }

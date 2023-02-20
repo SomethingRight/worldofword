@@ -30,30 +30,33 @@ class _MenuPageState extends State<MenuPage> {
                   title: 'Settings',
                   subtitle: 'theme, language and fontsize',
                   icon: const Icon(Icons.settings),
-                  onTap: () {}),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/settings');
+                  }),
               const SizedBox(height: 5),
               MenuCard(
                   title: 'User',
                   subtitle: 'name, verification data',
                   icon: const Icon(Icons.people),
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const UserPage()));
+                    Navigator.pushNamed(context, '/user');
                   }),
               const SizedBox(height: 5),
               MenuCard(
                   title: 'Share app',
                   subtitle: 'email, message and social media',
                   icon: const Icon(Icons.share),
-                  onTap: () {}),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/share');
+                  }),
               const SizedBox(height: 5),
               MenuCard(
                   title: 'Info',
                   subtitle: 'some info about app',
                   icon: const Icon(Icons.info),
-                  onTap: () {}),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/info');
+                  }),
             ],
           ),
         ));

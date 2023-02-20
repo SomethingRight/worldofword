@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:worldofword/api/word_api/word_traslate/word_translate_api.dart';
 import 'package:worldofword/module/main_page/bloc/word_load_bloc.dart';
 
+import '../widgets/text_field_custom.dart';
 import '../widgets/word_card.dart';
 
 //TODO
@@ -21,7 +22,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final TextEditingController _controller = TextEditingController();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,22 +36,17 @@ class _MainPageState extends State<MainPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextField(
+              //TextField Custom 
+              TextFieldCustomWidget(
+                controller: _controller,
                 onSubmitted: (String text) {
-
                   Provider.of<WordLoadBloc>(context, listen: false)
                       .add(WordLoading(_controller.text));
-
                 },
-                controller: _controller,
                 textInputAction: TextInputAction.search,
-                decoration: InputDecoration(
-                  labelText: 'what a you looking for',
-                  prefixIcon: const Icon(Icons.search),
-                  fillColor: Colors.black12,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(50)),
-                ),
+                labelText: 'what a you looking for',
+                prefixIcon: const Icon(Icons.search),
+                fillColor: Colors.black12,
               ),
               const SizedBox(
                 height: 15,
@@ -65,10 +61,9 @@ class _MainPageState extends State<MainPage> {
                       return const Offstage();
                     } else if (state is WordLoadingState) {
                       return const Center(child: CircularProgressIndicator());
-                    } else if (state is WordError){
-                      return  Center(child: Text(state.error));
-                    } 
-                    else if (state is WordLoadedState) {
+                    } else if (state is WordError) {
+                      return Center(child: Text(state.error));
+                    } else if (state is WordLoadedState) {
                       return ListView.builder(
                           shrinkWrap: true,
                           itemCount: state.words.length,
@@ -94,3 +89,5 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
+
+
