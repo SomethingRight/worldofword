@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:worldofword/core/navigation/router.dart';
-import 'package:worldofword/module/auth/auth_page.dart';
+import 'package:worldofword/module/auth/account_recovery/account_recovery_page.dart';
+import 'package:worldofword/module/auth/email_pass_auth/auth_page.dart';
+import 'package:worldofword/module/auth/sign_up_auth/sign_up_page.dart';
 import 'package:worldofword/module/home/home_page.dart';
 import 'package:worldofword/module/menu/pages/info/info_page.dart';
 import 'package:worldofword/module/menu/pages/settings/settings_page.dart';
@@ -27,6 +29,10 @@ class AppRouter {
         return _navigate(const WordDetailsPage());
       case RouterI.authPage:
         return _navigate(const AuthPage());
+      case RouterI.signUpPage:
+        return _navigate(const SignUpPage());
+      case RouterI.accountRecoveryPage:
+      return _navigate(const AccountRecoveryPage());
     }
     return null;
   }

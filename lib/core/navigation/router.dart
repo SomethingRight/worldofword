@@ -11,4 +11,6 @@ abstract class RouterI {
   static const String infoPage = 'InfoPage';
   static const String wordDetailsPage = 'WordDetailsPage';
   static const String authPage = 'AuthorizationPage';
+  static const String signUpPage = 'SignUpPage';
+  static const String accountRecoveryPage = 'AccountRecoveryPage';
 }
