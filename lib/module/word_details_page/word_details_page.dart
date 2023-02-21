@@ -5,6 +5,8 @@ class WordDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final headerColor = Theme.of(context).primaryColor;
+    final iconColor = Theme.of(context).primaryColorDark;
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       appBar: AppBar(),
@@ -54,10 +56,9 @@ class WordDetailsPage extends StatelessWidget {
                                     duration: Duration(milliseconds: 300),
                                     content: Text('copied')));
                           },
-                          splashColor: Colors.blueAccent,
-                          icon: const Icon(
+                          icon: Icon(
                             Icons.copy,
-                            color: Colors.blueAccent,
+                            color: iconColor,
                           )),
                       IconButton(
                           onPressed: () {
@@ -66,16 +67,16 @@ class WordDetailsPage extends StatelessWidget {
                                     duration: Duration(milliseconds: 300),
                                     content: Text('word saved')));
                           },
-                          icon: const Icon(Icons.add,
-                              size: 30, color: Colors.blueAccent)),
+                          icon: Icon(Icons.add,
+                              size: 30, color: iconColor)),
                       IconButton(
                           onPressed: () {},
-                          icon: const Icon(Icons.share,
-                              color: Colors.blueAccent)),
+                          icon:  Icon(Icons.share,
+                              color: iconColor)),
                       IconButton(
                           onPressed: () {},
-                          icon: const Icon(Icons.volume_up,
-                              color: Colors.blueAccent)),
+                          icon: Icon(Icons.volume_up,
+                              color: iconColor)),
                     ],
                   )
                 ],
@@ -100,15 +101,15 @@ class WordDetailsPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                           Text(
                             'translation',
-                            style: TextStyle(fontSize: 22, color: Colors.blue),
+                            style: TextStyle(fontSize: 22, color: headerColor),
                           ),
                           IconButton(
                               onPressed: () {},
-                              icon: const Icon(
+                              icon:  Icon(
                                 Icons.copy,
-                                color: Colors.blueAccent,
+                                color:iconColor,
                               )),
                         ],
                       ),
@@ -146,15 +147,15 @@ class WordDetailsPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                           Text(
                             'meaning',
-                            style: TextStyle(fontSize: 22, color: Colors.blue),
+                            style: TextStyle(fontSize: 22, color:headerColor),
                           ),
                           IconButton(
                               onPressed: () {},
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.copy,
-                                color: Colors.blueAccent,
+                                color:iconColor,
                               )),
                         ],
                       ),
@@ -192,15 +193,15 @@ class WordDetailsPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                           Text(
                             'lexical category',
-                            style: TextStyle(fontSize: 22, color: Colors.blue),
+                            style: TextStyle(fontSize: 22, color:headerColor),
                           ),
                           IconButton(
                               onPressed: () {},
-                              icon: const Icon(
+                              icon: Icon(
                                 Icons.copy,
-                                color: Colors.blueAccent,
+                                color: iconColor,
                               )),
                         ],
                       ),

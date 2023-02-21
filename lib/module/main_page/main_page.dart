@@ -38,6 +38,7 @@ class _MainPageState extends State<MainPage> {
             children: [
               //TextField Custom 
               TextFieldCustomWidget(
+                obscureText: false,
                 controller: _controller,
                 onSubmitted: (String text) {
                   Provider.of<WordLoadBloc>(context, listen: false)

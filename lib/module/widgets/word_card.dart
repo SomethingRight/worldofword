@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/models/word_translate_model.dart';
-import 'package:worldofword/module/word_details_page/word_details_page.dart';
 
 class WordCard extends StatelessWidget {
   final WordTranslateModel word;
@@ -10,7 +10,7 @@ class WordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, '/wordDetails');
+        Navigator.pushNamed(context, RouterI.wordDetailsPage);
       },
       child: Container(
         padding:
@@ -49,9 +49,9 @@ class WordCard extends StatelessWidget {
                       duration: Duration(milliseconds: 300),
                       content: Text('word saved')));
                 },
-                icon: const Icon(
+                icon:  Icon(
                   Icons.add,
-                  color: Colors.blueAccent,
+                  color: Theme.of(context).primaryColor,
                 )),
           ],
         ),

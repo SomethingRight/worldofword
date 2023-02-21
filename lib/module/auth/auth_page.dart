@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/module/widgets/text_field_custom.dart';
 
 class AuthPage extends StatefulWidget {
@@ -9,8 +10,10 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _passwordInvisible = true;
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +33,8 @@ class _AuthPageState extends State<AuthPage> {
               )),
               const SizedBox(height: 25),
               TextFieldCustomWidget(
-                controller: emailController,
+                obscureText: false,
+                controller: _emailController,
                 labelText: 'e-mail',
                 onSubmitted: (String text) {
                   //_bloc.add(ChangeEmailEvent(email: text));
@@ -43,7 +47,17 @@ class _AuthPageState extends State<AuthPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextFieldCustomWidget(
-                    controller: passwordController,
+                    suffixIcon: IconButton(
+                        onPressed: () {
+                          setState(() {
+                            _passwordInvisible = !_passwordInvisible;
+                          });
+                        },
+                        icon: Icon(_passwordInvisible
+                            ? Icons.visibility_off_outlined
+                            : Icons.visibility_outlined)),
+                    obscureText: _passwordInvisible,
+                    controller: _passwordController,
                     onSubmitted: (String text) {
                       // _bloc.add(ChangePassEvent(pass: text ));
                     },
@@ -63,7 +77,7 @@ class _AuthPageState extends State<AuthPage> {
                     backgroundColor: Theme.of(context).primaryColorLight,
                     shape: const StadiumBorder()),
                 onPressed: () {
-                  Navigator.pushReplacementNamed(context, '/home');
+                  Navigator.pushReplacementNamed(context, RouterI.homePage);
                 },
                 child: Text(
                   'confirm',

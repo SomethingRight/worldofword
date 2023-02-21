@@ -8,7 +8,9 @@ class TextFieldCustomWidget extends StatelessWidget {
     this.textInputAction,
     this.labelText,
     this.prefixIcon,
-    this.fillColor
+    this.fillColor,
+    required this.obscureText,
+    this.suffixIcon
 
   })  : _controller = controller,
         super(key: key);
@@ -19,14 +21,18 @@ class TextFieldCustomWidget extends StatelessWidget {
   final String? labelText;
   final Icon? prefixIcon;
   final Color? fillColor;
+  final bool obscureText;
+  final IconButton? suffixIcon;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
+      obscureText: obscureText,
       onSubmitted: onSubmitted,
       controller: _controller,
       textInputAction: textInputAction,
       decoration: InputDecoration(
+        suffixIcon: suffixIcon,
         labelText: labelText,
         prefixIcon: prefixIcon,
         fillColor: fillColor,

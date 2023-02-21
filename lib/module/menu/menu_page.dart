@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:worldofword/api/word_api/word_details_api.dart';
+import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/module/menu/pages/user/user_page.dart';
 
 import 'widgets/menu_card.dart';
@@ -31,7 +32,7 @@ class _MenuPageState extends State<MenuPage> {
                   subtitle: 'theme, language and fontsize',
                   icon: const Icon(Icons.settings),
                   onTap: () {
-                    Navigator.pushNamed(context, '/settings');
+                    Navigator.pushNamed(context, RouterI.settingsPage);
                   }),
               const SizedBox(height: 5),
               MenuCard(
@@ -39,7 +40,7 @@ class _MenuPageState extends State<MenuPage> {
                   subtitle: 'name, verification data',
                   icon: const Icon(Icons.people),
                   onTap: () {
-                    Navigator.pushNamed(context, '/user');
+                    Navigator.pushNamed(context, RouterI.userPage);
                   }),
               const SizedBox(height: 5),
               MenuCard(
@@ -47,7 +48,7 @@ class _MenuPageState extends State<MenuPage> {
                   subtitle: 'email, message and social media',
                   icon: const Icon(Icons.share),
                   onTap: () {
-                    Navigator.pushNamed(context, '/share');
+                    Navigator.pushNamed(context, RouterI.sharingPage);
                   }),
               const SizedBox(height: 5),
               MenuCard(
@@ -55,7 +56,7 @@ class _MenuPageState extends State<MenuPage> {
                   subtitle: 'some info about app',
                   icon: const Icon(Icons.info),
                   onTap: () {
-                    Navigator.pushNamed(context, '/info');
+                    Navigator.pushNamed(context, RouterI.infoPage);
                   }),
             ],
           ),
