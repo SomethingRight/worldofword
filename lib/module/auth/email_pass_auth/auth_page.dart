@@ -73,7 +73,11 @@ class _AuthPageState extends State<AuthPage> {
                   height: 25,
                 ),
                 StadiumCustomButton(
-                    text: 'confirm',
+                    buttonBody: Text(
+                      'confirm',
+                      style: TextStyle(
+                          color: Theme.of(context).hintColor, fontSize: 18),
+                    ),
                     color: Theme.of(context).primaryColorLight,
                     onPressed: () {
                       Navigator.pushReplacementNamed(context, RouterI.homePage);
@@ -101,7 +105,8 @@ class _AuthPageState extends State<AuthPage> {
                         )),
                     TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, RouterI.accountRecoveryPage);
+                          Navigator.pushNamed(
+                              context, RouterI.accountRecoveryPage);
                           // GetIt.instance<RouterI>()
                           //     .navigateTo(RouterI.forgotPasswordPage);
                         },

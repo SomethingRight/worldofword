@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class StadiumCustomButton extends StatelessWidget {
   const StadiumCustomButton({
     Key? key,
-    required this.text,
+    required this.buttonBody,
     required this.color,
     required this.onPressed,
   }) : super(key: key);
 
-  final String text;
+  final Widget buttonBody;
   final Color color;
   final VoidCallback onPressed;
 
@@ -20,10 +20,7 @@ class StadiumCustomButton extends StatelessWidget {
           backgroundColor: color,
           shape: const StadiumBorder()),
       onPressed: onPressed,
-      child: Text(
-        text,
-        style: TextStyle(color: Theme.of(context).hintColor, fontSize: 18),
-      ),
+      child:buttonBody
     );
   }
 }

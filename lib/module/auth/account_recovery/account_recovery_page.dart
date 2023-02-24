@@ -42,12 +42,17 @@ class _AccountRecoveryPageState extends State<AccountRecoveryPage> {
                 const SizedBox(
                   height: 5,
                 ),
-                const Text('Enter e-mail that you registered in the application to receive a password recovery code'),
+                const Text(
+                    'Enter e-mail that you registered in the application to receive a password recovery code'),
                 const SizedBox(
                   height: 25,
                 ),
                 StadiumCustomButton(
-                    text: 'send code',
+                    buttonBody: Text(
+                      'send code',
+                      style: TextStyle(
+                          color: Theme.of(context).hintColor, fontSize: 18),
+                    ),
                     color: Theme.of(context).primaryColorDark,
                     onPressed: () {
                       Navigator.pop(context);
@@ -56,7 +61,6 @@ class _AccountRecoveryPageState extends State<AccountRecoveryPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                
               ],
             ),
           )

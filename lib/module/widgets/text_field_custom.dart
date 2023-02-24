@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 
 class TextFieldCustomWidget extends StatelessWidget {
-  const TextFieldCustomWidget({
-    Key? key,
-    required TextEditingController controller,
-    this.onSubmitted,
-    this.textInputAction,
-    this.labelText,
-    this.prefixIcon,
-    this.fillColor,
-    required this.obscureText,
-    this.suffixIcon
+  const TextFieldCustomWidget(
+      {Key? key,
+      this.controller,
+      this.onSubmitted,
+      this.onChanged,
+      this.textInputAction,
+      this.labelText,
+      this.prefixIcon,
+      this.fillColor,
+      required this.obscureText,
+      this.suffixIcon})
+      : super(key: key);
 
-  })  : _controller = controller,
-        super(key: key);
-
-  final TextEditingController? _controller;
+  final TextEditingController? controller;
   final void Function(String)? onSubmitted;
+  final void Function(String)? onChanged;
   final TextInputAction? textInputAction;
   final String? labelText;
   final Icon? prefixIcon;
@@ -28,8 +28,9 @@ class TextFieldCustomWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       obscureText: obscureText,
+      onChanged: onChanged,
       onSubmitted: onSubmitted,
-      controller: _controller,
+      controller: controller,
       textInputAction: textInputAction,
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
