@@ -9,17 +9,17 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
   SignUpBloc({
     required FbAuthApiI authService,
   })  : _authService = authService,
-        super(const SignUpState()) {
+        super(const SignUpState(email: '',password: '', userName: '')) {
     on<ConfirmSignUpEvent>((event, emit) async {
       try {
         await _authService.signUpWithEmail(
-            email: state.email!,
-            password: state.password!,
-            name: state.userName!);
-        emit(state.copyWith(status: SignupStatus.success));
+            email: state.email,
+            password: state.password,
+            name: state.userName);
+        emit.call(state.copyWith(status: SignupStatus.success));
       } catch (e) {
-        emit(state.copyWith(status: SignupStatus.failure));
-      }
+        emit.call(state.copyWith(status: SignupStatus.failure));
+      } 
     });
     on<ChangeNameEvent>((event, emit) {
       emit(state.copyWith(userName: event.name));

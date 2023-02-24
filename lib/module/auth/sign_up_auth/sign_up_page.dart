@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldofword/module/auth/sign_up_auth/sign_up_bloc.dart';
@@ -10,15 +12,22 @@ class SignUpPage extends StatefulWidget {
 
   @override
   State<SignUpPage> createState() => _SignUpPageState();
- 
 }
 
 class _SignUpPageState extends State<SignUpPage> {
   bool _passwordInvisible = true;
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<SignUpBloc, SignUpState>(
+    return BlocConsumer<SignUpBloc, SignUpState>(
+      listenWhen: (previous, current) => previous.status != current.status,
+      listener: (context, state) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(state.status!.name),
+          duration: const Duration(milliseconds: 400),
+        ));
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(backgroundColor: Theme.of(context).backgroundColor),
@@ -37,17 +46,19 @@ class _SignUpPageState extends State<SignUpPage> {
                       const Center(
                           child: Text(
                         'Enter information \n for your profile',
-                        style:
-                            TextStyle(fontSize: 27, fontWeight: FontWeight.w600),
+                        style: TextStyle(
+                            fontSize: 27, fontWeight: FontWeight.w600),
                       )),
                       const SizedBox(height: 25),
-                
+
                       //  all textfields
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           TextFieldCustomWidget(
-                            validator: (value) => state.isValidUsername ? null : 'Username is too short(less then 5 signs)',
+                            validator: (value) => state.isValidUsername
+                                ? null
+                                : 'Username is too short(less then 5 signs)',
                             obscureText: false,
                             labelText: 'user name',
                             onChanged: (String text) {
@@ -76,7 +87,9 @@ class _SignUpPageState extends State<SignUpPage> {
                             height: 25,
                           ),
                           TextFieldCustomWidget(
-                            validator: (value) => state.isValidPassword ? null : 'Password is too short(less then 8 signs)',
+                            validator: (value) => state.isValidPassword
+                                ? null
+                                : 'Password is too short(less then 8 signs)',
                             suffixIcon: IconButton(
                                 onPressed: () {
                                   setState(() {
@@ -98,7 +111,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           const Text('Enter your password'),
                         ],
                       ),
-                
+
                       //    confirm button
                       const SizedBox(
                         height: 25,
@@ -106,13 +119,14 @@ class _SignUpPageState extends State<SignUpPage> {
                       StadiumCustomButton(
                         color: Theme.of(context).primaryColorDark,
                         onPressed: () async {
-                          if (_formKey.currentState!.validate()){
+                          if (_formKey.currentState!.validate()) {
+                            await Future.delayed(
+                                const Duration(seconds: 2), () {});
+
                             context
-                              .read<SignUpBloc>()
-                              .add(const ConfirmSignUpEvent());
-                
-                          Navigator.pop(context);
-                          } 
+                                .read<SignUpBloc>()
+                                .add(const ConfirmSignUpEvent());
+                          }
                         },
                         buttonBody: const Text(
                           'confirm',

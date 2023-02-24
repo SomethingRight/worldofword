@@ -48,25 +48,4 @@ class NameErrorEvent extends SignUpEvent {
   List<Object?> get props => [nameErrorText];
 }
 
-class EmailErrorEvent extends SignUpEvent {
-  const EmailErrorEvent({
-    this.emailErrorText,
-  });
-
-  final String? emailErrorText;
-
-  @override
-  List<Object?> get props => [
-        emailErrorText,
-      ];
-}
-
-class PasswordErrorEvent extends SignUpEvent {
-  const PasswordErrorEvent({this.passwordErrorText});
-
-  final String? passwordErrorText;
-
-  @override
-  List<Object?> get props => [passwordErrorText];
-}
 
