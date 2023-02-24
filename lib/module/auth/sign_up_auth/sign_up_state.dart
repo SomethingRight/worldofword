@@ -11,8 +11,10 @@ class SignUpState extends Equatable {
       this.status = SignupStatus.loading});
 
   final String? userName;
+  bool get isValidUsername => userName!.length >= 5;
   final String? email;
   final String? password;
+  bool get isValidPassword => password!.length >= 8;
   final SignupStatus status;
 
   @override

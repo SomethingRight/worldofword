@@ -35,7 +35,7 @@ class _AccountRecoveryPageState extends State<AccountRecoveryPage> {
                   obscureText: false,
                   controller: _emailController,
                   labelText: 'e-mail',
-                  onSubmitted: (String text) {
+                  onChanged: (String text) {
                     //_bloc.add(ChangeEmailEvent(email: text));
                   },
                 ),

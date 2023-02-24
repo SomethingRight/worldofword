@@ -21,7 +21,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  final TextEditingController _controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +38,9 @@ class _MainPageState extends State<MainPage> {
               //TextField Custom 
               TextFieldCustomWidget(
                 obscureText: false,
-                controller: _controller,
-                onSubmitted: (String text) {
+                onChanged: (String text) {
                   Provider.of<WordLoadBloc>(context, listen: false)
-                      .add(WordLoading(_controller.text));
+                      .add(WordLoading(text));
                 },
                 textInputAction: TextInputAction.search,
                 labelText: 'what a you looking for',

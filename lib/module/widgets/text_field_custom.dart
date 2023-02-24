@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 class TextFieldCustomWidget extends StatelessWidget {
   const TextFieldCustomWidget(
       {Key? key,
+      this.validator,
       this.controller,
-      this.onSubmitted,
       this.onChanged,
       this.textInputAction,
       this.labelText,
@@ -15,7 +15,6 @@ class TextFieldCustomWidget extends StatelessWidget {
       : super(key: key);
 
   final TextEditingController? controller;
-  final void Function(String)? onSubmitted;
   final void Function(String)? onChanged;
   final TextInputAction? textInputAction;
   final String? labelText;
@@ -23,13 +22,14 @@ class TextFieldCustomWidget extends StatelessWidget {
   final Color? fillColor;
   final bool obscureText;
   final IconButton? suffixIcon;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return TextFormField(
+      validator: validator,
       obscureText: obscureText,
       onChanged: onChanged,
-      onSubmitted: onSubmitted,
       controller: controller,
       textInputAction: textInputAction,
       decoration: InputDecoration(

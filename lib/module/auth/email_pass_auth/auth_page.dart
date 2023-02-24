@@ -37,7 +37,7 @@ class _AuthPageState extends State<AuthPage> {
                   obscureText: false,
                   controller: _emailController,
                   labelText: 'e-mail',
-                  onSubmitted: (String text) {
+                  onChanged: (String text) {
                     //_bloc.add(ChangeEmailEvent(email: text));
                   },
                 ),
@@ -59,7 +59,7 @@ class _AuthPageState extends State<AuthPage> {
                               : Icons.visibility_outlined)),
                       obscureText: _passwordInvisible,
                       controller: _passwordController,
-                      onSubmitted: (String text) {
+                      onChanged: (String text) {
                         // _bloc.add(ChangePassEvent(pass: text ));
                       },
                       labelText: 'password',
