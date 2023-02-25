@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
-
+@LazySingleton(as: FirebaseProviderI)
 class FirebaseProvider implements FirebaseProviderI {
   FirebaseFirestore databaseReference = FirebaseFirestore.instance;
 

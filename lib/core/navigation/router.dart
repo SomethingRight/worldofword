@@ -1,4 +1,8 @@
 
+
+import 'package:injectable/injectable.dart';
+
+@Singleton(as: RouterI)
 class Router implements RouterI{
 
 }

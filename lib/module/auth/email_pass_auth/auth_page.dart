@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldofword/core/DI/service_locator.dart';
 import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/module/auth/email_pass_auth/firebase_auth_bloc.dart';
 import 'package:worldofword/module/widgets/stadium_custom_button.dart';
@@ -13,13 +14,21 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
+  late FirebaseAuthBloc _bloc;
   bool _passwordInvisible = true;
   final _formKey = GlobalKey<FormState>();
+
+@override
+  void initState() {
+    _bloc = getIt<FirebaseAuthBloc>();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocBuilder<FirebaseAuthBloc, FirebaseAuthState>(
+        bloc: _bloc,
         builder: (context, state) {
           return Form(
             key: _formKey,
@@ -100,8 +109,8 @@ class _AuthPageState extends State<AuthPage> {
           
                               await Future.delayed(const Duration(seconds: 1));
           
-                              // Navigator.pushReplacementNamed(
-                              //     context, RouterI.homePage);
+                              Navigator.pushReplacementNamed(
+                                  context, RouterI.homePage);
                             }),
                         const SizedBox(
                           height: 10,

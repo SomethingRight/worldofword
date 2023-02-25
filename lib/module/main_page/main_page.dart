@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:worldofword/api/word_api/word_traslate/word_translate_api.dart';
-import 'package:worldofword/module/main_page/bloc/word_load_bloc.dart';
+import 'package:worldofword/module/main_page/word_load_bloc.dart';
 
+import '../../core/DI/service_locator.dart';
 import '../widgets/text_field_custom.dart';
 import '../widgets/word_card.dart';
 
@@ -21,6 +21,13 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  late WordLoadBloc _bloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _bloc = getIt<WordLoadBloc>();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +42,11 @@ class _MainPageState extends State<MainPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              //TextField Custom 
+              //TextField Custom
               TextFieldCustomWidget(
                 obscureText: false,
                 onChanged: (String text) {
-                  Provider.of<WordLoadBloc>(context, listen: false)
-                      .add(WordLoading(text));
+                  _bloc.add(WordLoading(text));
                 },
                 textInputAction: TextInputAction.search,
                 labelText: 'what a you looking for',
@@ -55,6 +61,7 @@ class _MainPageState extends State<MainPage> {
 
               Center(
                 child: BlocBuilder<WordLoadBloc, WordLoadState>(
+                  bloc: _bloc,
                   builder: (context, state) {
                     if (state is WordEmptyState) {
                       return const Offstage();
@@ -88,5 +95,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-
-

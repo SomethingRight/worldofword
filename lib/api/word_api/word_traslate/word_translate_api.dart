@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
+import 'package:injectable/injectable.dart';
 import 'package:worldofword/models/word_translate_model.dart';
 
+
+@LazySingleton(as: WordTranslateApiI)
 class WordTranslateApi implements WordTranslateApiI {
   static const String appId = 'e87028d3';
   static const String appKey = '9e8cdfb696bfd77cef35e3625f6dcae7';

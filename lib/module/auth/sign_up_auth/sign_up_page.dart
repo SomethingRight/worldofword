@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:worldofword/core/DI/service_locator.dart';
 import 'package:worldofword/module/auth/sign_up_auth/sign_up_bloc.dart';
 
 import '../../widgets/stadium_custom_button.dart';
@@ -15,12 +16,20 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  late SignUpBloc _bloc;
   bool _passwordInvisible = true;
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void initState() {
+    _bloc = getIt<SignUpBloc>();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpBloc, SignUpState>(
+      bloc: _bloc,
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
