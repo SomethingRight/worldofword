@@ -16,9 +16,9 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
             email: state.email,
             password: state.password,
             name: state.userName);
-        emit.call(state.copyWith(status: SignupStatus.success));
+        emit(state.copyWith(status: SignupStatus.success));
       } catch (e) {
-        emit.call(state.copyWith(status: SignupStatus.failure));
+        emit(state.copyWith(status: SignupStatus.failure));
       } 
     });
     on<ChangeNameEvent>((event, emit) {

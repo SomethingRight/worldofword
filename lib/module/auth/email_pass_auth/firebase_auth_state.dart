@@ -1,10 +1,25 @@
 part of 'firebase_auth_bloc.dart';
 
-abstract class FirebaseAuthState extends Equatable {
-  const FirebaseAuthState();
-  
-  @override
-  List<Object> get props => [];
-}
+class FirebaseAuthState extends Equatable {
+  const FirebaseAuthState({
+    required this.email,
+    required this.password,
+  });
 
-class FirebaseAuthInitial extends FirebaseAuthState {}
+  final String email;
+  final String password;
+
+  bool get isValidEmail => email.contains('@');
+  bool get isValidPassword => password.length >= 8;
+
+  @override
+  List<Object?> get props => [email, password];
+
+  FirebaseAuthState copyWith({
+    String? email,
+    String? password,
+  }) {
+    return FirebaseAuthState(
+        email: email ?? this.email, password: password ?? this.password);
+  }
+}

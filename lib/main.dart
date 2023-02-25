@@ -8,6 +8,7 @@ import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/firebase_options.dart';
 import 'package:worldofword/module/main_page/bloc/word_load_bloc.dart';
 
+import 'module/auth/email_pass_auth/firebase_auth_bloc.dart';
 import 'module/auth/sign_up_auth/sign_up_bloc.dart';
 
 
@@ -30,6 +31,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<WordLoadBloc>(
             create: (context) => WordLoadBloc(WordTranslateRepository())),
+        BlocProvider<FirebaseAuthBloc>(
+            create: (context) => FirebaseAuthBloc(authService: FirebaseAuthApi())),
         BlocProvider<SignUpBloc>(
             create: (context) => SignUpBloc(authService: FirebaseAuthApi())),
       ],

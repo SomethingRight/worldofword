@@ -11,11 +11,12 @@ class SignUpState extends Equatable {
       this.status});
 
   final String userName;
-  bool get isValidUsername => userName.length >= 5;
   final String email;
   final String password;
-  bool get isValidPassword => password.length >= 8;
   final SignupStatus? status;
+  bool get isValidUsername => userName.length >= 5;
+  bool get isValidEmail => email.contains('@');
+  bool get isValidPassword => password.length >= 8;
 
   @override
   List<Object?> get props => [userName, email, password, status];

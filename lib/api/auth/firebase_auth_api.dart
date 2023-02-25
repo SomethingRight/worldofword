@@ -26,6 +26,7 @@ class FirebaseAuthApi implements FbAuthApiI {
       final _auth = FirebaseAuth.instance;
       final UserCredential userCredential = await _auth
           .signInWithEmailAndPassword(email: login!, password: password!);
+          debugPrint('@@@ user is: ${userCredential.user!.uid}');
       return userCredential;
     } catch (e) {
       throw FirebaseAuthException(code: e.toString());

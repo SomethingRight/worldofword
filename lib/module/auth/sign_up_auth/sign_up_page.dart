@@ -72,6 +72,8 @@ class _SignUpPageState extends State<SignUpPage> {
                               'You can use any name, your neighbor\'s name or the president\'s name, you can even use your real name'),
                           const SizedBox(height: 25),
                           TextFieldCustomWidget(
+                            validator: (value) =>
+                                state.isValidEmail ? null : 'incorrect e-mail',
                             obscureText: false,
                             labelText: 'e-mail',
                             onChanged: (String text) {
