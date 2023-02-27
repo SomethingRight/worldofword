@@ -18,7 +18,7 @@ class _AuthPageState extends State<AuthPage> {
   bool _passwordInvisible = true;
   final _formKey = GlobalKey<FormState>();
 
-@override
+  @override
   void initState() {
     _bloc = getIt<FirebaseAuthBloc>();
     super.initState();
@@ -27,130 +27,144 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<FirebaseAuthBloc, FirebaseAuthState>(
+      body: BlocConsumer<FirebaseAuthBloc, FirebaseAuthState>(
         bloc: _bloc,
+        listener: (context, state) async {
+          if (state.status == StatusLogin.success) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                duration: const Duration(milliseconds: 1500),
+                content: Text('logged in as: ${state.email}')));
+
+            Navigator.of(context).pushReplacementNamed(RouterI.homePage);
+          } else if (state.status == StatusLogin.failure) {
+            ScaffoldMessenger.of(context).showSnackBar(
+
+              //TODO add exception to snackbar
+
+                SnackBar(content: Text('something went wrong')));
+          }
+        },
         builder: (context, state) {
-          return Form(
-            key: _formKey,
-            child: ListView(
-              padding:
-                  EdgeInsets.only(top: MediaQuery.of(context).size.height * .3),
-              physics: const ClampingScrollPhysics(),
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      children: [
-                        const Center(
-                            child: Text(
-                          'Log In',
-                          style: TextStyle(
-                              fontSize: 27, fontWeight: FontWeight.w600),
-                        )),
-                        const SizedBox(height: 25),
-                        TextFieldCustomWidget(
-                          validator: (value) =>
-                              state.isValidEmail ? null : 'incorrect e-mail',
-                          obscureText: false,
-                          labelText: 'e-mail',
-                          onChanged: (String text) {
-                            context
-                                .read<FirebaseAuthBloc>()
-                                .add(ChangeEmailEvent(email: text));
-                          },
-                        ),
-                        const SizedBox(
-                          height: 15,
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextFieldCustomWidget(
-                              validator: (value) => state.isValidPassword
+          return ListView(
+            padding:
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * .3),
+            physics: const ClampingScrollPhysics(),
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    children: [
+                      const Center(
+                          child: Text(
+                        'Log In',
+                        style: TextStyle(
+                            fontSize: 27, fontWeight: FontWeight.w600),
+                      )),
+                      const SizedBox(height: 25),
+                      TextFieldCustomWidget(
+                        validator: (p0) {
+                          return state.isEmailCorrect
+                              ? null
+                              : 'Enter correct e-mail';
+                        },
+                        obscureText: false,
+                        labelText: 'e-mail',
+                        onChanged: (String text) {
+                          _bloc.add(ChangeEmailEvent(email: text));
+                        },
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TextFieldCustomWidget(
+                            validator: (p0) {
+                              return state.isPasswordCorrect
                                   ? null
-                                  : 'Password is too short(less then 8 signs)',
-                              suffixIcon: IconButton(
-                                  onPressed: () {
-                                    setState(() {
-                                      _passwordInvisible = !_passwordInvisible;
-                                    });
-                                  },
-                                  icon: Icon(_passwordInvisible
-                                      ? Icons.visibility_off_outlined
-                                      : Icons.visibility_outlined)),
-                              obscureText: _passwordInvisible,
-                              onChanged: (String text) {
-                                context
-                                    .read<FirebaseAuthBloc>()
-                                    .add(ChangePassEvent(pass: text));
+                                  : 'Password is too short(less then 8 signs)';
+                            },
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    _passwordInvisible = !_passwordInvisible;
+                                  });
+                                },
+                                icon: Icon(_passwordInvisible
+                                    ? Icons.visibility_off_outlined
+                                    : Icons.visibility_outlined)),
+                            obscureText: _passwordInvisible,
+                            onChanged: (String text) {
+                              _bloc.add(ChangePassEvent(pass: text));
+                            },
+                            labelText: 'password',
+                          ),
+                          const SizedBox(
+                            height: 4,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 25,
+                      ),
+                      StadiumCustomButton(
+                          buttonBody: Text(
+                            'confirm',
+                            style: TextStyle(
+                                color: Theme.of(context).hintColor,
+                                fontSize: 18),
+                          ),
+                          color: Theme.of(context).primaryColorLight,
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate()) {
+                              _bloc.add(ButtonLoginTapEvent());
+
+                              // Navigator.pushReplacementNamed(
+                              //     context, RouterI.homePage);
+                            }
+                          }),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, RouterI.signUpPage);
                               },
-                              labelText: 'password',
-                            ),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 25,
-                        ),
-                        StadiumCustomButton(
-                            buttonBody: Text(
-                              'confirm',
-                              style: TextStyle(
-                                  color: Theme.of(context).hintColor,
-                                  fontSize: 18),
-                            ),
-                            color: Theme.of(context).primaryColorLight,
-                            onPressed: () async {
-                              context
-                                  .read<FirebaseAuthBloc>()
-                                  .add(ButtonLoginTapEvent());
-          
-                              await Future.delayed(const Duration(seconds: 1));
-          
-                              Navigator.pushReplacementNamed(
-                                  context, RouterI.homePage);
-                            }),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, RouterI.signUpPage);
-                                },
-                                child: const Text(
-                                  'signUp',
-                                  style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey,
-                                      fontSize: 16),
-                                )),
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(
-                                      context, RouterI.accountRecoveryPage);
-                                },
-                                child: const Text(
-                                  'forgot password',
-                                  style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      fontWeight: FontWeight.w400,
-                                      color: Colors.grey,
-                                      fontSize: 16),
-                                )),
-                          ],
-                        ),
-                      ],
-                    ),
+                              child: const Text(
+                                'signUp',
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey,
+                                    fontSize: 16),
+                              )),
+                          TextButton(
+                              onPressed: () {
+                                Navigator.pushNamed(
+                                    context, RouterI.accountRecoveryPage);
+                              },
+                              child: const Text(
+                                'forgot password',
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    fontWeight: FontWeight.w400,
+                                    color: Colors.grey,
+                                    fontSize: 16),
+                              )),
+                        ],
+                      ),
+                    ],
                   ),
-              ],
-            ),
+                ),
+              ),
+            ],
           );
         },
       ),

@@ -71,9 +71,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             obscureText: false,
                             labelText: 'user name',
                             onChanged: (String text) {
-                              context
-                                  .read<SignUpBloc>()
-                                  .add(ChangeNameEvent(name: text));
+                             
+                                  _bloc.add(ChangeNameEvent(name: text));
                             },
                           ),
                           const SizedBox(height: 5),
@@ -86,9 +85,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             obscureText: false,
                             labelText: 'e-mail',
                             onChanged: (String text) {
-                              context
-                                  .read<SignUpBloc>()
-                                  .add(ChangeEmailEvent(email: text));
+                              
+                                 _bloc.add(ChangeEmailEvent(email: text));
                             },
                           ),
                           const SizedBox(height: 5),
@@ -112,9 +110,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                     : Icons.visibility_outlined)),
                             obscureText: _passwordInvisible,
                             onChanged: (String text) {
-                              context
-                                  .read<SignUpBloc>()
-                                  .add(ChangePassEvent(pass: text));
+                              
+                                  _bloc.add(ChangePassEvent(pass: text));
                             },
                             labelText: 'password',
                           ),
@@ -134,9 +131,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             await Future.delayed(
                                 const Duration(seconds: 2), () {});
 
-                            context
-                                .read<SignUpBloc>()
-                                .add(const ConfirmSignUpEvent());
+                            
+                                _bloc.add(const ConfirmSignUpEvent());
                           }
                         },
                         buttonBody: const Text(

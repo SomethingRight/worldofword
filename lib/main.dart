@@ -34,13 +34,10 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<WordLoadBloc>(
             create: (context) => getIt.get<WordLoadBloc>()),
-            //WordLoadBloc(WordTranslateRepository())),
         BlocProvider<FirebaseAuthBloc>(
             create: (context) => getIt.get<FirebaseAuthBloc>()),
-            //FirebaseAuthBloc(authService: FirebaseAuthApi())),
         BlocProvider<SignUpBloc>(
             create: (context) => getIt.get<SignUpBloc>()),
-            //SignUpBloc(authService: FirebaseAuthApi())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
