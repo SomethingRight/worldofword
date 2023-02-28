@@ -35,35 +35,36 @@ class _UserPageState extends State<UserPage> {
                           const BorderRadius.all(Radius.circular(15))),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'e-mail',
                         style: TextStyle(color: Colors.grey),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
-                      Text(
-                        'vitalybattalov@gmail.com',
-                        style: TextStyle(fontSize: 20),
+                      Text( ('').isEmpty ? 'e-mail' : 'e-mail'
+                        ,
+                        style: const  TextStyle(fontSize: 20),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,),
-                      Divider(),
-                      SizedBox(height: 8),
-                      Text(
+                      const Divider(),
+                      const SizedBox(height: 8),
+                      const Text(
                         'name',
                         style: TextStyle(color: Colors.grey),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
-                      Text('Vitaly Battalov', style: TextStyle(fontSize: 20)),
+                      Text( ('').isEmpty ? 'name' : 'name'
+                      , style: TextStyle(fontSize: 20)),
                     ],
                   ),
                 ),
                 const SizedBox(
-                  height: 30,
+                  height: 60,
                 ),
                 Container(
                   padding:
@@ -76,7 +77,7 @@ class _UserPageState extends State<UserPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text('delete profile',
-                          style: TextStyle(fontSize: 20)),
+                          style: TextStyle(fontSize: 20, color: Colors.red)),
                       IconButton(
                           icon: const Icon(Icons.delete_outline_outlined, color: Colors.red,),
                           onPressed: () {}),
