@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 import 'package:worldofword/module/main_page/word_load_bloc.dart';
 
 import '../../core/DI/service_locator.dart';

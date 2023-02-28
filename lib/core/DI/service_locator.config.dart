@@ -11,14 +11,15 @@ import 'package:worldofword/api/auth/firebase_auth_api.dart' as _i4;
 import 'package:worldofword/api/auth/firebase_provider.dart' as _i6;
 import 'package:worldofword/api/exception/exception_handler.dart' as _i3;
 import 'package:worldofword/api/word_api/word_traslate/word_translate_api.dart'
-    as _i10;
-import 'package:worldofword/api/word_api/word_traslate/word_translate_repository.dart'
     as _i11;
+import 'package:worldofword/api/word_api/word_traslate/word_translate_repository.dart'
+    as _i12;
 import 'package:worldofword/core/navigation/router.dart' as _i7;
 import 'package:worldofword/module/auth/email_pass_auth/firebase_auth_bloc.dart'
     as _i5;
 import 'package:worldofword/module/auth/sign_up_auth/sign_up_bloc.dart' as _i9;
-import 'package:worldofword/module/main_page/word_load_bloc.dart' as _i12;
+import 'package:worldofword/module/main_page/word_load_bloc.dart' as _i13;
+import 'package:worldofword/module/menu/pages/user/user_page_bloc.dart' as _i10;
 import 'package:worldofword/module/saved_words/bloc/saved_words_bloc.dart'
     as _i8; // ignore_for_file: unnecessary_lambdas
 
@@ -44,11 +45,13 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i8.SavedWordsBloc>(() => _i8.SavedWordsBloc());
     gh.factory<_i9.SignUpBloc>(
         () => _i9.SignUpBloc(authService: gh<_i4.FbAuthApiI>()));
-    gh.lazySingleton<_i10.WordTranslateApiI>(() => _i10.WordTranslateApi());
-    gh.lazySingleton<_i11.WordTranslateRepository>(
-        () => _i11.WordTranslateRepository());
-    gh.factory<_i12.WordLoadBloc>(
-        () => _i12.WordLoadBloc(gh<_i11.WordTranslateRepository>()));
+    gh.factory<_i10.UserPageBloc>(
+        () => _i10.UserPageBloc(gh<_i4.FbAuthApiI>()));
+    gh.lazySingleton<_i11.WordTranslateApiI>(() => _i11.WordTranslateApi());
+    gh.lazySingleton<_i12.WordTranslateRepository>(
+        () => _i12.WordTranslateRepository());
+    gh.factory<_i13.WordLoadBloc>(
+        () => _i13.WordLoadBloc(gh<_i12.WordTranslateRepository>()));
     return this;
   }
 }

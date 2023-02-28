@@ -12,7 +12,7 @@ import 'package:worldofword/firebase_options.dart';
 import 'module/auth/email_pass_auth/firebase_auth_bloc.dart';
 import 'module/auth/sign_up_auth/sign_up_bloc.dart';
 import 'module/main_page/word_load_bloc.dart';
-
+import 'module/menu/pages/user/user_page_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,8 +36,9 @@ class MyApp extends StatelessWidget {
             create: (context) => getIt.get<WordLoadBloc>()),
         BlocProvider<FirebaseAuthBloc>(
             create: (context) => getIt.get<FirebaseAuthBloc>()),
-        BlocProvider<SignUpBloc>(
-            create: (context) => getIt.get<SignUpBloc>()),
+        BlocProvider<SignUpBloc>(create: (context) => getIt.get<SignUpBloc>()),
+        BlocProvider<UserPageBloc>(
+            create: (context) => getIt.get<UserPageBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
