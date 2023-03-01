@@ -12,7 +12,7 @@ class StartSavedList extends SavedWordsEvent {}
 class AddToSavedList extends SavedWordsEvent {
   const AddToSavedList({required this.word});
 
-  final WordDetailsModel word;
+  final WordTranslateModel word;
 
   @override
   List<Object> get props => [word];
@@ -21,7 +21,7 @@ class AddToSavedList extends SavedWordsEvent {
 class RemoveFromSavedList extends SavedWordsEvent {
   const RemoveFromSavedList({required this.word});
 
-  final WordDetailsModel word;
+  final WordTranslateModel word;
 
   @override
   List<Object> get props => [word];

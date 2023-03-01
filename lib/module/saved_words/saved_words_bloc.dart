@@ -1,8 +1,11 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+import 'package:worldofword/api/firestore/firestore_provider.dart';
 import 'package:worldofword/models/saved_list_model.dart';
 import 'package:worldofword/models/word_details_model.dart';
+
+import '../../models/word_translate_model.dart';
 
 part 'saved_words_event.dart';
 part 'saved_words_state.dart';
@@ -10,7 +13,7 @@ part 'saved_words_state.dart';
 
 @Injectable()
 class SavedWordsBloc extends Bloc<SavedWordsEvent, SavedWordsState> {
-  SavedWordsBloc() : super(SavedWordsLoading()) {
+  SavedWordsBloc({required FirestoreProviderI firestoreService}) : super(SavedWordsLoading()) {
     on<StartSavedList>((event, emit) async {
       emit(SavedWordsLoading());
       try {
@@ -19,6 +22,9 @@ class SavedWordsBloc extends Bloc<SavedWordsEvent, SavedWordsState> {
       } catch (_) {}
     });
     on<AddToSavedList>((event, emit) {
+      if (state is SavedWordsLoading){
+        firestoreService.createWord(event.word);
+      }
       if (state is SavedWordsLoaded){
         SavedWordsLoaded state;
         //emit(SavedWordsLoaded(savedList: List.from(state.savedList.wordsList)..add(event.word) ));

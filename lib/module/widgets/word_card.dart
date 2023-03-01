@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/models/word_translate_model.dart';
+import 'package:worldofword/module/saved_words/saved_words_bloc.dart';
 
 class WordCard extends StatelessWidget {
   final WordTranslateModel word;
@@ -45,6 +47,8 @@ class WordCard extends StatelessWidget {
             ),
             IconButton(
                 onPressed: () {
+                  Provider.of<SavedWordsBloc>(context).add(AddToSavedList(word: word));
+
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       duration: Duration(milliseconds: 300),
                       content: Text('word saved')));

@@ -10,6 +10,8 @@ class UserPage extends StatefulWidget {
   State<UserPage> createState() => _UserPageState();
 }
 
+// TODO fix displayName not working 
+
 class _UserPageState extends State<UserPage> {
   late UserPageBloc _bloc;
 

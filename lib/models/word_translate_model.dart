@@ -16,6 +16,15 @@ class WordTranslateModel extends Equatable {
         translate: translate);
   }
 
+  
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'word': word,
+      'translate': translate,
+      'lexicalCategory': lexicalCategory,
+    };
+  }
+
   final String? word;
   final String? translate;
   final String? lexicalCategory;
