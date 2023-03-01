@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:worldofword/models/word_translate_model.dart';
 
@@ -10,28 +11,32 @@ class FirestoreProvider implements FirestoreProviderI {
   Future<void> createWord(WordTranslateModel word) async {
     try {
       final docWord = FirebaseFirestore.instance.collection('words').doc();
-    await docWord.set(word.toMap());
+      await docWord.set(word.toMap());
     } catch (e) {
       log(e.toString());
     }
-    
   }
 
   @override
   Future<void> deleteWord() {
-    // TODO: implement deleteWord
     throw UnimplementedError();
   }
 
   @override
-  Future<void> readWords() {
-    // TODO: implement readWords
-    throw UnimplementedError();
+  Future<List<WordTranslateModel>> readWords() async {
+     List<WordTranslateModel> listWords = [];
+    try {
+      final words = await FirebaseFirestore.instance.collection('words').get();
+      listWords = words.docs.map((e) => WordTranslateModel.fromMap(e.data())).toList();
+      return listWords;
+    } catch (e) {
+      return throw (e.toString());
+    }
   }
 }
 
 abstract class FirestoreProviderI {
   Future<void> createWord(WordTranslateModel word);
-  Future<void> readWords();
+  Future<List<WordTranslateModel>> readWords();
   Future<void> deleteWord();
 }

@@ -25,6 +25,14 @@ class WordTranslateModel extends Equatable {
     };
   }
 
+  factory WordTranslateModel.fromMap(Map<String, dynamic> map) {
+    return WordTranslateModel(
+      word: map['word'] != null ? map['word'] as String : null,
+      translate: map['translate'] != null ? map['translate'] as String : null,
+      lexicalCategory: map['lexicalCategory'] != null ? map['lexicalCategory'] as String : null,
+    );
+  }
+
   final String? word;
   final String? translate;
   final String? lexicalCategory;

@@ -1,5 +1,3 @@
-
-
 import 'package:equatable/equatable.dart';
 import 'package:worldofword/models/word_translate_model.dart';
 
