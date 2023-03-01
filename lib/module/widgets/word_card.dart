@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/models/word_translate_model.dart';
@@ -33,27 +34,26 @@ class WordCard extends StatelessWidget {
                       style:
                           const TextStyle(fontSize: 18, color: Colors.black54)),
                   Expanded(
-                      child: Text(
-                        '${word.translate}',
-                        overflow: TextOverflow.ellipsis,
-                        textAlign: TextAlign.end,
-                        style: const TextStyle(fontSize: 18),
-                        maxLines: 1,
-                      ),
+                    child: Text(
+                      '${word.translate}',
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.end,
+                      style: const TextStyle(fontSize: 18),
+                      maxLines: 1,
                     ),
-                  
+                  ),
                 ],
               ),
             ),
             IconButton(
                 onPressed: () {
-                  Provider.of<SavedWordsBloc>(context).add(AddToSavedList(word: word));
+                  GetIt.I<SavedWordsBloc>().add(AddToSavedList(word: word));
 
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       duration: Duration(milliseconds: 300),
                       content: Text('word saved')));
                 },
-                icon:  Icon(
+                icon: Icon(
                   Icons.add,
                   color: Theme.of(context).primaryColor,
                 )),
