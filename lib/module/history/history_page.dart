@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:worldofword/models/word_details_model.dart';
 
-import '../widgets/word_card.dart';
+import '../widgets/word_card_icon.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key, required this.title});

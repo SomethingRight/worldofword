@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_it/get_it.dart';
 import 'package:worldofword/module/saved_words/saved_words_bloc.dart';
-import 'package:worldofword/module/widgets/word_card.dart';
+
+import '../widgets/word_card.dart';
 
 class SavedWordsPage extends StatefulWidget {
   const SavedWordsPage({super.key, required this.title});
@@ -45,14 +47,29 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
             if (state is SavedWordsLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is SavedWordsLoaded) {
-              return ListView.builder(
-                shrinkWrap: true,
-                itemCount: state.savedList?.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                      padding: const EdgeInsets.all(10),
-                      child: WordCard(word: state.savedList![index]));
-                },
+              return SlidableAutoCloseBehavior(
+                closeWhenTapped: true,
+                child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: state.savedList?.length,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 15),
+                        child: Slidable(
+                            endActionPane: ActionPane(
+                              motion: const ScrollMotion(),
+                              children: [
+                                SlidableAction(
+                                  onPressed: (context) => onTapDelete(index),
+                                  backgroundColor: Colors.red.shade400,
+                                  icon: Icons.delete,
+                                  label: 'delete',
+                                )
+                              ],
+                            ),
+                            child: WordCard(word: state.savedList![index])),
+                      );
+                    }),
               );
             }
             return const Center(
@@ -66,4 +83,8 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
       ),
     );
   }
+}
+
+void onTapDelete(int index){
+
 }

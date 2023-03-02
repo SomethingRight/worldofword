@@ -4,7 +4,7 @@ import 'package:worldofword/module/main_page/word_load_bloc.dart';
 
 import '../../core/DI/service_locator.dart';
 import '../widgets/text_field_custom.dart';
-import '../widgets/word_card.dart';
+import '../widgets/word_card_icon.dart';
 
 //TODO
 //авторизация firebase и сохранять там же
@@ -58,35 +58,37 @@ class _MainPageState extends State<MainPage> {
 
               //Here will be results of search
 
-              Center(
-                child: BlocBuilder<WordLoadBloc, WordLoadState>(
-                  bloc: _bloc,
-                  builder: (context, state) {
-                    if (state is WordEmptyState) {
-                      return const Offstage();
-                    } else if (state is WordLoadingState) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is WordError) {
-                      return Center(child: Text(state.error));
-                    } else if (state is WordLoadedState) {
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: state.words.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                                padding: const EdgeInsets.all(10),
-                                child: WordCard(word: state.words[index]));
-                          });
-                    }
-                    return const Center(
-                      child: Text(
-                        'Enter something',
-                        style: TextStyle(fontSize: 25),
-                      ),
-                    );
-                  },
-                ),
-              )
+              BlocBuilder<WordLoadBloc, WordLoadState>(
+                bloc: _bloc,
+                builder: (context, state) {
+                  if (state is WordEmptyState) {
+                    return Padding(
+                        padding: EdgeInsets.only(
+                            top: MediaQuery.of(context).size.height * 0.1),
+                        child:
+                            Image.asset('assets/images/png/search_page.png'));
+                  } else if (state is WordLoadingState) {
+                    return const Center(child: CircularProgressIndicator());
+                  } else if (state is WordError) {
+                    return Center(child: Text(state.error));
+                  } else if (state is WordLoadedState) {
+                    return ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: state.words.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                              padding: const EdgeInsets.all(10),
+                              child: WordCardIcon(word: state.words[index]));
+                        });
+                  }
+                  return const Center(
+                    child: Text(
+                      'Enter something',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
