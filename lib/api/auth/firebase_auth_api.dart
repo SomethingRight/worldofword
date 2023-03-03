@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -22,8 +23,8 @@ class FirebaseAuthApi implements FbAuthApiI {
       await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       debugPrint('@@@ name=$name');
-
       final User? user = FirebaseAuth.instance.currentUser;
+      user?.updateDisplayName(name);
       return user;
     } on FirebaseAuthException catch (e, stack) {
       throw fbLoginExceptionConverter.fromFirebaseAuthException(e, stack);

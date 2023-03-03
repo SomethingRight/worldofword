@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldofword/core/di/service_locator.dart';
 import 'package:worldofword/module/menu/pages/user/user_page_bloc.dart';
 
+import '../../../../core/navigation/router.dart';
+
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
 
   @override
   State<UserPage> createState() => _UserPageState();
 }
-
-// TODO fix displayName not working 
 
 class _UserPageState extends State<UserPage> {
   late UserPageBloc _bloc;
@@ -24,32 +24,45 @@ class _UserPageState extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserPageBloc, UserPageState>(
+    return BlocConsumer<UserPageBloc, UserPageState>(
       bloc: _bloc,
+      listener: (context, state) async {
+        if (state.status == StatusUser.loggedOut) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('logged out'),
+            duration: Duration(seconds: 1),
+          ));
+          await Future.delayed(const Duration(milliseconds: 1500));
+          Navigator.pushReplacementNamed(context, RouterI.authPage);
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
             elevation: 0,
           ),
           body: Padding(
-            padding: const EdgeInsets.only(left: 15, top: 30, right: 15, bottom: 30),
+            padding:
+                const EdgeInsets.only(left: 15, top: 30, right: 15, bottom: 50),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Column(
                   children: [
-                    Center(
-                      child: CircleAvatar(
-                          radius: 30,
-                          backgroundColor: Theme.of(context).primaryColorLight,
-                          child: const Text('user')),
-                    ),
+                    const Center(
+                        child: CircleAvatar(
+                      backgroundColor: Colors.transparent,
+                      backgroundImage:
+                          AssetImage('assets/images/png/user_avatar.png'),
+                      radius: 70,
+                    )),
                     const SizedBox(
                       height: 35,
                     ),
                     Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 15, vertical: 12),
+                          horizontal: 15, vertical: 15),
                       decoration: BoxDecoration(
                           color: Theme.of(context).secondaryHeaderColor,
                           borderRadius:
@@ -71,7 +84,9 @@ class _UserPageState extends State<UserPage> {
                           const SizedBox(
                             height: 8,
                           ),
-                          const Divider(),
+                          const Divider(
+                            thickness: 1.6,
+                          ),
                           const SizedBox(height: 8),
                           const Text(
                             'e-mail',
@@ -87,26 +102,31 @@ class _UserPageState extends State<UserPage> {
                     ),
                   ],
                 ),
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-                  decoration: BoxDecoration(
-                      color: Theme.of(context).dividerColor,
-                      borderRadius:
-                          const BorderRadius.all(Radius.circular(15))),
+                TextButton(
+                  style: TextButton.styleFrom(
+                      fixedSize: const Size(145, 70),
+                      backgroundColor: Theme.of(context).dividerColor,
+                      shape: const StadiumBorder()),
+                  onPressed: () async {
+                    _bloc.add(SignOut());
+                    // await Future.delayed(const Duration(seconds: 1));
+                    // Navigator.of(context)
+                    //     .pushReplacementNamed(RouterI.authPage);
+                  },
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text('delete profile',
-                          style: TextStyle(fontSize: 20, color: Colors.red)),
-                      IconButton(
-                          icon: const Icon(
-                            Icons.delete_outline_outlined,
-                            color: Colors.red,
-                          ),
-                          onPressed: () {
-                            _bloc.add(SignOut());
-                          }),
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: const [
+                      Text(
+                        'sign out',
+                        style: TextStyle(
+                            color: Colors.redAccent,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w500),
+                      ),
+                      Icon(
+                        Icons.exit_to_app_outlined,
+                        color: Colors.redAccent,
+                      ),
                     ],
                   ),
                 ),

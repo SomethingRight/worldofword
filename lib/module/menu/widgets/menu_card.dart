@@ -17,7 +17,7 @@ class MenuCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      splashColor: Colors.blueAccent,
+      splashColor: Theme.of(context).primaryColorLight,
       onTap: onTap,
       child: Card(
         elevation: 5,
