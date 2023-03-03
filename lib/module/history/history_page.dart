@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:worldofword/models/word_details_model.dart';
 
-import '../widgets/word_card_icon.dart';
 
 class HistoryPage extends StatefulWidget {
   const HistoryPage({super.key, required this.title});
@@ -15,10 +13,9 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
   @override
   Widget build(BuildContext context) {
-    final List<WordDetailsModel> words = WordDetailsModel.words;
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title, style: const TextStyle(fontSize: 24)),
         centerTitle: true,
       ),
       // body: Padding(

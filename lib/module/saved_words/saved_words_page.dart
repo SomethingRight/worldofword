@@ -28,7 +28,7 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text(widget.title, style: const TextStyle(fontSize: 24),),
         centerTitle: true,
       ),
       body: Padding(
@@ -93,12 +93,12 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
                     children: [
                       const Text(
                         'It\'s empty for now.',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 22),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text('Let\'s', style: TextStyle(fontSize: 20)),
+                          const Text('Let\'s', style: TextStyle(fontSize: 22)),
                           TextButton(
                             onPressed: () {
                               //Navigator.pushReplacementNamed(context, RouterI.homePage);
@@ -106,12 +106,12 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
                             child: Text(
                               'save',
                               style: TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 22,
                                   color: Theme.of(context).primaryColorDark),
                             ),
                           ),
                           const Text('some words',
-                              style: TextStyle(fontSize: 20)),
+                              style: TextStyle(fontSize: 22)),
                         ],
                       )
                     ],

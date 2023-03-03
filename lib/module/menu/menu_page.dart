@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:worldofword/api/word_api/word_details_api.dart';
 import 'package:worldofword/core/navigation/router.dart';
-import 'package:worldofword/module/menu/pages/user/user_page.dart';
 
 import 'widgets/menu_card.dart';
 
@@ -20,7 +18,7 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title),
+          title: Text(widget.title, style: const TextStyle(fontSize: 24)),
           centerTitle: true,
         ),
         body: Padding(

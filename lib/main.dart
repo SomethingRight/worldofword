@@ -45,6 +45,7 @@ class MyApp extends StatelessWidget {
         title: 'WorldOfWord',
         theme: ThemeData(
           primarySwatch: Colors.teal,
+          fontFamily: 'TiltNeon',
         ),
         onGenerateRoute: AppRouter.onGenerateRoute,
         initialRoute: RouterI.authPage,
