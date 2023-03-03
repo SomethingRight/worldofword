@@ -1,9 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injectable/injectable.dart';
-import 'package:worldofword/api/auth/firebase_auth_api.dart';
-import 'package:worldofword/api/word_api/word_traslate/word_translate_repository.dart';
 import 'package:worldofword/core/DI/service_locator.dart';
 import 'package:worldofword/core/navigation/route_generator.dart';
 import 'package:worldofword/core/navigation/router.dart';

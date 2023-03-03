@@ -7,7 +7,6 @@ import '../widgets/text_field_custom.dart';
 import '../widgets/word_card_icon.dart';
 
 //TODO
-//авторизация firebase и сохранять там же
 //Добавить фичу контекстное меню, новый пункт сохранения слова с словарь
 
 class MainPage extends StatefulWidget {
@@ -37,7 +36,7 @@ class _MainPageState extends State<MainPage> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

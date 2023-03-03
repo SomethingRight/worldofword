@@ -1,12 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
-import 'package:worldofword/api/firestore/firestore_provider.dart';
-import 'package:worldofword/core/navigation/router.dart';
-import 'package:worldofword/module/home/home_page.dart';
 import 'package:worldofword/module/saved_words/saved_words_bloc.dart';
 
 import '../widgets/word_card.dart';
@@ -21,7 +16,6 @@ class SavedWordsPage extends StatefulWidget {
 }
 
 class _SavedWordsPageState extends State<SavedWordsPage> {
-  FirestoreProviderI fbService = GetIt.I<FirestoreProviderI>();
   late SavedWordsBloc _bloc;
 
   @override
@@ -96,7 +90,6 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    // lets save some words
                     children: [
                       const Text(
                         'It\'s empty for now.',

@@ -20,6 +20,3 @@ class SavedWordsLoaded extends SavedWordsState {
   List<Object?> get props => [savedList];
 
 }
-
-
-class SavedWordsError extends SavedWordsState {}

@@ -1,7 +1,9 @@
 // ignore_for_file: void_checks
 
 import 'dart:async';
+import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
@@ -24,7 +26,9 @@ class SavedWordsBloc extends Bloc<SavedWordsEvent, SavedWordsState> {
         await _firestoreService
             .readWords()
             .then((value) =>  emit(SavedWordsLoaded(savedList: value)));
-      } catch (_) {}
+      } catch (e) {
+        throw ErrorWidget(e);
+      }
     });
     on<AddToSavedList>((event, emit) {
       _firestoreService.createWord(event.word);

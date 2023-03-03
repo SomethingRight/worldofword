@@ -12,10 +12,10 @@ class HomePage extends StatefulWidget {
 }
 
 List<Widget> list = [
-  const SavedWordsPage(title: 'Saved words'),
-  const MainPage(title: 'World of word'),
-  const HistoryPage(title: 'History'),
-  const MenuPage(title: 'Menu'),
+  const SavedWordsPage(title: 'saved words'),
+  const MainPage(title: 'world of word'),
+  const HistoryPage(title: 'history'),
+  const MenuPage(title: 'menu'),
 ];
 
 int selectedIndex = 1;
