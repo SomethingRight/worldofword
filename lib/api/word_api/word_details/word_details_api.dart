@@ -2,8 +2,11 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
+import 'package:injectable/injectable.dart';
 import 'package:worldofword/models/word_details_model.dart';
 
+
+@LazySingleton(as: WordDetailsApiI)
 class WordDetailsApi implements WordDetailsApiI {
   static const String appId = 'e87028d3';
   static const String appKey = '9e8cdfb696bfd77cef35e3625f6dcae7';
@@ -11,7 +14,7 @@ class WordDetailsApi implements WordDetailsApiI {
   static const String languageCode = 'en-us';
 
   @override
-  Future<WordDetailsModel> getWord(String wordId) async {
+  Future<WordDetailsModel> getWordsDetails(String wordId) async {
     final String uri =
         'https://od-api.oxforddictionaries.com/api/v2/$endpoint/$languageCode/$wordId';
     final http.Response response = await http
@@ -34,5 +37,5 @@ class WordDetailsApi implements WordDetailsApiI {
 }
 
 abstract class WordDetailsApiI {
-  Future<WordDetailsModel> getWord(String wordId);
+  Future<WordDetailsModel> getWordsDetails(String wordId);
 }

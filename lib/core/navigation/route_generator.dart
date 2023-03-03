@@ -26,13 +26,15 @@ class AppRouter {
       case RouterI.infoPage:
         return _navigate(const InfoPage());
       case RouterI.wordDetailsPage:
-        return _navigate(const WordDetailsPage());
+        final Map<String, dynamic> argsWord = args as Map<String, dynamic>;
+        return _navigate(WordDetailsPage(
+            word: argsWord['word']!, translation: argsWord['translation']!));
       case RouterI.authPage:
         return _navigate(const AuthPage());
       case RouterI.signUpPage:
         return _navigate(const SignUpPage());
       case RouterI.accountRecoveryPage:
-      return _navigate(const AccountRecoveryPage());
+        return _navigate(const AccountRecoveryPage());
     }
     return null;
   }

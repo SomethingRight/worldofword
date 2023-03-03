@@ -25,9 +25,4 @@ class WordDetailsModel extends Equatable {
   List<Object?> get props =>
       [word, translate, phoneticSpelling, definitions, lexicalCategory];
 
-  static final List<WordDetailsModel> words = [
-    const WordDetailsModel(word: 'dictionary', lexicalCategory: 'noun'),
-    const WordDetailsModel(word: 'swatch', lexicalCategory: 'noun'),
-    const WordDetailsModel(word: 'parse', lexicalCategory: 'verb')
-  ];
 }

@@ -11,7 +11,8 @@ class WordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          Navigator.pushNamed(context, RouterI.wordDetailsPage);
+          Navigator.pushNamed(context, RouterI.wordDetailsPage,
+              arguments: {'word': word.word, 'translation': word.translate});
         },
         child: Container(
           padding: const EdgeInsets.all(25),

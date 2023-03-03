@@ -11,18 +11,23 @@ import 'package:worldofword/api/auth/firebase_auth_api.dart' as _i4;
 import 'package:worldofword/api/auth/firebase_provider.dart' as _i6;
 import 'package:worldofword/api/exception/exception_handler.dart' as _i3;
 import 'package:worldofword/api/firestore/firestore_provider.dart' as _i7;
-import 'package:worldofword/api/word_api/word_traslate/word_translate_api.dart'
+import 'package:worldofword/api/word_api/word_details/word_details_api.dart'
     as _i12;
-import 'package:worldofword/api/word_api/word_traslate/word_translate_repository.dart'
+import 'package:worldofword/api/word_api/word_details/word_details_repository.dart'
     as _i13;
+import 'package:worldofword/api/word_api/word_traslate/word_translate_api.dart'
+    as _i14;
+import 'package:worldofword/api/word_api/word_traslate/word_translate_repository.dart'
+    as _i15;
 import 'package:worldofword/core/navigation/router.dart' as _i8;
 import 'package:worldofword/module/auth/email_pass_auth/firebase_auth_bloc.dart'
     as _i5;
 import 'package:worldofword/module/auth/sign_up_auth/sign_up_bloc.dart' as _i10;
-import 'package:worldofword/module/main_page/word_load_bloc.dart' as _i14;
+import 'package:worldofword/module/main_page/word_load_bloc.dart' as _i17;
 import 'package:worldofword/module/menu/pages/user/user_page_bloc.dart' as _i11;
-import 'package:worldofword/module/saved_words/saved_words_bloc.dart'
-    as _i9; // ignore_for_file: unnecessary_lambdas
+import 'package:worldofword/module/saved_words/saved_words_bloc.dart' as _i9;
+import 'package:worldofword/module/word_details_page/word_details_bloc.dart'
+    as _i16; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 extension GetItInjectableX on _i1.GetIt {
@@ -50,11 +55,16 @@ extension GetItInjectableX on _i1.GetIt {
         () => _i10.SignUpBloc(authService: gh<_i4.FbAuthApiI>()));
     gh.factory<_i11.UserPageBloc>(
         () => _i11.UserPageBloc(gh<_i4.FbAuthApiI>()));
-    gh.lazySingleton<_i12.WordTranslateApiI>(() => _i12.WordTranslateApi());
-    gh.lazySingleton<_i13.WordTranslateRepository>(
-        () => _i13.WordTranslateRepository());
-    gh.factory<_i14.WordLoadBloc>(
-        () => _i14.WordLoadBloc(gh<_i13.WordTranslateRepository>()));
+    gh.lazySingleton<_i12.WordDetailsApiI>(() => _i12.WordDetailsApi());
+    gh.lazySingleton<_i13.WordDetailsRepository>(
+        () => _i13.WordDetailsRepository());
+    gh.lazySingleton<_i14.WordTranslateApiI>(() => _i14.WordTranslateApi());
+    gh.lazySingleton<_i15.WordTranslateRepository>(
+        () => _i15.WordTranslateRepository());
+    gh.factory<_i16.WordDetailsBloc>(
+        () => _i16.WordDetailsBloc(gh<_i13.WordDetailsRepository>()));
+    gh.factory<_i17.WordLoadBloc>(
+        () => _i17.WordLoadBloc(gh<_i15.WordTranslateRepository>()));
     return this;
   }
 }
