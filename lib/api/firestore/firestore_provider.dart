@@ -17,16 +17,33 @@ class FirestoreProvider implements FirestoreProviderI {
   }
 
   @override
-  Future<void> deleteWord() {
-    throw UnimplementedError();
+  Future<String> getId(String translation) async {
+  final snapshot = await FirebaseFirestore.instance
+      .collection('words')
+      .where("translate", isEqualTo: translation)
+      .get();
+  final wordId = snapshot.docs.first.id;
+  return wordId;
+}
+
+
+  @override
+  Future<void> deleteWord(String id) async {
+    try {
+      await FirebaseFirestore.instance.collection('words').doc(id).delete();
+    } catch (e) {
+      throw (e.toString());
+    }
   }
 
   @override
   Future<List<WordTranslateModel>> readWords() async {
-     List<WordTranslateModel> listWords = [];
+    List<WordTranslateModel> listWords = [];
     try {
       final words = await FirebaseFirestore.instance.collection('words').get();
-      listWords = words.docs.map((e) => WordTranslateModel.fromMap(e.data())).toList();
+
+      listWords =
+          words.docs.map((e) => WordTranslateModel.fromMap(e.data())).toList();
       return listWords;
     } catch (e) {
       return throw (e.toString());
@@ -37,5 +54,6 @@ class FirestoreProvider implements FirestoreProviderI {
 abstract class FirestoreProviderI {
   Future<void> createWord(WordTranslateModel word);
   Future<List<WordTranslateModel>> readWords();
-  Future<void> deleteWord();
+  Future<void> deleteWord(String id);
+  Future<String> getId(String word);
 }

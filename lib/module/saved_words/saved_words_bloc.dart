@@ -20,20 +20,20 @@ class SavedWordsBloc extends Bloc<SavedWordsEvent, SavedWordsState> {
         super(SavedWordsEmpty()) {
     on<StartSavedList>((event, emit) async {
       emit(SavedWordsLoading());
-      await Future.delayed(const Duration(seconds: 1));
       try {
         await _firestoreService
             .readWords()
-            .then((value) => emit(SavedWordsLoaded(savedList: value)));
+            .then((value) =>  emit(SavedWordsLoaded(savedList: value)));
       } catch (_) {}
     });
     on<AddToSavedList>((event, emit) {
       _firestoreService.createWord(event.word);
     });
-    on<RemoveFromSavedList>((event, emit) {
-      if (state is SavedWordsLoaded) {
-        //emit(SavedWordsLoaded(savedList: List.from(state.savedList.wordsList)..remove(event.word) ));
-      }
+    on<RemoveFromSavedList>((event, emit) async {
+      await _firestoreService
+          .getId(event.translation)
+          .then((value) => _firestoreService.deleteWord(value));
+          add(StartSavedList());
     });
   }
   void init() {

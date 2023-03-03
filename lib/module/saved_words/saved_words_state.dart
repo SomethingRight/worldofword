@@ -18,6 +18,8 @@ class SavedWordsLoaded extends SavedWordsState {
 
   @override
   List<Object?> get props => [savedList];
+
 }
+
 
 class SavedWordsError extends SavedWordsState {}

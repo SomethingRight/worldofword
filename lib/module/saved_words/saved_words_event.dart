@@ -19,10 +19,10 @@ class AddToSavedList extends SavedWordsEvent {
 }
 
 class RemoveFromSavedList extends SavedWordsEvent {
-  const RemoveFromSavedList({required this.word});
+  const RemoveFromSavedList({required this.translation});
 
-  final WordTranslateModel word;
+  final String  translation;
 
   @override
-  List<Object> get props => [word];
+  List<Object> get props => [translation];
 }
