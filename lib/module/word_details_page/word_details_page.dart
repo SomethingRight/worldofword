@@ -42,7 +42,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                   Container(
                     width: double.infinity,
                     height: 180,
-                    padding: const EdgeInsets.all(5),
+                    //padding: const EdgeInsets.all(5),
                     margin: const EdgeInsets.only(bottom: 15),
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
@@ -72,6 +72,8 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                           thickness: 2.0,
                         ),
                         Material(
+                          clipBehavior: Clip.none,
+                          color: Colors.transparent,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -218,7 +220,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                     ),
                   ),
 
-                  // lexical category
+                  // phrases
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(15),
@@ -233,34 +235,45 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                       children: [
                         Column(
                           children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'lexical category',
-                                  style: TextStyle(
-                                      fontSize: 22, color: headerColor),
-                                ),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.copy,
-                                      color: iconColor,
-                                    )),
-                              ],
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'phrases',
+                                    style: TextStyle(
+                                        fontSize: 22, color: headerColor),
+                                  ),
+                                ],
+                              ),
                             ),
                             const Divider(
                               thickness: 2.0,
                             ),
                           ],
                         ),
-                        Text(
-                          state.wordDetails.lexicalCategory!,
-                          style: const TextStyle(
-                            color: Colors.black87,
-                            fontSize: 22,
-                          ),
-                        )
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: state.wordDetails.phrases?.length,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                                //leading: const Icon(Icons.arrow_right_rounded),
+                                dense: true,
+                                horizontalTitleGap: 2,
+                                leading: Padding(
+                                    padding: EdgeInsets.only(
+                                        top:
+                                            MediaQuery.of(context).size.height / 130
+                                                ),
+                                    child: const Icon(Icons.circle, size: 8)),
+                                title: Text(
+                                  state.wordDetails.phrases?[index]['text'],
+                                  style: const TextStyle(fontSize: 22),
+                                ));
+                          },
+                        ),
                       ],
                     ),
                   ),

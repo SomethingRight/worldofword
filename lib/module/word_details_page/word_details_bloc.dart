@@ -32,7 +32,4 @@ class WordDetailsBloc extends Bloc<WordDetailsEvent, WordDetailsState> {
   void init(String word) {
     add(LoadWordDetails(word: word));
   }
-  // void play(String path){
-  //   add(PlayAudio(audioPath: path));
-  // }
 }
