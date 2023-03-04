@@ -29,7 +29,7 @@ class _UserPageState extends State<UserPage> {
       listener: (context, state) async {
         if (state.status == StatusUser.loggedOut) {
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('logged out'),
+            content: Text('signed out'),
             duration: Duration(seconds: 1),
           ));
           await Future.delayed(const Duration(milliseconds: 1500));
@@ -107,11 +107,8 @@ class _UserPageState extends State<UserPage> {
                       fixedSize: const Size(145, 70),
                       backgroundColor: Theme.of(context).dividerColor,
                       shape: const StadiumBorder()),
-                  onPressed: () async {
-                    _bloc.add(SignOut());
-                    // await Future.delayed(const Duration(seconds: 1));
-                    // Navigator.of(context)
-                    //     .pushReplacementNamed(RouterI.authPage);
+                  onPressed: () {
+                    showSignupDialog();
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -133,6 +130,30 @@ class _UserPageState extends State<UserPage> {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  Future<void> showSignupDialog() async {
+    return await showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Are you sure?'),
+          actions: [
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('no')),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  _bloc.add(SignOut());
+                },
+                child: const Text('yes')),
+          ],
         );
       },
     );

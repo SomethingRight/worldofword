@@ -39,7 +39,7 @@ class _AuthPageState extends State<AuthPage> {
           } else if (state.status == StatusLogin.failure) {
             ScaffoldMessenger.of(context).showSnackBar(
 
-              //TODO add exception to snackbar
+                //TODO add exception to snackbar
 
                 SnackBar(content: Text('something went wrong')));
           }
@@ -118,12 +118,9 @@ class _AuthPageState extends State<AuthPage> {
                                 fontSize: 18),
                           ),
                           color: Theme.of(context).primaryColorLight,
-                          onPressed: () async {
+                          onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               _bloc.add(ButtonLoginTapEvent());
-
-                              // Navigator.pushReplacementNamed(
-                              //     context, RouterI.homePage);
                             }
                           }),
                       const SizedBox(
