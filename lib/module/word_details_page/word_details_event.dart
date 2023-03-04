@@ -15,3 +15,13 @@ class LoadWordDetails extends WordDetailsEvent{
   @override
   List<Object> get props => [word];
 }
+
+class PlayAudio extends WordDetailsEvent{
+  const PlayAudio({required this.audioPath});
+
+  final String audioPath;
+
+  @override
+  List<Object> get props => [audioPath];
+}
+

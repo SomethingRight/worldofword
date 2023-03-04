@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
@@ -11,6 +12,7 @@ part 'word_details_state.dart';
 @Injectable()
 class WordDetailsBloc extends Bloc<WordDetailsEvent, WordDetailsState> {
   final WordDetailsRepository _repository;
+  AudioPlayer audioPlayer = AudioPlayer();
   WordDetailsBloc(this._repository) : super(WordDetailsEmpty()) {
     on<LoadWordDetails>((event, emit) async {
       emit(WordDetailsLoading());
@@ -21,9 +23,16 @@ class WordDetailsBloc extends Bloc<WordDetailsEvent, WordDetailsState> {
       } catch (e) {
         throw ErrorWidget(e);
       }
+      on<PlayAudio>((event, emit) async {
+        final Source audioUrl = UrlSource(event.audioPath);
+        await audioPlayer.play(audioUrl);
+      });
     });
   }
   void init(String word) {
     add(LoadWordDetails(word: word));
   }
+  // void play(String path){
+  //   add(PlayAudio(audioPath: path));
+  // }
 }

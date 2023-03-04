@@ -6,23 +6,27 @@ class WordDetailsModel extends Equatable {
       this.translate,
       this.phoneticSpelling,
       this.definitions,
-      this.lexicalCategory});
+      this.lexicalCategory,
+      this.audioPath});
 
   factory WordDetailsModel.fromJson(Map<String, dynamic> json) => WordDetailsModel(
       word: json['text'] as String?,
       phoneticSpelling: json['entries'][0]['pronunciations'][0]
           ['phoneticSpelling'] as String?,
       definitions: json['entries'][0]['senses'][0]['definitions'][0] as String?,
-      lexicalCategory: json['lexicalCategory']['id'] as String?);
+      lexicalCategory: json['lexicalCategory']['id'] as String?,
+      audioPath: json['entries'][0]['pronunciations'][1]['audioFile'] as String?
+      );
 
   final String? word;
   final String? phoneticSpelling;
   final String? translate;
   final String? definitions;
   final String? lexicalCategory;
+  final String? audioPath;
 
   @override
   List<Object?> get props =>
-      [word, translate, phoneticSpelling, definitions, lexicalCategory];
+      [word, translate, phoneticSpelling, definitions, lexicalCategory, audioPath];
 
 }

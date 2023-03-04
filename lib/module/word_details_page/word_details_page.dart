@@ -4,7 +4,8 @@ import 'package:get_it/get_it.dart';
 import 'package:worldofword/module/word_details_page/word_details_bloc.dart';
 
 class WordDetailsPage extends StatefulWidget {
-  const WordDetailsPage({super.key, required this.word, required this.translation});
+  const WordDetailsPage(
+      {super.key, required this.word, required this.translation});
   final String word;
   final String translation;
 
@@ -70,36 +71,54 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                         const Divider(
                           thickness: 2.0,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          duration: Duration(milliseconds: 300),
-                                          content: Text('copied')));
-                                },
-                                icon: Icon(
-                                  Icons.copy,
-                                  color: iconColor,
-                                )),
-                            IconButton(
-                                onPressed: () {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          duration: Duration(milliseconds: 300),
-                                          content: Text('word saved')));
-                                },
-                                icon: Icon(Icons.add,
-                                    size: 30, color: iconColor)),
-                            IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.share, color: iconColor)),
-                            IconButton(
-                                onPressed: () {},
-                                icon: Icon(Icons.volume_up, color: iconColor)),
-                          ],
+                        Material(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              IconButton(
+                                  splashRadius: 22,
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            duration:
+                                                Duration(milliseconds: 300),
+                                            content: Text('copied')));
+                                  },
+                                  icon: Icon(
+                                    Icons.copy,
+                                    color: iconColor,
+                                  )),
+                              IconButton(
+                                  splashRadius: 22,
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            duration:
+                                                Duration(milliseconds: 300),
+                                            content: Text('word saved')));
+                                  },
+                                  icon: Icon(Icons.add,
+                                      size: 30, color: iconColor)),
+                              IconButton(
+                                  splashRadius: 22,
+                                  onPressed: () {},
+                                  icon: Icon(Icons.share, color: iconColor)),
+                              IconButton(
+                                  splashRadius: 22,
+                                  onPressed: () {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        const SnackBar(
+                                            duration: Duration(seconds: 1),
+                                            content: Text('playing...')));
+
+                                    _bloc.add(PlayAudio(
+                                        audioPath:
+                                            state.wordDetails.audioPath!));
+                                  },
+                                  icon:
+                                      Icon(Icons.volume_up, color: iconColor)),
+                            ],
+                          ),
                         )
                       ],
                     ),
@@ -141,7 +160,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                             ),
                           ],
                         ),
-                         Text(
+                        Text(
                           widget.translation,
                           style: const TextStyle(
                             color: Colors.black87,
