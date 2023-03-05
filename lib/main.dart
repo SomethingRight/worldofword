@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'WorldOfWord',
         theme: ThemeData(
+          brightness: Brightness.light,
           primarySwatch: Colors.teal,
           fontFamily: 'TiltNeon',
         ),

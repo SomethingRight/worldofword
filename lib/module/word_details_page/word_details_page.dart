@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:worldofword/module/word_details_page/word_details_bloc.dart';
@@ -42,7 +43,6 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                   Container(
                     width: double.infinity,
                     height: 180,
-                    //padding: const EdgeInsets.all(5),
                     margin: const EdgeInsets.only(bottom: 15),
                     decoration: BoxDecoration(
                       color: Colors.grey.shade100,
@@ -57,7 +57,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                         Text(
                           state.wordDetails.word!,
                           style: const TextStyle(
-                              fontSize: 50,
+                              fontSize: 44,
                               fontWeight: FontWeight.w400,
                               color: Colors.black87),
                         ),
@@ -80,6 +80,10 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                               IconButton(
                                   splashRadius: 22,
                                   onPressed: () {
+                                    final copiedWord = ClipboardData(
+                                        text: state.wordDetails.word);
+                                    Clipboard.setData(copiedWord);
+
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         const SnackBar(
                                             duration:
@@ -149,12 +153,25 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                   style: TextStyle(
                                       fontSize: 22, color: headerColor),
                                 ),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.copy,
-                                      color: iconColor,
-                                    )),
+                                Material(
+                                  child: IconButton(
+                                      splashRadius: 22,
+                                      onPressed: () {
+                                        final copiedTranslation = ClipboardData(
+                                            text: state.wordDetails.translate);
+                                        Clipboard.setData(copiedTranslation);
+
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                content: Text('copied')));
+                                      },
+                                      icon: Icon(
+                                        Icons.copy,
+                                        color: iconColor,
+                                      )),
+                                ),
                               ],
                             ),
                             const Divider(
@@ -196,12 +213,26 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                   style: TextStyle(
                                       fontSize: 22, color: headerColor),
                                 ),
-                                IconButton(
-                                    onPressed: () {},
-                                    icon: Icon(
-                                      Icons.copy,
-                                      color: iconColor,
-                                    )),
+                                Material(
+                                  child: IconButton(
+                                      splashRadius: 22,
+                                      onPressed: () {
+                                        final copiedMeaning = ClipboardData(
+                                            text:
+                                                state.wordDetails.definitions);
+                                        Clipboard.setData(copiedMeaning);
+
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(const SnackBar(
+                                                duration:
+                                                    Duration(milliseconds: 300),
+                                                content: Text('copied')));
+                                      },
+                                      icon: Icon(
+                                        Icons.copy,
+                                        color: iconColor,
+                                      )),
+                                ),
                               ],
                             ),
                             const Divider(
@@ -265,8 +296,8 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                 leading: Padding(
                                     padding: EdgeInsets.only(
                                         top:
-                                            MediaQuery.of(context).size.height / 130
-                                                ),
+                                            MediaQuery.of(context).size.height /
+                                                130),
                                     child: const Icon(Icons.circle, size: 8)),
                                 title: Text(
                                   state.wordDetails.phrases?[index]['text'],
