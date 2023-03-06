@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:worldofword/module/word_details_page/word_details_bloc.dart';
 
+
+
 class WordDetailsPage extends StatefulWidget {
   const WordDetailsPage(
       {super.key, required this.word, required this.translation});
@@ -158,7 +160,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                       splashRadius: 22,
                                       onPressed: () {
                                         final copiedTranslation = ClipboardData(
-                                            text: state.wordDetails.translate);
+                                            text: widget.translation);
                                         Clipboard.setData(copiedTranslation);
 
                                         ScaffoldMessenger.of(context)

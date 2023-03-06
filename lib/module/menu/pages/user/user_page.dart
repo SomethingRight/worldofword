@@ -141,13 +141,16 @@ class _UserPageState extends State<UserPage> {
       builder: (context) {
         return AlertDialog(
           title: const Text('Are you sure?'),
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
           actions: [
-            ElevatedButton(
+            TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
                 child: const Text('no')),
-            ElevatedButton(
+            TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                   _bloc.add(SignOut());

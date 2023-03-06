@@ -13,6 +13,20 @@ import 'module/main_page/word_load_bloc.dart';
 import 'module/menu/pages/user/user_page_bloc.dart';
 import 'module/word_details_page/word_details_bloc.dart';
 
+/* TODO 
+
+ - add google and apple auth(apple only icon/ google fool version)
+
+ - add individual profile data( i mean saved words)
+
+ - add sharing words and app logic and screen
+
+ - add "menu" screens layout
+
+- add icon app
+*/
+
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldofword/core/DI/service_locator.dart';
@@ -155,6 +156,41 @@ class _AuthPageState extends State<AuthPage> {
                                     color: Colors.grey,
                                     fontSize: 16),
                               )),
+                        ],
+                      ),
+                      SizedBox(
+                          height: MediaQuery.of(context).size.height * 0.2),
+
+                      // Goggle/apple login
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text('or, login with',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.grey,
+                                  fontSize: 16)),
+                          if (defaultTargetPlatform ==
+                              TargetPlatform.android) ...[
+                            TextButton(
+                              onPressed: () {},
+                              child: Image.asset(
+                                'assets/images/png/google_icon.png',
+                                width: 30,
+                                height: 30,
+                              ),
+                            ),
+                          ] else if (defaultTargetPlatform ==
+                              TargetPlatform.iOS) ...[
+                            TextButton(
+                              onPressed: () {},
+                              child: Image.asset(
+                                'assets/images/png/apple_icon.png',
+                                width: 43,
+                                height: 43,
+                              ),
+                            ),
+                          ]
                         ],
                       ),
                     ],
