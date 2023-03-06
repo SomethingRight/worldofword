@@ -10,9 +10,7 @@ class FirebaseProvider implements FirebaseProviderI {
   @override
   Future<String> getUserUid() async {
     final User userCredential = FirebaseAuth.instance.currentUser!;
-
     debugPrint('@@@ userCredential.user.uid=${userCredential.uid}');
-
     return userCredential.uid;
   }
 

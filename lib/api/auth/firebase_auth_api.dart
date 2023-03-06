@@ -1,12 +1,11 @@
 import 'dart:developer';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:worldofword/api/exception/exception_handler.dart';
-
 
 @Injectable(as: FbAuthApiI)
 class FirebaseAuthApi implements FbAuthApiI {
@@ -32,16 +31,33 @@ class FirebaseAuthApi implements FbAuthApiI {
   }
 
   @override
+  Future<User?> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication gAuth = await gUser!.authentication;
+      final credential = GoogleAuthProvider.credential(
+          accessToken: gAuth.accessToken, idToken: gAuth.idToken);
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      final User? user = FirebaseAuth.instance.currentUser;
+      return user;
+    } on FirebaseException catch (e, stack) {
+      throw fbLoginExceptionConverter.fromFirebaseAuthException(e, stack);
+    }
+  }
+
+  @override
   Future<UserCredential> signInEmail(
       {required String? login, required String? password}) async {
     try {
       final _auth = FirebaseAuth.instance;
       final UserCredential userCredential = await _auth
           .signInWithEmailAndPassword(email: login!, password: password!);
-          debugPrint('@@@ user is: ${userCredential.user?.email}');
+      debugPrint('@@@ user is: ${userCredential.user?.email}');
       return userCredential;
-    } on FirebaseAuthException catch(e,stack) {
-      log(fbLoginExceptionConverter.fromFirebaseAuthException(e, stack).toString());
+    } on FirebaseAuthException catch (e, stack) {
+      log(fbLoginExceptionConverter
+          .fromFirebaseAuthException(e, stack)
+          .toString());
       throw fbLoginExceptionConverter.fromFirebaseAuthException(e, stack);
     }
   }
@@ -64,6 +80,8 @@ abstract class FbAuthApiI {
     required String password,
     required String name,
   });
+
+  Future<User?> signInWithGoogle();
 
   Future<UserCredential> signInEmail({
     required String? login,

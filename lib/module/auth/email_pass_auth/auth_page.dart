@@ -173,7 +173,9 @@ class _AuthPageState extends State<AuthPage> {
                           if (defaultTargetPlatform ==
                               TargetPlatform.android) ...[
                             TextButton(
-                              onPressed: () {},
+                              onPressed: () async {
+                                _bloc.add(LoginWithGoogle());
+                              },
                               child: Image.asset(
                                 'assets/images/png/google_icon.png',
                                 width: 30,

@@ -63,3 +63,4 @@ class LoginFailureEvent extends FirebaseAuthEvent {
    @override
   List<Object?> get props => [errorMessage];
 }
+ class LoginWithGoogle extends FirebaseAuthEvent{}
