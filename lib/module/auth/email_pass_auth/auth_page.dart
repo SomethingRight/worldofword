@@ -37,12 +37,10 @@ class _AuthPageState extends State<AuthPage> {
                 content: Text('logged in as: ${state.email}')));
 
             Navigator.of(context).pushReplacementNamed(RouterI.homePage);
-          } else if (state.status == StatusLogin.failure) {
-            ScaffoldMessenger.of(context).showSnackBar(
-
-                //TODO add exception to snackbar
-
-                SnackBar(content: Text('something went wrong')));
+          }
+          if (state.status == StatusLogin.failure) {
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(state.errorMessage ?? 'something went wrong')));
           }
         },
         builder: (context, state) {
@@ -161,7 +159,7 @@ class _AuthPageState extends State<AuthPage> {
                       SizedBox(
                           height: MediaQuery.of(context).size.height * 0.2),
 
-                      // Goggle/apple login
+                      // Google/apple login
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

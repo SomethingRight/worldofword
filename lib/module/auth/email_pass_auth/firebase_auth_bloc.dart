@@ -46,10 +46,8 @@ class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
       emit(state.copyWith(status: StatusLogin.success));
     });
     on<LoginFailureEvent>((event, emit) async {
-      _errorMessage = event.errorMessage;
-
       emit(state.copyWith(
-          status: StatusLogin.failure, errorMessage: _errorMessage));
+          status: StatusLogin.failure, errorMessage: event.errorMessage));
     });
     on<LoginWithGoogle>((event, emit) async {
       final user = await _authService.signInWithGoogle();
@@ -57,7 +55,7 @@ class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
     });
   }
 
-  void logIn({required String email, required String password}) {
+  void logIn({required String email, required String password}) async {
     _authService.signInEmail(login: email, password: password).then((value) {
       add(LoginSuccessEvent());
     }, onError: (dynamic e) {

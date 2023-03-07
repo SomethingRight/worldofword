@@ -15,17 +15,18 @@ import 'module/word_details_page/word_details_bloc.dart';
 
 /* TODO 
 
- - add google and apple auth(apple only icon/ google fool version)
+ - add google and apple auth(apple only icon/ google fool version) DONE
 
  - add individual profile data( i mean saved words)
 
  - add sharing words and app logic and screen
 
- - add "menu" screens layout
+ - add "menu" screens layout (remains only sharing)
 
-- add icon app
+  - add icon app
+
+  - add localozation
 */
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -49,8 +50,7 @@ class MyApp extends StatelessWidget {
             create: (context) => getIt.get<WordLoadBloc>()),
         BlocProvider<FirebaseAuthBloc>(
             create: (context) => getIt.get<FirebaseAuthBloc>()),
-        BlocProvider<SignUpBloc>(
-          create: (context) => getIt.get<SignUpBloc>()),
+        BlocProvider<SignUpBloc>(create: (context) => getIt.get<SignUpBloc>()),
         BlocProvider<UserPageBloc>(
             create: (context) => getIt.get<UserPageBloc>()),
         BlocProvider<SavedWordsBloc>(
