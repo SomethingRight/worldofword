@@ -29,16 +29,19 @@ class WordCardIcon extends StatelessWidget {
               width: MediaQuery.of(context).size.width * 0.68,
               child: Row(
                 children: [
-                  Text('${word.word} ', style: const TextStyle(fontSize: 18)),
+                  Text('${word.word} ',
+                      style: Theme.of(context).textTheme.headline5),
                   Text('(${word.lexicalCategory})',
-                      style:
-                          const TextStyle(fontSize: 18, color: Colors.black54)),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1
+                          ?.copyWith(color: Colors.grey.shade600)),
                   Expanded(
                     child: Text(
                       '${word.translate}',
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.end,
-                      style: const TextStyle(fontSize: 18),
+                      style: Theme.of(context).textTheme.bodyText1,
                       maxLines: 1,
                     ),
                   ),

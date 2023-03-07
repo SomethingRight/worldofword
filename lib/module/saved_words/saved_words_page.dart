@@ -28,7 +28,11 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title, style: const TextStyle(fontSize: 24),),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text(
+          widget.title,
+          style: Theme.of(context).textTheme.headline1,
+        ),
         centerTitle: true,
       ),
       body: Padding(
@@ -62,16 +66,18 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
                                         setState(() {
                                           _bloc.add(RemoveFromSavedList(
                                               translation: state
-                                                  .savedList![index].translate!));
+                                                  .savedList![index]
+                                                  .translate!));
                                         });
-                
+
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(const SnackBar(
                                                 duration:
                                                     Duration(milliseconds: 400),
                                                 content: Text(
                                                   'word removed',
-                                                  style: TextStyle(fontSize: 16),
+                                                  style:
+                                                      TextStyle(fontSize: 16),
                                                 )));
                                       },
                                       backgroundColor: Colors.red.shade400,

@@ -11,7 +11,10 @@ class _SharingPageState extends State<SharingPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        iconTheme: Theme.of(context).primaryIconTheme,
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
       body: Center(
         child: Text('sharing page '),
       ),

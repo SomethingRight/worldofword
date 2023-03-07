@@ -4,7 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldofword/core/DI/service_locator.dart';
 import 'package:worldofword/core/navigation/route_generator.dart';
 import 'package:worldofword/core/navigation/router.dart';
+import 'package:worldofword/core/theme/theme.dart';
 import 'package:worldofword/firebase_options.dart';
+import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart';
 import 'package:worldofword/module/saved_words/saved_words_bloc.dart';
 
 import 'module/auth/email_pass_auth/firebase_auth_bloc.dart';
@@ -17,15 +19,17 @@ import 'module/word_details_page/word_details_bloc.dart';
 
  - add google and apple auth(apple only icon/ google fool version) DONE
 
+ - add theme changing 
+
  - add individual profile data( i mean saved words)
 
  - add sharing words and app logic and screen
 
  - add "menu" screens layout (remains only sharing)
 
-  - add icon app
+  - add icon app DONE
 
-  - add localozation
+  - add localozation 
 */
 
 void main() async {
@@ -57,17 +61,19 @@ class MyApp extends StatelessWidget {
             create: (context) => getIt.get<SavedWordsBloc>()),
         BlocProvider<WordDetailsBloc>(
             create: (context) => getIt.get<WordDetailsBloc>()),
+        BlocProvider<SettingsBloc>(
+            create: (context) => getIt.get<SettingsBloc>()),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'WorldOfWord',
-        theme: ThemeData(
-          brightness: Brightness.light,
-          primarySwatch: Colors.teal,
-          fontFamily: 'TiltNeon',
-        ),
-        onGenerateRoute: AppRouter.onGenerateRoute,
-        initialRoute: RouterI.authPage,
+      child: BlocBuilder<SettingsBloc, SettingsState>(
+        builder: (context, state) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: 'WorldOfWord',
+            theme: appThemeData[state.theme],
+            onGenerateRoute: AppRouter.onGenerateRoute,
+            initialRoute: RouterI.authPage,
+          );
+        },
       ),
     );
   }

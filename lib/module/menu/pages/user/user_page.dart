@@ -39,6 +39,8 @@ class _UserPageState extends State<UserPage> {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
+            iconTheme: Theme.of(context).primaryIconTheme,
+            backgroundColor: Theme.of(context).primaryColor,
             elevation: 0,
           ),
           body: Padding(
@@ -64,22 +66,22 @@ class _UserPageState extends State<UserPage> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15, vertical: 15),
                       decoration: BoxDecoration(
-                          color: Theme.of(context).secondaryHeaderColor,
+                          color: Theme.of(context).primaryColorLight,
                           borderRadius:
                               const BorderRadius.all(Radius.circular(15))),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'name',
-                            style: TextStyle(color: Colors.grey),
+                          Text(
+                            'name:',
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                           const SizedBox(
                             height: 8,
                           ),
                           Text(
                             state.userName,
-                            style: const TextStyle(fontSize: 20),
+                            style: Theme.of(context).textTheme.headline6,
                           ),
                           const SizedBox(
                             height: 8,
@@ -88,15 +90,15 @@ class _UserPageState extends State<UserPage> {
                             thickness: 1.6,
                           ),
                           const SizedBox(height: 8),
-                          const Text(
-                            'e-mail',
-                            style: TextStyle(color: Colors.grey),
+                          Text(
+                            'e-mail:',
+                            style: Theme.of(context).textTheme.bodyText2,
                           ),
                           const SizedBox(
                             height: 8,
                           ),
                           Text(state.email,
-                              style: const TextStyle(fontSize: 20)),
+                              style: Theme.of(context).textTheme.headline6),
                         ],
                       ),
                     ),

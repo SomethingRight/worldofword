@@ -16,16 +16,24 @@ class MenuCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      splashColor: Theme.of(context).primaryColorLight,
-      onTap: onTap,
-      child: Card(
-        elevation: 5,
-        child: ListTile(
-          title: Text(title),
-          subtitle: Text(subtitle),
-          trailing: icon,
+    return Card(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      elevation: 5,
+      child: ListTile(
+        contentPadding: const EdgeInsets.all(10),
+        tileColor: Theme.of(context).backgroundColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        onTap: onTap,
+        title: Text(
+          title,
+          style: Theme.of(context).textTheme.bodyText2,
         ),
+        subtitle: Text(subtitle,
+            style: Theme.of(context)
+                .textTheme
+                .bodyText1
+                ?.copyWith(color: Colors.grey)),
+        trailing: icon,
       ),
     );
   }

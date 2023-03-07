@@ -39,10 +39,10 @@ class _SignUpPageState extends State<SignUpPage> {
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(backgroundColor: Theme.of(context).backgroundColor),
+          appBar: AppBar(backgroundColor: Theme.of(context).primaryColorLight),
           body: ListView(
             padding:
-                EdgeInsets.only(top: MediaQuery.of(context).size.height * .15),
+                EdgeInsets.only(top: MediaQuery.of(context).size.height * .1),
             physics: const ClampingScrollPhysics(),
             children: [
               Padding(
@@ -56,7 +56,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           child: Text(
                         'Enter information \n for your profile',
                         style: TextStyle(
-                            fontSize: 27, fontWeight: FontWeight.w600),
+                            fontSize: 27, fontWeight: FontWeight.w500),
                       )),
                       const SizedBox(height: 25),
 
@@ -122,7 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
                       //    confirm button
                       const SizedBox(
-                        height: 25,
+                        height: 35,
                       ),
                       StadiumCustomButton(
                         color: Theme.of(context).primaryColorDark,

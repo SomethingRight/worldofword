@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:worldofword/module/word_details_page/word_details_bloc.dart';
 
-
-
 class WordDetailsPage extends StatefulWidget {
   const WordDetailsPage(
       {super.key, required this.word, required this.translation});
@@ -30,8 +28,10 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
     final headerColor = Theme.of(context).primaryColor;
     final iconColor = Theme.of(context).primaryColorDark;
     return Scaffold(
-      backgroundColor: Colors.grey.shade300,
-      appBar: AppBar(),
+      backgroundColor: Theme.of(context).backgroundColor,
+      appBar: AppBar(
+          backgroundColor: headerColor,
+          iconTheme: Theme.of(context).primaryIconTheme),
       body: BlocBuilder<WordDetailsBloc, WordDetailsState>(
         bloc: _bloc,
         builder: (context, state) {
@@ -47,7 +47,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                     height: 180,
                     margin: const EdgeInsets.only(bottom: 15),
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
+                      color: Theme.of(context).cardColor,
                       borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(25),
                           bottomRight: Radius.circular(25)),
@@ -58,18 +58,16 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                       children: [
                         Text(
                           state.wordDetails.word!,
-                          style: const TextStyle(
-                              fontSize: 44,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black87),
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4
+                              ?.copyWith(fontSize: 44),
                         ),
-                        Text(
-                          '[ ${state.wordDetails.phoneticSpelling} ]',
-                          style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w400,
-                              color: Colors.black54),
-                        ),
+                        Text('[ ${state.wordDetails.phoneticSpelling} ]',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5
+                                ?.copyWith(fontWeight: FontWeight.w400)),
                         const Divider(
                           thickness: 2.0,
                         ),
@@ -87,10 +85,12 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                     Clipboard.setData(copiedWord);
 
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                            duration:
-                                                Duration(milliseconds: 300),
-                                            content: Text('copied')));
+                                        SnackBar(
+                                            backgroundColor: Theme.of(context)
+                                                .dialogBackgroundColor,
+                                            duration: const Duration(
+                                                milliseconds: 300),
+                                            content: const Text('copied')));
                                   },
                                   icon: Icon(
                                     Icons.copy,
@@ -100,10 +100,12 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                   splashRadius: 22,
                                   onPressed: () {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                            duration:
-                                                Duration(milliseconds: 300),
-                                            content: Text('word saved')));
+                                        SnackBar(
+                                            backgroundColor: Theme.of(context)
+                                                .dialogBackgroundColor,
+                                            duration: const Duration(
+                                                milliseconds: 300),
+                                            content: const Text('word saved')));
                                   },
                                   icon: Icon(Icons.add,
                                       size: 30, color: iconColor)),
@@ -115,9 +117,12 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                   splashRadius: 22,
                                   onPressed: () {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        const SnackBar(
-                                            duration: Duration(seconds: 1),
-                                            content: Text('playing...')));
+                                        SnackBar(
+                                            backgroundColor: Theme.of(context)
+                                                .dialogBackgroundColor,
+                                            duration:
+                                                const Duration(seconds: 1),
+                                            content: const Text('playing...')));
 
                                     _bloc.add(PlayAudio(
                                         audioPath:
@@ -138,7 +143,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                     padding: const EdgeInsets.all(15),
                     margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
+                      color: Theme.of(context).cardColor,
                       borderRadius: const BorderRadius.all(Radius.circular(15)),
                     ),
                     child: Column(
@@ -156,6 +161,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                       fontSize: 22, color: headerColor),
                                 ),
                                 Material(
+                                  color: Colors.transparent,
                                   child: IconButton(
                                       splashRadius: 22,
                                       onPressed: () {
@@ -164,10 +170,13 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                         Clipboard.setData(copiedTranslation);
 
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                duration:
-                                                    Duration(milliseconds: 300),
-                                                content: Text('copied')));
+                                            .showSnackBar(SnackBar(
+                                                backgroundColor:
+                                                    Theme.of(context)
+                                                        .dialogBackgroundColor,
+                                                duration: const Duration(
+                                                    milliseconds: 300),
+                                                content: const Text('copied')));
                                       },
                                       icon: Icon(
                                         Icons.copy,
@@ -181,13 +190,8 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                             ),
                           ],
                         ),
-                        Text(
-                          widget.translation,
-                          style: const TextStyle(
-                            color: Colors.black87,
-                            fontSize: 22,
-                          ),
-                        )
+                        Text(widget.translation,
+                            style: Theme.of(context).textTheme.headline3),
                       ],
                     ),
                   ),
@@ -198,7 +202,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                     padding: const EdgeInsets.all(15),
                     margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
+                      color: Theme.of(context).cardColor,
                       borderRadius: const BorderRadius.all(Radius.circular(15)),
                     ),
                     child: Column(
@@ -216,6 +220,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                       fontSize: 22, color: headerColor),
                                 ),
                                 Material(
+                                  color: Colors.transparent,
                                   child: IconButton(
                                       splashRadius: 22,
                                       onPressed: () {
@@ -225,10 +230,13 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                         Clipboard.setData(copiedMeaning);
 
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                duration:
-                                                    Duration(milliseconds: 300),
-                                                content: Text('copied')));
+                                            .showSnackBar(SnackBar(
+                                                backgroundColor:
+                                                    Theme.of(context)
+                                                        .dialogBackgroundColor,
+                                                duration: const Duration(
+                                                    milliseconds: 300),
+                                                content: const Text('copied')));
                                       },
                                       icon: Icon(
                                         Icons.copy,
@@ -244,10 +252,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                         ),
                         Text(
                           state.wordDetails.definitions!,
-                          style: const TextStyle(
-                            color: Colors.black87,
-                            fontSize: 22,
-                          ),
+                          style: Theme.of(context).textTheme.headline3,
                         )
                       ],
                     ),
@@ -259,7 +264,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                     padding: const EdgeInsets.all(15),
                     margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
+                      color: Theme.of(context).cardColor,
                       borderRadius: const BorderRadius.all(Radius.circular(15)),
                     ),
                     child: Column(
@@ -292,7 +297,6 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                           itemCount: state.wordDetails.phrases?.length,
                           itemBuilder: (context, index) {
                             return ListTile(
-                                //leading: const Icon(Icons.arrow_right_rounded),
                                 dense: true,
                                 horizontalTitleGap: 2,
                                 leading: Padding(
@@ -302,9 +306,9 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                                 130),
                                     child: const Icon(Icons.circle, size: 8)),
                                 title: Text(
-                                  state.wordDetails.phrases?[index]['text'],
-                                  style: const TextStyle(fontSize: 22),
-                                ));
+                                    state.wordDetails.phrases?[index]['text'],
+                                    style:
+                                        Theme.of(context).textTheme.headline3));
                           },
                         ),
                       ],

@@ -18,41 +18,50 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.title, style: const TextStyle(fontSize: 24)),
+          backgroundColor: Theme.of(context).primaryColor,
+          title:
+              Text(widget.title, style: Theme.of(context).textTheme.headline1),
           centerTitle: true,
         ),
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
+          padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 12.0),
           child: Column(
             children: [
               MenuCard(
                   title: 'Settings',
                   subtitle: 'theme, language and fontsize',
-                  icon: const Icon(Icons.settings),
+                  icon: Icon(
+                    Icons.settings,
+                    size: 30,
+                    color: Theme.of(context).primaryColor,
+                  ),
                   onTap: () {
                     Navigator.pushNamed(context, RouterI.settingsPage);
                   }),
-              const SizedBox(height: 5),
+              const SizedBox(height: 7),
               MenuCard(
                   title: 'User',
                   subtitle: 'name, verification data',
-                  icon: const Icon(Icons.people),
+                  icon: Icon(Icons.people,
+                      size: 30, color: Theme.of(context).primaryColor),
                   onTap: () {
                     Navigator.pushNamed(context, RouterI.userPage);
                   }),
-              const SizedBox(height: 5),
+              const SizedBox(height: 7),
               MenuCard(
                   title: 'Share app',
                   subtitle: 'email, message and social media',
-                  icon: const Icon(Icons.share),
+                  icon: Icon(Icons.share,
+                      size: 30, color: Theme.of(context).primaryColor),
                   onTap: () {
                     Navigator.pushNamed(context, RouterI.sharingPage);
                   }),
-              const SizedBox(height: 5),
+              const SizedBox(height: 7),
               MenuCard(
                   title: 'Info',
                   subtitle: 'some info about app',
-                  icon: const Icon(Icons.info),
+                  icon: Icon(Icons.info,
+                      size: 30, color: Theme.of(context).primaryColor),
                   onTap: () {
                     Navigator.pushNamed(context, RouterI.infoPage);
                   }),

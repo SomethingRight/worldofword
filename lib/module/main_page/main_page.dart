@@ -31,7 +31,8 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title, style: const TextStyle(fontSize: 24)),
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text(widget.title, style: Theme.of(context).textTheme.headline1),
         centerTitle: true,
       ),
       body: SingleChildScrollView(

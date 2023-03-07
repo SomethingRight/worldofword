@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:worldofword/core/theme/theme.dart';
+import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
 
   @override
   State<SettingsPage> createState() => _SettingsPageState();
-  final bool toggledColor = true;
 }
 
 class _SettingsPageState extends State<SettingsPage> {
-  bool toggledlight = true;
-  bool toggledDark = false;
-  double fontSize = 20.0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColor,
+        iconTheme: Theme.of(context).primaryIconTheme,
+      ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         child: Column(
@@ -29,27 +31,34 @@ class _SettingsPageState extends State<SettingsPage> {
                   height: 20,
                 ),
                 SwitchListTile(
-                    title: const Text('light', style: TextStyle(fontSize: 20)),
-                    value: toggledlight,
+                    title: Text('light',
+                        style: Theme.of(context).textTheme.bodyText2),
+                    value: Variables.toggledlight,
                     activeColor: Theme.of(context).primaryColorDark,
                     secondary: const Icon(Icons.light_mode),
-                    selected: toggledlight,
+                    selected: Variables.toggledlight,
                     onChanged: (value) {
                       setState(() {
-                        toggledlight = !toggledlight;
-                        toggledDark = !toggledDark;
+                        Provider.of<SettingsBloc>(context, listen: false)
+                            .add(const ThemeChanged(theme: AppTheme.light));
+
+                        Variables.toggledlight = !Variables.toggledlight;
+                        Variables.toggledDark = !Variables.toggledDark;
                       });
                     }),
                 SwitchListTile(
-                    title: const Text('dark', style: TextStyle(fontSize: 20)),
-                    value: toggledDark,
+                    title:  Text('dark', style: Theme.of(context).textTheme.bodyText2),
+                    value: Variables.toggledDark,
                     activeColor: Theme.of(context).primaryColorDark,
                     secondary: const Icon(Icons.dark_mode),
-                    selected: toggledDark,
+                    selected: Variables.toggledDark,
                     onChanged: (value) {
+                      Provider.of<SettingsBloc>(context, listen: false)
+                          .add(const ThemeChanged(theme: AppTheme.dark));
+
                       setState(() {
-                        toggledDark = !toggledDark;
-                        toggledlight = !toggledlight;
+                        Variables.toggledDark = !Variables.toggledDark;
+                        Variables.toggledlight = !Variables.toggledlight;
                       });
                     }),
                 const SizedBox(
@@ -63,19 +72,22 @@ class _SettingsPageState extends State<SettingsPage> {
               child: Column(
                 children: [
                   Slider(
-                      value: fontSize,
+                      value: Variables.fontSize,
                       min: 10.0,
                       max: 40.00,
                       divisions: 15,
-                      label: '${fontSize.round()}',
+                      label: '${Variables.fontSize.round()}',
                       onChanged: (double value) {
+                        Provider.of<SettingsBloc>(context, listen: false)
+                            .add(FontSizeChanged(fontSize: value));
+
                         setState(() {
-                          fontSize = value.roundToDouble();
+                          Variables.fontSize = value.roundToDouble();
                         });
                       }),
                   Text('Choose font size',
                       style: TextStyle(
-                        fontSize: fontSize,
+                        fontSize: Variables.fontSize,
                       )),
                 ],
               ),

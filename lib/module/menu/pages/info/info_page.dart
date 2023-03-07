@@ -11,9 +11,12 @@ class _InfoPageState extends State<InfoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        iconTheme: Theme.of(context).primaryIconTheme,
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal:15, vertical: 25),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 25),
         child: Center(
           child: Expanded(
             child: Column(
