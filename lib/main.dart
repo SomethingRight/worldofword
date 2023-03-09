@@ -4,7 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldofword/core/DI/service_locator.dart';
 import 'package:worldofword/core/navigation/route_generator.dart';
 import 'package:worldofword/core/navigation/router.dart';
-import 'package:worldofword/core/theme/theme.dart';
+import 'package:worldofword/core/settings/settings_storage.dart';
+import 'package:worldofword/core/settings/theme.dart';
 import 'package:worldofword/firebase_options.dart';
 import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart';
 import 'package:worldofword/module/saved_words/saved_words_bloc.dart';
@@ -42,6 +43,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await SettingsStorage.init();
   configureDependencies();
 
   runApp(const MyApp());

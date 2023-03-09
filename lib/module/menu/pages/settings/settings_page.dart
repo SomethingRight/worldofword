@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:worldofword/core/theme/theme.dart';
+import 'package:worldofword/core/settings/settings_storage.dart';
+import 'package:worldofword/core/settings/theme.dart';
 import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart';
 
 class SettingsPage extends StatefulWidget {
@@ -44,10 +45,14 @@ class _SettingsPageState extends State<SettingsPage> {
 
                         Variables.toggledlight = !Variables.toggledlight;
                         Variables.toggledDark = !Variables.toggledDark;
+
+                        // SettingsStorage.setTheme(
+                        //     ThemeEnam().themeColorFromEnum(AppTheme.light));
                       });
                     }),
                 SwitchListTile(
-                    title:  Text('dark', style: Theme.of(context).textTheme.bodyText2),
+                    title: Text('dark',
+                        style: Theme.of(context).textTheme.bodyText2),
                     value: Variables.toggledDark,
                     activeColor: Theme.of(context).primaryColorDark,
                     secondary: const Icon(Icons.dark_mode),
@@ -59,6 +64,9 @@ class _SettingsPageState extends State<SettingsPage> {
                       setState(() {
                         Variables.toggledDark = !Variables.toggledDark;
                         Variables.toggledlight = !Variables.toggledlight;
+
+                        // SettingsStorage.setTheme(
+                        //     ThemeEnam().themeColorFromEnum(AppTheme.dark));
                       });
                     }),
                 const SizedBox(

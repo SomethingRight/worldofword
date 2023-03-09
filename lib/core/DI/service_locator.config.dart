@@ -12,24 +12,25 @@ import 'package:worldofword/api/auth/firebase_provider.dart' as _i6;
 import 'package:worldofword/api/exception/exception_handler.dart' as _i3;
 import 'package:worldofword/api/firestore/firestore_provider.dart' as _i7;
 import 'package:worldofword/api/word_api/word_details/word_details_api.dart'
-    as _i13;
-import 'package:worldofword/api/word_api/word_details/word_details_repository.dart'
     as _i14;
-import 'package:worldofword/api/word_api/word_traslate/word_translate_api.dart'
+import 'package:worldofword/api/word_api/word_details/word_details_repository.dart'
     as _i15;
-import 'package:worldofword/api/word_api/word_traslate/word_translate_repository.dart'
+import 'package:worldofword/api/word_api/word_traslate/word_translate_api.dart'
     as _i16;
+import 'package:worldofword/api/word_api/word_traslate/word_translate_repository.dart'
+    as _i17;
 import 'package:worldofword/core/navigation/router.dart' as _i8;
+import 'package:worldofword/core/settings/settings_storage.dart' as _i11;
 import 'package:worldofword/module/auth/email_pass_auth/firebase_auth_bloc.dart'
     as _i5;
-import 'package:worldofword/module/auth/sign_up_auth/sign_up_bloc.dart' as _i11;
-import 'package:worldofword/module/main_page/word_load_bloc.dart' as _i18;
+import 'package:worldofword/module/auth/sign_up_auth/sign_up_bloc.dart' as _i12;
+import 'package:worldofword/module/main_page/word_load_bloc.dart' as _i19;
 import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart'
     as _i10;
-import 'package:worldofword/module/menu/pages/user/user_page_bloc.dart' as _i12;
+import 'package:worldofword/module/menu/pages/user/user_page_bloc.dart' as _i13;
 import 'package:worldofword/module/saved_words/saved_words_bloc.dart' as _i9;
 import 'package:worldofword/module/word_details_page/word_details_bloc.dart'
-    as _i17; // ignore_for_file: unnecessary_lambdas
+    as _i18; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 extension GetItInjectableX on _i1.GetIt {
@@ -54,20 +55,21 @@ extension GetItInjectableX on _i1.GetIt {
     gh.factory<_i9.SavedWordsBloc>(() =>
         _i9.SavedWordsBloc(firestoreService: gh<_i7.FirestoreProviderI>()));
     gh.factory<_i10.SettingsBloc>(() => _i10.SettingsBloc());
-    gh.factory<_i11.SignUpBloc>(
-        () => _i11.SignUpBloc(authService: gh<_i4.FbAuthApiI>()));
-    gh.factory<_i12.UserPageBloc>(
-        () => _i12.UserPageBloc(gh<_i4.FbAuthApiI>()));
-    gh.lazySingleton<_i13.WordDetailsApiI>(() => _i13.WordDetailsApi());
-    gh.lazySingleton<_i14.WordDetailsRepository>(
-        () => _i14.WordDetailsRepository());
-    gh.lazySingleton<_i15.WordTranslateApiI>(() => _i15.WordTranslateApi());
-    gh.lazySingleton<_i16.WordTranslateRepository>(
-        () => _i16.WordTranslateRepository());
-    gh.factory<_i17.WordDetailsBloc>(
-        () => _i17.WordDetailsBloc(gh<_i14.WordDetailsRepository>()));
-    gh.factory<_i18.WordLoadBloc>(
-        () => _i18.WordLoadBloc(gh<_i16.WordTranslateRepository>()));
+    gh.factory<_i11.SettingsStorage>(() => _i11.SettingsStorage());
+    gh.factory<_i12.SignUpBloc>(
+        () => _i12.SignUpBloc(authService: gh<_i4.FbAuthApiI>()));
+    gh.factory<_i13.UserPageBloc>(
+        () => _i13.UserPageBloc(gh<_i4.FbAuthApiI>()));
+    gh.lazySingleton<_i14.WordDetailsApiI>(() => _i14.WordDetailsApi());
+    gh.lazySingleton<_i15.WordDetailsRepository>(
+        () => _i15.WordDetailsRepository());
+    gh.lazySingleton<_i16.WordTranslateApiI>(() => _i16.WordTranslateApi());
+    gh.lazySingleton<_i17.WordTranslateRepository>(
+        () => _i17.WordTranslateRepository());
+    gh.factory<_i18.WordDetailsBloc>(
+        () => _i18.WordDetailsBloc(gh<_i15.WordDetailsRepository>()));
+    gh.factory<_i19.WordLoadBloc>(
+        () => _i19.WordLoadBloc(gh<_i17.WordTranslateRepository>()));
     return this;
   }
 }

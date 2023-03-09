@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:worldofword/core/settings/settings_storage.dart';
 
 enum AppTheme { light, dark }
 
 abstract class Variables {
+  static AppTheme initialTheme =
+      ThemeEnam().themeColorToEnum(SettingsStorage.readTheme());
   static bool toggledlight = true;
   static bool toggledDark = false;
-  static double fontSize = 20.0;
+  static double fontSize = SettingsStorage.readFontSize();
 }
 
 final Map<AppTheme, ThemeData> appThemeData = {
@@ -60,4 +63,44 @@ TextTheme textThemeData({Color? currentColor, Color? headerColor}) {
     bodyText2: TextStyle(
         color: currentColor, fontSize: 20, fontWeight: FontWeight.normal),
   );
+}
+
+class ThemeEnam {
+  AppTheme themeColorToEnum(String themeColorStr) {
+    switch (themeColorStr) {
+      case 'dark_theme':
+        {
+          return AppTheme.dark;
+        }
+      case 'light_theme':
+        {
+          return AppTheme.light;
+        }
+      default:
+        {
+          return AppTheme.light;
+        }
+    }
+  }
+
+  String themeColorFromEnum(AppTheme appTheme) {
+    String? themeColorStr;
+    switch (appTheme) {
+      case AppTheme.dark:
+        {
+          themeColorStr = 'dark_theme';
+          break;
+        }
+      case AppTheme.light:
+        {
+          themeColorStr = 'light_theme';
+          break;
+        }
+      default:
+        {
+          themeColorStr = null;
+        }
+    }
+    return themeColorStr!;
+  }
 }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldofword/core/DI/service_locator.dart';
 import 'package:worldofword/core/navigation/router.dart';
-import 'package:worldofword/core/theme/theme.dart';
 import 'package:worldofword/module/auth/email_pass_auth/firebase_auth_bloc.dart';
 import 'package:worldofword/module/widgets/stadium_custom_button.dart';
 import 'package:worldofword/module/widgets/text_field_custom.dart';
