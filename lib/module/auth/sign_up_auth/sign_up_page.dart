@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldofword/core/DI/service_locator.dart';
 import 'package:worldofword/module/auth/sign_up_auth/sign_up_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../widgets/stadium_custom_button.dart';
 import '../../widgets/text_field_custom.dart';
@@ -57,7 +58,9 @@ class _SignUpPageState extends State<SignUpPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Center(
-                          child: Text('Enter information \n for your profile',
+                          child: Text(
+                              AppLocalizations.of(context)!
+                                  .enterInformationForProfile,
                               style: Theme.of(context)
                                   .textTheme
                                   .headline2
@@ -71,36 +74,38 @@ class _SignUpPageState extends State<SignUpPage> {
                           TextFieldCustomWidget(
                             validator: (value) => state.isValidUsername
                                 ? null
-                                : 'Username is too short(less then 5 signs)',
+                                : AppLocalizations.of(context)!.usernameIsTooShort,
                             obscureText: false,
-                            labelText: 'user name',
+                            labelText: AppLocalizations.of(context)!.userName,
                             onChanged: (String text) {
                               _bloc.add(ChangeNameEvent(name: text));
                             },
                           ),
                           const SizedBox(height: 5),
-                          const Text(
-                              'You can use any name, your neighbor\'s name or the president\'s name, you can even use your real name'),
+                          Text(
+                            AppLocalizations.of(context)!.youCanUseAnyName,
+                          ),
                           const SizedBox(height: 25),
                           TextFieldCustomWidget(
                             validator: (value) =>
-                                state.isValidEmail ? null : 'incorrect e-mail',
+                                state.isValidEmail ? null : AppLocalizations.of(context)!.incorrectEmail,
                             obscureText: false,
-                            labelText: 'e-mail',
+                            labelText: AppLocalizations.of(context)!.email,
                             onChanged: (String text) {
                               _bloc.add(ChangeEmailEvent(email: text));
                             },
                           ),
                           const SizedBox(height: 5),
-                          const Text(
-                              'Enter the e-mail to which you have access in case you forget your password'),
+                          Text(
+                            AppLocalizations.of(context)!.enterTheEmailToWhich,
+                          ),
                           const SizedBox(
                             height: 25,
                           ),
                           TextFieldCustomWidget(
                             validator: (value) => state.isValidPassword
                                 ? null
-                                : 'Password is too short(less then 8 signs)',
+                                : AppLocalizations.of(context)!.passwordIsTooShort,
                             suffixIcon: IconButton(
                                 onPressed: () {
                                   setState(() {
@@ -114,10 +119,10 @@ class _SignUpPageState extends State<SignUpPage> {
                             onChanged: (String text) {
                               _bloc.add(ChangePassEvent(pass: text));
                             },
-                            labelText: 'password',
+                            labelText: AppLocalizations.of(context)!.password,
                           ),
                           const SizedBox(height: 5),
-                          const Text('Enter your password'),
+                          Text(AppLocalizations.of(context)!.enterYourPassword),
                         ],
                       ),
 
@@ -135,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             _bloc.add(const ConfirmSignUpEvent());
                           }
                         },
-                        buttonBody: Text('confirm',
+                        buttonBody: Text(AppLocalizations.of(context)!.confirm,
                             style: Theme.of(context).textTheme.headline5),
                       ),
                       const SizedBox(

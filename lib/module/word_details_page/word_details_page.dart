@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:worldofword/core/settings/theme.dart';
 import 'package:worldofword/module/word_details_page/word_details_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WordDetailsPage extends StatefulWidget {
   const WordDetailsPage(
@@ -67,7 +69,9 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                             style: Theme.of(context)
                                 .textTheme
                                 .headline5
-                                ?.copyWith(fontWeight: FontWeight.w400)),
+                                ?.copyWith(
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: Variables.fontSize)),
                         const Divider(
                           thickness: 2.0,
                         ),
@@ -86,11 +90,14 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
 
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(
-                                            backgroundColor: Theme.of(context)
-                                                .dialogBackgroundColor,
+                                            backgroundColor:
+                                                Theme.of(context)
+                                                    .dialogBackgroundColor,
                                             duration: const Duration(
                                                 milliseconds: 300),
-                                            content: const Text('copied')));
+                                            content: Text(
+                                                AppLocalizations.of(context)!
+                                                    .copied)));
                                   },
                                   icon: Icon(
                                     Icons.copy,
@@ -101,11 +108,14 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                   onPressed: () {
                                     ScaffoldMessenger.of(context).showSnackBar(
                                         SnackBar(
-                                            backgroundColor: Theme.of(context)
-                                                .dialogBackgroundColor,
+                                            backgroundColor:
+                                                Theme.of(context)
+                                                    .dialogBackgroundColor,
                                             duration: const Duration(
                                                 milliseconds: 300),
-                                            content: const Text('word saved')));
+                                            content: Text(
+                                                AppLocalizations.of(context)!
+                                                    .wordSaved)));
                                   },
                                   icon: Icon(Icons.add,
                                       size: 30, color: iconColor)),
@@ -122,7 +132,9 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                                 .dialogBackgroundColor,
                                             duration:
                                                 const Duration(seconds: 1),
-                                            content: const Text('playing...')));
+                                            content: Text(
+                                                AppLocalizations.of(context)!
+                                                    .playing)));
 
                                     _bloc.add(PlayAudio(
                                         audioPath:
@@ -156,7 +168,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'translation',
+                                  AppLocalizations.of(context)!.translation,
                                   style: TextStyle(
                                       fontSize: 22, color: headerColor),
                                 ),
@@ -176,7 +188,10 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                                         .dialogBackgroundColor,
                                                 duration: const Duration(
                                                     milliseconds: 300),
-                                                content: const Text('copied')));
+                                                content: Text(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .copied)));
                                       },
                                       icon: Icon(
                                         Icons.copy,
@@ -191,7 +206,10 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                           ],
                         ),
                         Text(widget.translation,
-                            style: Theme.of(context).textTheme.headline3),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline3
+                                ?.copyWith(fontSize: Variables.fontSize)),
                       ],
                     ),
                   ),
@@ -215,7 +233,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  'meaning',
+                                  AppLocalizations.of(context)!.meaning,
                                   style: TextStyle(
                                       fontSize: 22, color: headerColor),
                                 ),
@@ -236,7 +254,10 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                                         .dialogBackgroundColor,
                                                 duration: const Duration(
                                                     milliseconds: 300),
-                                                content: const Text('copied')));
+                                                content: Text(
+                                                    AppLocalizations.of(
+                                                            context)!
+                                                        .copied)));
                                       },
                                       icon: Icon(
                                         Icons.copy,
@@ -252,7 +273,10 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                         ),
                         Text(
                           state.wordDetails.definitions!,
-                          style: Theme.of(context).textTheme.headline3,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline3
+                              ?.copyWith(fontSize: Variables.fontSize),
                         )
                       ],
                     ),
@@ -280,7 +304,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    'phrases',
+                                    AppLocalizations.of(context)!.phrases,
                                     style: TextStyle(
                                         fontSize: 22, color: headerColor),
                                   ),
@@ -307,8 +331,11 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                     child: const Icon(Icons.circle, size: 8)),
                                 title: Text(
                                     state.wordDetails.phrases?[index]['text'],
-                                    style:
-                                        Theme.of(context).textTheme.headline3));
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3
+                                        ?.copyWith(
+                                            fontSize: Variables.fontSize)));
                           },
                         ),
                       ],

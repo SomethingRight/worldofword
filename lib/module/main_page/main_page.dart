@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldofword/module/main_page/word_load_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../core/DI/service_locator.dart';
 import '../widgets/text_field_custom.dart';
@@ -48,7 +49,7 @@ class _MainPageState extends State<MainPage> {
                   _bloc.add(WordLoading(text));
                 },
                 textInputAction: TextInputAction.search,
-                labelText: 'what a you looking for',
+                labelText: AppLocalizations.of(context)!.whatAreYouLookingFor,
                 prefixIcon: const Icon(Icons.search),
                 fillColor: Colors.black12,
               ),
@@ -81,10 +82,10 @@ class _MainPageState extends State<MainPage> {
                               child: WordCardIcon(word: state.words[index]));
                         });
                   }
-                  return const Center(
+                  return Center(
                     child: Text(
-                      'Enter something',
-                      style: TextStyle(fontSize: 25),
+                      AppLocalizations.of(context)!.enterSomething,
+                      style: const TextStyle(fontSize: 25),
                     ),
                   );
                 },

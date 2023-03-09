@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldofword/core/DI/service_locator.dart';
+import 'package:worldofword/core/l10n/l10n.dart';
 import 'package:worldofword/core/navigation/route_generator.dart';
 import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/core/settings/settings_storage.dart';
@@ -9,6 +10,7 @@ import 'package:worldofword/core/settings/theme.dart';
 import 'package:worldofword/firebase_options.dart';
 import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart';
 import 'package:worldofword/module/saved_words/saved_words_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'module/auth/email_pass_auth/firebase_auth_bloc.dart';
 import 'module/auth/sign_up_auth/sign_up_bloc.dart';
@@ -22,11 +24,11 @@ import 'module/word_details_page/word_details_bloc.dart';
 
  - add theme changing DONE 
 
- - cash settings data
+ - cash settings data DONE
 
- - add fontsize changing ? 
+ - add fontsize changing(only word details page) DONE
 
- - add individual profile data( i mean saved words)
+ - add individual profile data( i mean saved words) 
 
  - add sharing words and app logic and screen
 
@@ -73,12 +75,13 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
           return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'WorldOfWord',
-            theme: appThemeData[state.theme],
-            onGenerateRoute: AppRouter.onGenerateRoute,
-            initialRoute: RouterI.authPage,
-          );
+              debugShowCheckedModeBanner: false,
+              title: 'WorldOfWord',
+              theme: appThemeData[state.theme],
+              onGenerateRoute: AppRouter.onGenerateRoute,
+              initialRoute: RouterI.authPage,
+              supportedLocales: L10n.all,
+              localizationsDelegates: AppLocalizations.localizationsDelegates);
         },
       ),
     );

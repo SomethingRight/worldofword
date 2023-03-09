@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:worldofword/core/settings/settings_storage.dart';
 import 'package:worldofword/core/settings/theme.dart';
 import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -26,13 +26,13 @@ class _SettingsPageState extends State<SettingsPage> {
           children: [
             Column(
               children: [
-                const Text('Choose an app theme',
-                    style: TextStyle(fontSize: 26)),
+                Text(AppLocalizations.of(context)!.chooseAnAppTheme,
+                    style: const TextStyle(fontSize: 26)),
                 const SizedBox(
                   height: 20,
                 ),
                 SwitchListTile(
-                    title: Text('light',
+                    title: Text(AppLocalizations.of(context)!.light,
                         style: Theme.of(context).textTheme.bodyText2),
                     value: Variables.toggledlight,
                     activeColor: Theme.of(context).primaryColorDark,
@@ -45,13 +45,10 @@ class _SettingsPageState extends State<SettingsPage> {
 
                         Variables.toggledlight = !Variables.toggledlight;
                         Variables.toggledDark = !Variables.toggledDark;
-
-                        // SettingsStorage.setTheme(
-                        //     ThemeEnam().themeColorFromEnum(AppTheme.light));
                       });
                     }),
                 SwitchListTile(
-                    title: Text('dark',
+                    title: Text(AppLocalizations.of(context)!.dark,
                         style: Theme.of(context).textTheme.bodyText2),
                     value: Variables.toggledDark,
                     activeColor: Theme.of(context).primaryColorDark,
@@ -64,9 +61,6 @@ class _SettingsPageState extends State<SettingsPage> {
                       setState(() {
                         Variables.toggledDark = !Variables.toggledDark;
                         Variables.toggledlight = !Variables.toggledlight;
-
-                        // SettingsStorage.setTheme(
-                        //     ThemeEnam().themeColorFromEnum(AppTheme.dark));
                       });
                     }),
                 const SizedBox(
@@ -93,7 +87,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           Variables.fontSize = value.roundToDouble();
                         });
                       }),
-                  Text('Choose font size',
+                  Text(AppLocalizations.of(context)!.chooseFontSize,
                       style: TextStyle(
                         fontSize: Variables.fontSize,
                       )),

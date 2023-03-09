@@ -6,6 +6,7 @@ import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/module/auth/email_pass_auth/firebase_auth_bloc.dart';
 import 'package:worldofword/module/widgets/stadium_custom_button.dart';
 import 'package:worldofword/module/widgets/text_field_custom.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -35,7 +36,8 @@ class _AuthPageState extends State<AuthPage> {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 backgroundColor: Theme.of(context).dialogBackgroundColor,
                 duration: const Duration(milliseconds: 1500),
-                content: Text('logged in as: ${state.email}')));
+                content: Text(
+                    '${AppLocalizations.of(context)!.loggedInAs} ${state.email}')));
 
             Navigator.of(context).pushReplacementNamed(RouterI.homePage);
           }
@@ -57,10 +59,10 @@ class _AuthPageState extends State<AuthPage> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      const Center(
+                      Center(
                           child: Text(
-                        'Log In',
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.logIn,
+                        style: const TextStyle(
                             fontSize: 27, fontWeight: FontWeight.w600),
                       )),
                       const SizedBox(height: 25),
@@ -68,10 +70,10 @@ class _AuthPageState extends State<AuthPage> {
                         validator: (p0) {
                           return state.isEmailCorrect
                               ? null
-                              : 'Enter correct e-mail';
+                              : AppLocalizations.of(context)!.enterCorrectEmail;
                         },
                         obscureText: false,
-                        labelText: 'e-mail',
+                        labelText: AppLocalizations.of(context)!.email,
                         onChanged: (String text) {
                           _bloc.add(ChangeEmailEvent(email: text));
                         },
@@ -86,7 +88,8 @@ class _AuthPageState extends State<AuthPage> {
                             validator: (p0) {
                               return state.isPasswordCorrect
                                   ? null
-                                  : 'Password is too short(less then 8 signs)';
+                                  : AppLocalizations.of(context)!
+                                      .passwordIsTooShort;
                             },
                             suffixIcon: IconButton(
                                 onPressed: () {
@@ -101,7 +104,7 @@ class _AuthPageState extends State<AuthPage> {
                             onChanged: (String text) {
                               _bloc.add(ChangePassEvent(pass: text));
                             },
-                            labelText: 'password',
+                            labelText: AppLocalizations.of(context)!.password,
                           ),
                           const SizedBox(
                             height: 4,
@@ -113,7 +116,7 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                       StadiumCustomButton(
                           buttonBody: Text(
-                            'confirm',
+                            AppLocalizations.of(context)!.confirm,
                             style: TextStyle(
                                 color: Theme.of(context).hintColor,
                                 fontSize: 18),
@@ -135,9 +138,9 @@ class _AuthPageState extends State<AuthPage> {
                                 Navigator.pushNamed(
                                     context, RouterI.signUpPage);
                               },
-                              child: const Text(
-                                'signUp',
-                                style: TextStyle(
+                              child: Text(
+                                AppLocalizations.of(context)!.signUp,
+                                style: const TextStyle(
                                     decoration: TextDecoration.underline,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.grey,
@@ -148,9 +151,9 @@ class _AuthPageState extends State<AuthPage> {
                                 Navigator.pushNamed(
                                     context, RouterI.accountRecoveryPage);
                               },
-                              child: const Text(
-                                'forgot password',
-                                style: TextStyle(
+                              child: Text(
+                                AppLocalizations.of(context)!.forgotPassword,
+                                style: const TextStyle(
                                     decoration: TextDecoration.underline,
                                     fontWeight: FontWeight.w400,
                                     color: Colors.grey,
@@ -165,8 +168,8 @@ class _AuthPageState extends State<AuthPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text('or, login with',
-                              style: TextStyle(
+                          Text(AppLocalizations.of(context)!.orLoginWith,
+                              style: const TextStyle(
                                   fontWeight: FontWeight.w400,
                                   color: Colors.grey,
                                   fontSize: 16)),

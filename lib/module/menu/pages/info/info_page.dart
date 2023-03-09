@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InfoPage extends StatefulWidget {
   const InfoPage({super.key});
@@ -21,12 +22,12 @@ class _InfoPageState extends State<InfoPage> {
           child: Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: const [
+              children: [
                 Text(
-                  'This application allows you to search and share useful words. Store them in a convenient format of your own dictionary. I believe that the application will be useful and interesting for you.',
-                  style: TextStyle(fontSize: 26),
+                   AppLocalizations.of(context)!.thisApplicationAllowsYou,
+                  style: const TextStyle(fontSize: 26),
                 ),
-                Text('(c) worldofword.')
+                const Text('(c) worldofword.')
               ],
             ),
           ),

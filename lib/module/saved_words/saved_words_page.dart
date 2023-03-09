@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_it/get_it.dart';
+import 'package:worldofword/module/main_page/main_page.dart';
 import 'package:worldofword/module/saved_words/saved_words_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../widgets/word_card.dart';
 
@@ -71,18 +73,23 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
                                         });
 
                                         ScaffoldMessenger.of(context)
-                                            .showSnackBar(const SnackBar(
-                                                duration:
-                                                    Duration(milliseconds: 400),
+                                            .showSnackBar(SnackBar(
+                                                backgroundColor:
+                                                    Theme.of(context)
+                                                        .dialogBackgroundColor,
+                                                duration: const Duration(
+                                                    milliseconds: 400),
                                                 content: Text(
-                                                  'word removed',
-                                                  style:
-                                                      TextStyle(fontSize: 16),
+                                                  AppLocalizations.of(context)!
+                                                      .wordRemoved,
+                                                  style: const TextStyle(
+                                                      fontSize: 16),
                                                 )));
                                       },
                                       backgroundColor: Colors.red.shade400,
                                       icon: Icons.delete,
-                                      label: 'delete',
+                                      label:
+                                          AppLocalizations.of(context)!.delete,
                                     )
                                   ],
                                 ),
@@ -97,27 +104,26 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text(
-                        'It\'s empty for now.',
-                        style: TextStyle(fontSize: 22),
+                      Text(
+                        AppLocalizations.of(context)!.itsEmptyForNow,
+                        style: const TextStyle(fontSize: 22),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Text('Let\'s', style: TextStyle(fontSize: 22)),
+                          Text(AppLocalizations.of(context)!.letS,
+                              style: const TextStyle(fontSize: 22)),
                           TextButton(
-                            onPressed: () {
-                              //Navigator.pushReplacementNamed(context, RouterI.homePage);
-                            },
+                            onPressed: () {},
                             child: Text(
-                              'save',
+                              AppLocalizations.of(context)!.save,
                               style: TextStyle(
                                   fontSize: 22,
-                                  color: Theme.of(context).primaryColorDark),
+                                  color: Theme.of(context).primaryColor),
                             ),
                           ),
-                          const Text('some words',
-                              style: TextStyle(fontSize: 22)),
+                          Text(AppLocalizations.of(context)!.someWords,
+                              style: const TextStyle(fontSize: 22)),
                         ],
                       )
                     ],

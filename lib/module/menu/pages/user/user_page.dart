@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:worldofword/core/di/service_locator.dart';
 import 'package:worldofword/module/menu/pages/user/user_page_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../core/navigation/router.dart';
 
@@ -30,7 +31,7 @@ class _UserPageState extends State<UserPage> {
         if (state.status == StatusUser.loggedOut) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             backgroundColor: Theme.of(context).dialogBackgroundColor,
-            content: const Text('signed out'),
+            content: Text(AppLocalizations.of(context)!.signedOut),
             duration: const Duration(seconds: 1),
           ));
           await Future.delayed(const Duration(milliseconds: 1500));
@@ -74,7 +75,7 @@ class _UserPageState extends State<UserPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'name:',
+                            '${AppLocalizations.of(context)!.name}:',
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
                           const SizedBox(
@@ -92,7 +93,7 @@ class _UserPageState extends State<UserPage> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'e-mail:',
+                            '${AppLocalizations.of(context)!.email}:',
                             style: Theme.of(context).textTheme.bodyText2,
                           ),
                           const SizedBox(
@@ -115,15 +116,15 @@ class _UserPageState extends State<UserPage> {
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: const [
+                    children: [
                       Text(
-                        'sign out',
-                        style: TextStyle(
+                        AppLocalizations.of(context)!.signOut,
+                        style: const TextStyle(
                             color: Colors.redAccent,
                             fontSize: 20,
                             fontWeight: FontWeight.w500),
                       ),
-                      Icon(
+                      const Icon(
                         Icons.exit_to_app_outlined,
                         color: Colors.redAccent,
                       ),
@@ -145,7 +146,7 @@ class _UserPageState extends State<UserPage> {
         return AlertDialog(
           backgroundColor: Theme.of(context).backgroundColor,
           title: Text(
-            'Are you sure?',
+            AppLocalizations.of(context)!.areYouSure,
             style: Theme.of(context).textTheme.headline6,
           ),
           shape: const RoundedRectangleBorder(
@@ -157,7 +158,7 @@ class _UserPageState extends State<UserPage> {
                   Navigator.of(context).pop();
                 },
                 child: Text(
-                  'no',
+                 AppLocalizations.of(context)!.no,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2
@@ -169,7 +170,7 @@ class _UserPageState extends State<UserPage> {
                   _bloc.add(SignOut());
                 },
                 child: Text(
-                  'yes',
+                  AppLocalizations.of(context)!.yes,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2

@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:worldofword/core/navigation/router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'widgets/menu_card.dart';
 
@@ -29,8 +30,8 @@ class _MenuPageState extends State<MenuPage> {
           child: Column(
             children: [
               MenuCard(
-                  title: 'Settings',
-                  subtitle: 'theme, language and fontsize',
+                  title: AppLocalizations.of(context)!.settings,
+                  subtitle:  AppLocalizations.of(context)!.themeLanguageFontsize,
                   icon: Icon(
                     Icons.settings,
                     size: 30,
@@ -41,8 +42,8 @@ class _MenuPageState extends State<MenuPage> {
                   }),
               const SizedBox(height: 7),
               MenuCard(
-                  title: 'User',
-                  subtitle: 'name, verification data',
+                  title:  AppLocalizations.of(context)!.user,
+                  subtitle:  AppLocalizations.of(context)!.nameVerificationData,
                   icon: Icon(Icons.people,
                       size: 30, color: Theme.of(context).primaryColorDark),
                   onTap: () {
@@ -50,8 +51,8 @@ class _MenuPageState extends State<MenuPage> {
                   }),
               const SizedBox(height: 7),
               MenuCard(
-                  title: 'Share app',
-                  subtitle: 'email, message and social media',
+                  title:  AppLocalizations.of(context)!.shareApp,
+                  subtitle:  AppLocalizations.of(context)!.emailMessageAndSocialMedia,
                   icon: Icon(Icons.share,
                       size: 30, color: Theme.of(context).primaryColorDark),
                   onTap: () {
@@ -59,8 +60,8 @@ class _MenuPageState extends State<MenuPage> {
                   }),
               const SizedBox(height: 7),
               MenuCard(
-                  title: 'Info',
-                  subtitle: 'some info about app',
+                  title:  AppLocalizations.of(context)!.info,
+                  subtitle:  AppLocalizations.of(context)!.someInfoAboutApp,
                   icon: Icon(Icons.info,
                       size: 30, color: Theme.of(context).primaryColorDark),
                   onTap: () {

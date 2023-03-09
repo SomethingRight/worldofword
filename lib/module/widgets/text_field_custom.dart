@@ -29,7 +29,6 @@ class TextFieldCustomWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      
       validator: validator,
       obscureText: obscureText,
       onChanged: onChanged,

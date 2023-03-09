@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../widgets/stadium_custom_button.dart';
 import '../../widgets/text_field_custom.dart';
@@ -29,7 +30,8 @@ class _AccountRecoveryPageState extends State<AccountRecoveryPage> {
             child: Column(
               children: [
                 Center(
-                    child: Text('Recovery your password',
+                    child: Text(
+                        AppLocalizations.of(context)!.recoveryYourPassword,
                         style: Theme.of(context)
                             .textTheme
                             .headline2
@@ -46,14 +48,13 @@ class _AccountRecoveryPageState extends State<AccountRecoveryPage> {
                 const SizedBox(
                   height: 5,
                 ),
-                const Text(
-                    'Enter e-mail that you registered in the application to receive a password recovery code'),
+                Text(AppLocalizations.of(context)!.enterEmailThatYouRegistered),
                 const SizedBox(
                   height: 25,
                 ),
                 StadiumCustomButton(
                     buttonBody: Text(
-                      'send code',
+                      AppLocalizations.of(context)!.sendCode,
                       style: Theme.of(context).textTheme.headline5,
                     ),
                     color: Theme.of(context).primaryColorDark,
