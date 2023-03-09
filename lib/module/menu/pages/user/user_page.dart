@@ -28,9 +28,10 @@ class _UserPageState extends State<UserPage> {
       bloc: _bloc,
       listener: (context, state) async {
         if (state.status == StatusUser.loggedOut) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text('signed out'),
-            duration: Duration(seconds: 1),
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            backgroundColor: Theme.of(context).dialogBackgroundColor,
+            content: const Text('signed out'),
+            duration: const Duration(seconds: 1),
           ));
           await Future.delayed(const Duration(milliseconds: 1500));
           Navigator.pushReplacementNamed(context, RouterI.authPage);
@@ -142,7 +143,11 @@ class _UserPageState extends State<UserPage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Are you sure?'),
+          backgroundColor: Theme.of(context).backgroundColor,
+          title: Text(
+            'Are you sure?',
+            style: Theme.of(context).textTheme.headline6,
+          ),
           shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(20)),
           ),
@@ -151,13 +156,25 @@ class _UserPageState extends State<UserPage> {
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
-                child: const Text('no')),
+                child: Text(
+                  'no',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2
+                      ?.copyWith(color: Theme.of(context).primaryColor),
+                )),
             TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
                   _bloc.add(SignOut());
                 },
-                child: const Text('yes')),
+                child: Text(
+                  'yes',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2
+                      ?.copyWith(color: Theme.of(context).primaryColor),
+                )),
           ],
         );
       },

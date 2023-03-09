@@ -18,6 +18,7 @@ class _MenuPageState extends State<MenuPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          iconTheme: Theme.of(context).primaryIconTheme,
           backgroundColor: Theme.of(context).primaryColor,
           title:
               Text(widget.title, style: Theme.of(context).textTheme.headline1),
@@ -33,7 +34,7 @@ class _MenuPageState extends State<MenuPage> {
                   icon: Icon(
                     Icons.settings,
                     size: 30,
-                    color: Theme.of(context).primaryColor,
+                    color: Theme.of(context).primaryColorDark,
                   ),
                   onTap: () {
                     Navigator.pushNamed(context, RouterI.settingsPage);
@@ -43,7 +44,7 @@ class _MenuPageState extends State<MenuPage> {
                   title: 'User',
                   subtitle: 'name, verification data',
                   icon: Icon(Icons.people,
-                      size: 30, color: Theme.of(context).primaryColor),
+                      size: 30, color: Theme.of(context).primaryColorDark),
                   onTap: () {
                     Navigator.pushNamed(context, RouterI.userPage);
                   }),
@@ -52,7 +53,7 @@ class _MenuPageState extends State<MenuPage> {
                   title: 'Share app',
                   subtitle: 'email, message and social media',
                   icon: Icon(Icons.share,
-                      size: 30, color: Theme.of(context).primaryColor),
+                      size: 30, color: Theme.of(context).primaryColorDark),
                   onTap: () {
                     Navigator.pushNamed(context, RouterI.sharingPage);
                   }),
@@ -61,7 +62,7 @@ class _MenuPageState extends State<MenuPage> {
                   title: 'Info',
                   subtitle: 'some info about app',
                   icon: Icon(Icons.info,
-                      size: 30, color: Theme.of(context).primaryColor),
+                      size: 30, color: Theme.of(context).primaryColorDark),
                   onTap: () {
                     Navigator.pushNamed(context, RouterI.infoPage);
                   }),

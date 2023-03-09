@@ -16,7 +16,10 @@ class _AccountRecoveryPageState extends State<AccountRecoveryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: Theme.of(context).backgroundColor),
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).primaryColorLight,
+        iconTheme: Theme.of(context).primaryIconTheme,
+      ),
       body: ListView(
         padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * .3),
         physics: const ClampingScrollPhysics(),
@@ -25,11 +28,12 @@ class _AccountRecoveryPageState extends State<AccountRecoveryPage> {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
               children: [
-                const Center(
-                    child: Text(
-                  'Recovery your password',
-                  style: TextStyle(fontSize: 27, fontWeight: FontWeight.w600),
-                )),
+                Center(
+                    child: Text('Recovery your password',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline2
+                            ?.copyWith(fontWeight: FontWeight.w500))),
                 const SizedBox(height: 25),
                 TextFieldCustomWidget(
                   obscureText: false,
@@ -50,8 +54,7 @@ class _AccountRecoveryPageState extends State<AccountRecoveryPage> {
                 StadiumCustomButton(
                     buttonBody: Text(
                       'send code',
-                      style: TextStyle(
-                          color: Theme.of(context).hintColor, fontSize: 18),
+                      style: Theme.of(context).textTheme.headline5,
                     ),
                     color: Theme.of(context).primaryColorDark,
                     onPressed: () {

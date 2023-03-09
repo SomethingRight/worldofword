@@ -33,13 +33,17 @@ class _SignUpPageState extends State<SignUpPage> {
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          backgroundColor: Theme.of(context).dialogBackgroundColor,
           content: Text(state.status!.name),
           duration: const Duration(milliseconds: 400),
         ));
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(backgroundColor: Theme.of(context).primaryColorLight),
+          appBar: AppBar(
+            backgroundColor: Theme.of(context).primaryColorLight,
+            iconTheme: Theme.of(context).primaryIconTheme,
+          ),
           body: ListView(
             padding:
                 EdgeInsets.only(top: MediaQuery.of(context).size.height * .1),
@@ -52,12 +56,12 @@ class _SignUpPageState extends State<SignUpPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const Center(
-                          child: Text(
-                        'Enter information \n for your profile',
-                        style: TextStyle(
-                            fontSize: 27, fontWeight: FontWeight.w500),
-                      )),
+                      Center(
+                          child: Text('Enter information \n for your profile',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline2
+                                  ?.copyWith(fontWeight: FontWeight.w500))),
                       const SizedBox(height: 25),
 
                       //  all textfields
@@ -71,8 +75,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             obscureText: false,
                             labelText: 'user name',
                             onChanged: (String text) {
-                             
-                                  _bloc.add(ChangeNameEvent(name: text));
+                              _bloc.add(ChangeNameEvent(name: text));
                             },
                           ),
                           const SizedBox(height: 5),
@@ -85,8 +88,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             obscureText: false,
                             labelText: 'e-mail',
                             onChanged: (String text) {
-                              
-                                 _bloc.add(ChangeEmailEvent(email: text));
+                              _bloc.add(ChangeEmailEvent(email: text));
                             },
                           ),
                           const SizedBox(height: 5),
@@ -110,8 +112,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                     : Icons.visibility_outlined)),
                             obscureText: _passwordInvisible,
                             onChanged: (String text) {
-                              
-                                  _bloc.add(ChangePassEvent(pass: text));
+                              _bloc.add(ChangePassEvent(pass: text));
                             },
                             labelText: 'password',
                           ),
@@ -131,14 +132,11 @@ class _SignUpPageState extends State<SignUpPage> {
                             await Future.delayed(
                                 const Duration(seconds: 2), () {});
 
-                            
-                                _bloc.add(const ConfirmSignUpEvent());
+                            _bloc.add(const ConfirmSignUpEvent());
                           }
                         },
-                        buttonBody: const Text(
-                          'confirm',
-                          style: TextStyle(fontSize: 18, color: Colors.black87),
-                        ),
+                        buttonBody: Text('confirm',
+                            style: Theme.of(context).textTheme.headline5),
                       ),
                       const SizedBox(
                         height: 10,

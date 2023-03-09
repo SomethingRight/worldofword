@@ -34,6 +34,7 @@ class _AuthPageState extends State<AuthPage> {
         listener: (context, state) async {
           if (state.status == StatusLogin.success) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Theme.of(context).dialogBackgroundColor,
                 duration: const Duration(milliseconds: 1500),
                 content: Text('logged in as: ${state.email}')));
 
@@ -41,6 +42,7 @@ class _AuthPageState extends State<AuthPage> {
           }
           if (state.status == StatusLogin.failure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                backgroundColor: Theme.of(context).dialogBackgroundColor,
                 content: Text(state.errorMessage ?? 'something went wrong')));
           }
         },

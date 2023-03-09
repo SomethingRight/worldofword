@@ -34,25 +34,35 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: const Icon(Icons.save_alt, size: 30)),
+                child: const Icon(
+                    //Icons.book_outlined,
+                    Icons.bookmarks_outlined,
+                    //Icons.save_alt,
+                    size: 28)),
             label: '',
           ),
           BottomNavigationBarItem(
             label: '',
             icon: Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: const Icon(Icons.home, size: 30)),
+                child: const Icon(
+                    //Icons.cottage_outlined,
+                    Icons.home_outlined,
+                    size: 32)),
           ),
           BottomNavigationBarItem(
             label: '',
             icon: Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: const Icon(Icons.history, size: 30)),
+                child: const Icon(Icons.history_outlined, size: 30)),
           ),
           BottomNavigationBarItem(
             icon: Container(
                 margin: const EdgeInsets.only(top: 10),
-                child: const Icon(Icons.menu, size: 30)),
+                child: const Icon(
+                    //Icons.storage_outlined,
+                    Icons.menu_sharp,
+                    size: 32)),
             label: '',
           ),
         ],

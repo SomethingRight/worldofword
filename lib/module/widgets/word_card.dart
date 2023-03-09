@@ -24,7 +24,7 @@ class WordCard extends StatelessWidget {
           child: Row(
             children: [
               Text('${word.word} ',
-                  style: Theme.of(context).textTheme.headline5),
+                  style: Theme.of(context).textTheme.bodyText2),
               Text('(${word.lexicalCategory})',
                   style: Theme.of(context)
                       .textTheme
@@ -35,7 +35,7 @@ class WordCard extends StatelessWidget {
                   '${word.translate}',
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.end,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.headline5,
                   maxLines: 1,
                 ),
               ),

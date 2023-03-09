@@ -30,7 +30,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
       backgroundColor: Colors.grey.shade700,
       cardColor: Colors.grey.shade900,
       primaryColor: Colors.teal.shade800,
-      primaryColorLight: Colors.teal.shade700,
+      primaryColorLight: Colors.teal.shade500,
       primaryColorDark: Colors.teal.shade900,
       fontFamily: 'TiltNeon',
       iconTheme: const IconThemeData(color: Colors.grey),

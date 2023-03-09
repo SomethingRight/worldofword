@@ -19,7 +19,11 @@ import 'module/word_details_page/word_details_bloc.dart';
 
  - add google and apple auth(apple only icon/ google fool version) DONE
 
- - add theme changing 
+ - add theme changing DONE 
+
+ - cash settings data
+
+ - add fontsize changing ? 
 
  - add individual profile data( i mean saved words)
 
