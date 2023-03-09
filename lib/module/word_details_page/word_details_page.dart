@@ -59,7 +59,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          state.wordDetails.word!,
+                          state.wordDetails.word ?? 'word',
                           style: Theme.of(context)
                               .textTheme
                               .headline4
@@ -272,7 +272,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                           ],
                         ),
                         Text(
-                          state.wordDetails.definitions!,
+                          state.wordDetails.definitions ?? 'no meanings',
                           style: Theme.of(context)
                               .textTheme
                               .headline3
@@ -318,7 +318,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                         ),
                         ListView.builder(
                           shrinkWrap: true,
-                          itemCount: state.wordDetails.phrases?.length,
+                          itemCount: state.wordDetails.phrases?.length ?? 1,
                           itemBuilder: (context, index) {
                             return ListTile(
                                 dense: true,
@@ -330,7 +330,70 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                                 130),
                                     child: const Icon(Icons.circle, size: 8)),
                                 title: Text(
-                                    state.wordDetails.phrases?[index]['text'],
+                                    state.wordDetails.phrases?[index]['text'] ??
+                                        'no examples of phrases',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline3
+                                        ?.copyWith(
+                                            fontSize: Variables.fontSize)));
+                          },
+                        ),
+                      ],
+                    ),
+                  ),
+
+                  // synonims
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(15),
+                    margin: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).cardColor,
+                      borderRadius: const BorderRadius.all(Radius.circular(15)),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 12),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.synonyms,
+                                    style: TextStyle(
+                                        fontSize: 22, color: headerColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            const Divider(
+                              thickness: 2.0,
+                            ),
+                          ],
+                        ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: state.wordDetails.synonims?.length ?? 1,
+                          itemBuilder: (context, index) {
+                            return ListTile(
+                                dense: true,
+                                horizontalTitleGap: 2,
+                                leading: Padding(
+                                    padding: EdgeInsets.only(
+                                        top:
+                                            MediaQuery.of(context).size.height /
+                                                130),
+                                    child: const Icon(Icons.circle, size: 8)),
+                                title: Text(
+                                    state.wordDetails.synonims?[index]
+                                            ['text'] ??
+                                        'no examples of synonims',
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline3

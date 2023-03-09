@@ -36,7 +36,7 @@ import 'module/word_details_page/word_details_bloc.dart';
 
   - add icon app DONE
 
-  - add localozation 
+  - add localozation DONE
 */
 
 void main() async {
