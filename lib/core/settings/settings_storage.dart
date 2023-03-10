@@ -5,6 +5,7 @@ import 'package:worldofword/core/settings/theme.dart';
 abstract class Keys {
   static const String themeKey = 'theme';
   static const String fontSizeKey = 'font_size';
+  static const String localeKey = 'locale';
 }
 
 @Injectable()
@@ -35,5 +36,16 @@ class SettingsStorage {
   static Future<dynamic> setFontSize(double fontSize) async {
     final storage = _storage;
     await storage.setDouble(Keys.fontSizeKey, fontSize);
+  }
+
+  static String readLocale() {
+    final storage = _storage;
+    final locale = storage.getString(Keys.localeKey);
+    return locale ?? 'en';
+  }
+
+  static Future<dynamic> setLocale(String locale) async {
+    final storage = _storage;
+    await storage.setString(Keys.localeKey, locale);
   }
 }

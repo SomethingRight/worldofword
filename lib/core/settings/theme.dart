@@ -9,6 +9,7 @@ abstract class Variables {
   static bool toggledlight = true;
   static bool toggledDark = false;
   static double fontSize = SettingsStorage.readFontSize();
+  static Locale locale = Locale(SettingsStorage.readLocale());
 }
 
 final Map<AppTheme, ThemeData> appThemeData = {

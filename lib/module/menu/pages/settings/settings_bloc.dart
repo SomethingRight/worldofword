@@ -14,7 +14,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       : super(SettingsState(
             fontSize: Variables.fontSize,
             theme: Variables.initialTheme,
-            locale: const Locale('en'))) {
+            locale: Variables.locale)) {
     on<ThemeChanged>((event, emit) {
       SettingsStorage.setTheme(ThemeEnam().themeColorFromEnum(event.theme));
       emit(state.copyWith(theme: event.theme));
@@ -24,6 +24,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       emit(state.copyWith(fontSize: event.fontSize));
     });
     on<LocaleChanged>((event, emit) {
+      SettingsStorage.setLocale(event.locale.languageCode);
       emit(state.copyWith(locale: event.locale));
     });
   }
