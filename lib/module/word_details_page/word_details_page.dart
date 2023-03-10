@@ -59,7 +59,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          state.wordDetails.word ?? 'word',
+                          state.wordDetails.word!,
                           style: Theme.of(context)
                               .textTheme
                               .headline4
@@ -272,7 +272,8 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                           ],
                         ),
                         Text(
-                          state.wordDetails.definitions ?? 'no meanings',
+                          state.wordDetails.definitions ??
+                              AppLocalizations.of(context)!.noMeanings,
                           style: Theme.of(context)
                               .textTheme
                               .headline3
@@ -331,7 +332,8 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                     child: const Icon(Icons.circle, size: 8)),
                                 title: Text(
                                     state.wordDetails.phrases?[index]['text'] ??
-                                        'no examples of phrases',
+                                        AppLocalizations.of(context)!
+                                            .noExamplesOfPhrases,
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline3
@@ -393,7 +395,8 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                 title: Text(
                                     state.wordDetails.synonims?[index]
                                             ['text'] ??
-                                        'no examples of synonims',
+                                        AppLocalizations.of(context)!
+                                            .noExamplesOfSynonyms,
                                     style: Theme.of(context)
                                         .textTheme
                                         .headline3

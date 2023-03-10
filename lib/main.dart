@@ -28,6 +28,8 @@ import 'module/word_details_page/word_details_bloc.dart';
 
  - add fontsize changing(only word details page) DONE
 
+ - refactoring word details model(no one empty field) DONE
+
  - add individual profile data( i mean saved words) 
 
  - add sharing words and app logic and screen
@@ -81,6 +83,7 @@ class MyApp extends StatelessWidget {
               onGenerateRoute: AppRouter.onGenerateRoute,
               initialRoute: RouterI.authPage,
               supportedLocales: L10n.all,
+              locale: state.locale,
               localizationsDelegates: AppLocalizations.localizationsDelegates);
         },
       ),

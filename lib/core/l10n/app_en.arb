@@ -57,5 +57,8 @@
     "letS": "Let's",
     "save": "save",
     "someWords": "some words",
-    "synonyms": "synonyms"
+    "synonyms": "synonyms",
+    "noMeanings": "no meanings",
+    "noExamplesOfPhrases": "no examples of phrases",
+    "noExamplesOfSynonyms": "no examples of synonyms"
 }

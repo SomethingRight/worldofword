@@ -18,6 +18,41 @@ class _SettingsPageState extends State<SettingsPage> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         iconTheme: Theme.of(context).primaryIconTheme,
+        actionsIconTheme: Theme.of(context).primaryIconTheme,
+        actions: [
+          PopupMenuButton(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20))),
+            padding: const EdgeInsets.only(right: 12),
+            icon: const Icon(Icons.language, size: 25),
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  onTap: () {
+                    Provider.of<SettingsBloc>(context, listen: false)
+                        .add(const LocaleChanged(locale: Locale('en')));
+                  },
+                  child: Image.asset(
+                    'assets/images/png/usa_icon.png',
+                    width: 70,
+                    height: 35,
+                  ),
+                ),
+                PopupMenuItem(
+                  onTap: () {
+                    Provider.of<SettingsBloc>(context, listen: false)
+                        .add(const LocaleChanged(locale: Locale('ru')));
+                  },
+                  child: Image.asset(
+                    'assets/images/png/rus_icon.png',
+                    width: 70,
+                    height: 35,
+                  ),
+                )
+              ];
+            },
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),

@@ -56,5 +56,8 @@
     "letS": "Давай",
     "save": "сохраним",
     "someWords": "несколько слов",
-    "synonyms": "синонимы"
+    "synonyms": "синонимы",
+    "noMeanings": "не нашли примеров значений",
+    "noExamplesOfPhrases": "не нашли примеров фраз",
+    "noExamplesOfSynonyms": "не нашли примеров синонимов"
 }
