@@ -20,25 +20,14 @@ import 'module/word_details_page/word_details_bloc.dart';
 
 /* TODO 
 
- - add google and apple auth(apple only icon/ google fool version) DONE
-
- - add theme changing DONE 
-
- - cash settings data DONE
-
- - add fontsize changing(only word details page) DONE
-
- - refactoring word details model(no one empty field) DONE
+- add link to search field DONE
 
  - add individual profile data( i mean saved words) 
 
- - add sharing words and app logic and screen
+ - add all about sharing
 
- - add "menu" screens layout (remains only sharing)
+ - add focus to search field
 
-  - add icon app DONE
-
-  - add localozation and data caching DONE
 */
 
 void main() async {

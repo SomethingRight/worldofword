@@ -39,7 +39,7 @@ class _AuthPageState extends State<AuthPage> {
                 content: Text(
                     '${AppLocalizations.of(context)!.loggedInAs} ${state.email}')));
 
-            Navigator.of(context).pushReplacementNamed(RouterI.homePage);
+            Navigator.of(context).pushReplacementNamed(RouterI.homePage, arguments: 1);
           }
           if (state.status == StatusLogin.failure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(

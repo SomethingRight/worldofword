@@ -20,6 +20,9 @@ class _SettingsPageState extends State<SettingsPage> {
         iconTheme: Theme.of(context).primaryIconTheme,
         actionsIconTheme: Theme.of(context).primaryIconTheme,
         actions: [
+
+          // change language
+          
           PopupMenuButton(
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(20))),
@@ -61,6 +64,9 @@ class _SettingsPageState extends State<SettingsPage> {
           children: [
             Column(
               children: [
+
+                // Change theme
+
                 Text(AppLocalizations.of(context)!.chooseAnAppTheme,
                     style: const TextStyle(fontSize: 26)),
                 const SizedBox(
@@ -108,6 +114,9 @@ class _SettingsPageState extends State<SettingsPage> {
               padding: const EdgeInsets.all(25.0),
               child: Column(
                 children: [
+
+                  // Change font size
+
                   Slider(
                       value: Variables.fontSize,
                       min: 10.0,

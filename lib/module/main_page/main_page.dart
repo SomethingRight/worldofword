@@ -46,7 +46,7 @@ class _MainPageState extends State<MainPage> {
               TextFieldCustomWidget(
                 obscureText: false,
                 onChanged: (String text) {
-                  _bloc.add(WordLoading(text));
+                  _bloc.add(WordLoading(word: text));
                 },
                 textInputAction: TextInputAction.search,
                 labelText: AppLocalizations.of(context)!.whatAreYouLookingFor,

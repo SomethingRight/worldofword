@@ -27,7 +27,6 @@ class WordDetailsApi implements WordDetailsApiI {
       final Map<String, dynamic> dataSecondLevel =
           dataFirstLevel['lexicalEntries'][0] as Map<String, dynamic>;
       final WordDetailsModel wordData = WordDetailsModel.fromJson(dataSecondLevel);
-      debugPrint(wordData.toString());
       return wordData;
     } else {
       final Error error = ArgumentError('Something went wrong');

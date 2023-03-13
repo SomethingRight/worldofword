@@ -16,7 +16,8 @@ class AppRouter {
     final String name = settings.name!;
     switch (name) {
       case RouterI.homePage:
-        return _navigate(const HomePage());
+        final int indexArgs = args;
+        return _navigate(HomePage(inIndex: indexArgs));
       case RouterI.settingsPage:
         return _navigate(const SettingsPage());
       case RouterI.userPage:
@@ -28,7 +29,7 @@ class AppRouter {
       case RouterI.wordDetailsPage:
         final Map<String, dynamic> argsWord = args as Map<String, dynamic>;
         return _navigate(WordDetailsPage(
-            word: argsWord['word']!, translation: argsWord['translation']!));
+            word: argsWord['word'], translation: argsWord['translation']));
       case RouterI.authPage:
         return _navigate(const AuthPage());
       case RouterI.signUpPage:

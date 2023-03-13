@@ -21,8 +21,10 @@ class AddToSavedList extends SavedWordsEvent {
 class RemoveFromSavedList extends SavedWordsEvent {
   const RemoveFromSavedList({required this.translation});
 
-  final String  translation;
+  final String translation;
 
   @override
   List<Object> get props => [translation];
 }
+
+

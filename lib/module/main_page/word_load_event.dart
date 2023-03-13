@@ -10,7 +10,7 @@ abstract class WordLoadEvent extends Equatable {
 class WordLoading extends WordLoadEvent{
   final String word;
 
-  const WordLoading(this.word);
+  const WordLoading({required this.word});
 
   @override
   List<Object> get props => [word];

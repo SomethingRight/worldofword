@@ -1,14 +1,9 @@
 // ignore_for_file: void_checks
-
-import 'dart:async';
-import 'dart:math';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 import 'package:worldofword/api/firestore/firestore_provider.dart';
-
 import '../../models/word_translate_model.dart';
 
 part 'saved_words_event.dart';
@@ -21,11 +16,13 @@ class SavedWordsBloc extends Bloc<SavedWordsEvent, SavedWordsState> {
       : _firestoreService = firestoreService,
         super(SavedWordsEmpty()) {
     on<StartSavedList>((event, emit) async {
-      emit(SavedWordsLoading());
+      if (state is! SavedWordsLoaded) {
+        emit(SavedWordsLoading());
+      }
       try {
         await _firestoreService
             .readWords()
-            .then((value) =>  emit(SavedWordsLoaded(savedList: value)));
+            .then((value) => emit(SavedWordsLoaded(savedList: value)));
       } catch (e) {
         throw ErrorWidget(e);
       }
@@ -37,7 +34,7 @@ class SavedWordsBloc extends Bloc<SavedWordsEvent, SavedWordsState> {
       await _firestoreService
           .getId(event.translation)
           .then((value) => _firestoreService.deleteWord(value));
-          add(StartSavedList());
+      add(StartSavedList());
     });
   }
   void init() {

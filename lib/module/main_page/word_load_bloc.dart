@@ -7,7 +7,6 @@ import 'package:worldofword/models/word_translate_model.dart';
 part 'word_load_event.dart';
 part 'word_load_state.dart';
 
-
 @Injectable()
 class WordLoadBloc extends Bloc<WordLoadEvent, WordLoadState> {
   final WordTranslateRepository _repository;
