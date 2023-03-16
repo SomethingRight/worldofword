@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:worldofword/core/DI/service_locator.dart';
 import 'package:worldofword/module/auth/sign_up_auth/sign_up_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -17,20 +18,11 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  late SignUpBloc _bloc;
   bool _passwordInvisible = true;
   final _formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    _bloc = getIt<SignUpBloc>();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpBloc, SignUpState>(
-      bloc: _bloc,
       listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -74,11 +66,13 @@ class _SignUpPageState extends State<SignUpPage> {
                           TextFieldCustomWidget(
                             validator: (value) => state.isValidUsername
                                 ? null
-                                : AppLocalizations.of(context)!.usernameIsTooShort,
+                                : AppLocalizations.of(context)!
+                                    .usernameIsTooShort,
                             obscureText: false,
                             labelText: AppLocalizations.of(context)!.userName,
                             onChanged: (String text) {
-                              _bloc.add(ChangeNameEvent(name: text));
+                              Provider.of<SignUpBloc>(context, listen: false)
+                                  .add(ChangeNameEvent(name: text));
                             },
                           ),
                           const SizedBox(height: 5),
@@ -87,12 +81,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           ),
                           const SizedBox(height: 25),
                           TextFieldCustomWidget(
-                            validator: (value) =>
-                                state.isValidEmail ? null : AppLocalizations.of(context)!.incorrectEmail,
+                            validator: (value) => state.isValidEmail
+                                ? null
+                                : AppLocalizations.of(context)!.incorrectEmail,
                             obscureText: false,
                             labelText: AppLocalizations.of(context)!.email,
                             onChanged: (String text) {
-                              _bloc.add(ChangeEmailEvent(email: text));
+                              Provider.of<SignUpBloc>(context, listen: false)
+                                  .add(ChangeEmailEvent(email: text));
                             },
                           ),
                           const SizedBox(height: 5),
@@ -105,7 +101,8 @@ class _SignUpPageState extends State<SignUpPage> {
                           TextFieldCustomWidget(
                             validator: (value) => state.isValidPassword
                                 ? null
-                                : AppLocalizations.of(context)!.passwordIsTooShort,
+                                : AppLocalizations.of(context)!
+                                    .passwordIsTooShort,
                             suffixIcon: IconButton(
                                 onPressed: () {
                                   setState(() {
@@ -117,7 +114,8 @@ class _SignUpPageState extends State<SignUpPage> {
                                     : Icons.visibility_outlined)),
                             obscureText: _passwordInvisible,
                             onChanged: (String text) {
-                              _bloc.add(ChangePassEvent(pass: text));
+                              Provider.of<SignUpBloc>(context, listen: false)
+                                  .add(ChangePassEvent(pass: text));
                             },
                             labelText: AppLocalizations.of(context)!.password,
                           ),
@@ -137,7 +135,8 @@ class _SignUpPageState extends State<SignUpPage> {
                             await Future.delayed(
                                 const Duration(seconds: 2), () {});
 
-                            _bloc.add(const ConfirmSignUpEvent());
+                            Provider.of<SignUpBloc>(context, listen: false)
+                                .add(const ConfirmSignUpEvent());
                           }
                         },
                         buttonBody: Text(AppLocalizations.of(context)!.confirm,

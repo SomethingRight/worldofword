@@ -1,13 +1,14 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
-import 'package:worldofword/module/history/history_page.dart';
 import 'package:worldofword/module/main_page/main_page.dart';
 import '../menu/menu_page.dart';
 import '../saved_words/saved_words_page.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key, required this.inIndex});
+  HomePage({super.key, required this.indexPage});
 
-  int inIndex;
+  int indexPage;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -18,17 +19,15 @@ Widget listOf(int index) {
     case 0:
       return const SavedWordsPage(title: 'Saved Words');
     case 1:
-      return const MainPage(title: 'World of Word');
+      return const MainPage(
+        title: 'World of Word',
+      );
     case 2:
-      return const HistoryPage(title: 'History');
-    case 3:
       return const MenuPage(title: 'Menu');
     default:
       return const MainPage(title: 'World of Word');
   }
 }
-
-// int selectedIndex = 1;
 
 class _HomePageState extends State<HomePage> {
   @override
@@ -39,7 +38,7 @@ class _HomePageState extends State<HomePage> {
           type: BottomNavigationBarType.fixed,
           unselectedItemColor: Colors.grey,
           selectedItemColor: Theme.of(context).primaryColorDark,
-          currentIndex: widget.inIndex,
+          currentIndex: widget.indexPage,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Container(
@@ -51,27 +50,21 @@ class _HomePageState extends State<HomePage> {
               label: '',
               icon: Container(
                   margin: const EdgeInsets.only(top: 10),
-                  child: const Icon(Icons.home_outlined, size: 32)),
-            ),
-            BottomNavigationBarItem(
-              label: '',
-              icon: Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  child: const Icon(Icons.history_outlined, size: 30)),
+                  child: const Icon(Icons.home_outlined, size: 30)),
             ),
             BottomNavigationBarItem(
               icon: Container(
                   margin: const EdgeInsets.only(top: 10),
-                  child: const Icon(Icons.menu_sharp, size: 32)),
+                  child: const Icon(Icons.menu_sharp, size: 30)),
               label: '',
             ),
           ],
           onTap: (index) {
             setState(() {
-              widget.inIndex = index;
+              widget.indexPage = index;
             });
           },
         ),
-        body: listOf(widget.inIndex));
+        body: listOf(widget.indexPage));
   }
 }

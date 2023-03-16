@@ -1,5 +1,7 @@
-// ignore_for_file: void_checks
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: void_checks, invalid_use_of_visible_for_testing_member
+import 'dart:collection';
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
@@ -11,33 +13,31 @@ part 'saved_words_state.dart';
 
 @Injectable()
 class SavedWordsBloc extends Bloc<SavedWordsEvent, SavedWordsState> {
-  final FirestoreProviderI _firestoreService;
+  final FirestoreProviderI _firestoreProvider;
   SavedWordsBloc({required FirestoreProviderI firestoreService})
-      : _firestoreService = firestoreService,
+      : _firestoreProvider = firestoreService,
         super(SavedWordsEmpty()) {
     on<StartSavedList>((event, emit) async {
       if (state is! SavedWordsLoaded) {
         emit(SavedWordsLoading());
       }
-      try {
-        await _firestoreService
-            .readWords()
-            .then((value) => emit(SavedWordsLoaded(savedList: value)));
-      } catch (e) {
-        throw ErrorWidget(e);
-      }
     });
-    on<AddToSavedList>((event, emit) {
-      _firestoreService.createWord(event.word);
+    on<AddToSavedList>((event, emit) async {
+      _firestoreProvider.createWord(event.word);
     });
     on<RemoveFromSavedList>((event, emit) async {
-      await _firestoreService
+      _firestoreProvider
           .getId(event.translation)
-          .then((value) => _firestoreService.deleteWord(value));
-      add(StartSavedList());
+          .then((value) => _firestoreProvider.deleteWord(value));
     });
+    init();
   }
-  void init() {
-    add(StartSavedList());
+  void init() async {
+    emit(SavedWordsLoading());
+    _firestoreProvider.readWords().listen((value) {
+      emit(SavedWordsLoaded(savedList: UnmodifiableListView(value)));
+    }, onError: (dynamic e) {
+      log(e);
+    });
   }
 }

@@ -12,6 +12,7 @@ class TextFieldCustomWidget extends StatelessWidget {
       this.prefixIcon,
       this.fillColor,
       required this.obscureText,
+      this.focusNode,
       this.suffixIcon})
       : super(key: key);
 
@@ -25,10 +26,12 @@ class TextFieldCustomWidget extends StatelessWidget {
   final IconButton? suffixIcon;
   final String? Function(String?)? validator;
   final String? errorText;
+  final FocusNode? focusNode;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      focusNode: focusNode,
       validator: validator,
       obscureText: obscureText,
       onChanged: onChanged,

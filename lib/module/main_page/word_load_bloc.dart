@@ -21,5 +21,8 @@ class WordLoadBloc extends Bloc<WordLoadEvent, WordLoadState> {
         emit(WordError(e.toString()));
       }
     });
+    on<WordEmpty>((event, emit) {
+      emit(WordEmptyState());
+    });
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:worldofword/core/DI/service_locator.dart';
 import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/module/auth/email_pass_auth/firebase_auth_bloc.dart';
@@ -16,21 +17,13 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  late FirebaseAuthBloc _bloc;
   bool _passwordInvisible = true;
   final _formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    _bloc = getIt<FirebaseAuthBloc>();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<FirebaseAuthBloc, FirebaseAuthState>(
-        bloc: _bloc,
         listener: (context, state) async {
           if (state.status == StatusLogin.success) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -39,7 +32,8 @@ class _AuthPageState extends State<AuthPage> {
                 content: Text(
                     '${AppLocalizations.of(context)!.loggedInAs} ${state.email}')));
 
-            Navigator.of(context).pushReplacementNamed(RouterI.homePage, arguments: 1);
+            Navigator.of(context).pushReplacementNamed(RouterI.homePage,
+                arguments: {'index': 1});
           }
           if (state.status == StatusLogin.failure) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -75,7 +69,8 @@ class _AuthPageState extends State<AuthPage> {
                         obscureText: false,
                         labelText: AppLocalizations.of(context)!.email,
                         onChanged: (String text) {
-                          _bloc.add(ChangeEmailEvent(email: text));
+                          Provider.of<FirebaseAuthBloc>(context, listen: false)
+                              .add(ChangeEmailEvent(email: text));
                         },
                       ),
                       const SizedBox(
@@ -102,7 +97,9 @@ class _AuthPageState extends State<AuthPage> {
                                     : Icons.visibility_outlined)),
                             obscureText: _passwordInvisible,
                             onChanged: (String text) {
-                              _bloc.add(ChangePassEvent(pass: text));
+                              Provider.of<FirebaseAuthBloc>(context,
+                                      listen: false)
+                                  .add(ChangePassEvent(pass: text));
                             },
                             labelText: AppLocalizations.of(context)!.password,
                           ),
@@ -124,7 +121,9 @@ class _AuthPageState extends State<AuthPage> {
                           color: Theme.of(context).primaryColorLight,
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              _bloc.add(ButtonLoginTapEvent());
+                              Provider.of<FirebaseAuthBloc>(context,
+                                      listen: false)
+                                  .add(ButtonLoginTapEvent());
                             }
                           }),
                       const SizedBox(
@@ -177,7 +176,9 @@ class _AuthPageState extends State<AuthPage> {
                               TargetPlatform.android) ...[
                             TextButton(
                               onPressed: () async {
-                                _bloc.add(LoginWithGoogle());
+                                Provider.of<FirebaseAuthBloc>(context,
+                                        listen: false)
+                                    .add(LoginWithGoogle());
                               },
                               child: Image.asset(
                                 'assets/images/png/google_icon.png',

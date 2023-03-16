@@ -16,7 +16,7 @@ class SavedWordsLoading extends SavedWordsState {}
 class SavedWordsLoaded extends SavedWordsState {
   const SavedWordsLoaded({this.savedList});
 
-  final List<WordTranslateModel>? savedList;
+  final  UnmodifiableListView<WordTranslateModel>? savedList;
 
   @override
   List<Object?> get props => [savedList];

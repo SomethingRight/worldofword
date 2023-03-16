@@ -26,6 +26,7 @@ class UserPageBloc extends Bloc<UserPageEvent, UserPageState> {
       signOut();
       emit(state.copyWith(status: StatusUser.loggedOut));
     });
+    setUser();
   }
 
   final FbAuthApiI fbAuthApi;

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:worldofword/core/di/service_locator.dart';
+import 'package:provider/provider.dart';
 import 'package:worldofword/module/menu/pages/user/user_page_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -14,19 +14,9 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-  late UserPageBloc _bloc;
-
-  @override
-  void initState() {
-    _bloc = getIt<UserPageBloc>()..setUser();
-
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserPageBloc, UserPageState>(
-      bloc: _bloc,
       listener: (context, state) async {
         if (state.status == StatusUser.loggedOut) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -158,7 +148,7 @@ class _UserPageState extends State<UserPage> {
                   Navigator.of(context).pop();
                 },
                 child: Text(
-                 AppLocalizations.of(context)!.no,
+                  AppLocalizations.of(context)!.no,
                   style: Theme.of(context)
                       .textTheme
                       .bodyText2
@@ -167,7 +157,8 @@ class _UserPageState extends State<UserPage> {
             TextButton(
                 onPressed: () {
                   Navigator.of(context).pop();
-                  _bloc.add(SignOut());
+                  Provider.of<UserPageBloc>(context, listen: false)
+                      .add(SignOut());
                 },
                 child: Text(
                   AppLocalizations.of(context)!.yes,

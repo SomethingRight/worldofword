@@ -8,29 +8,27 @@ import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/core/settings/settings_storage.dart';
 import 'package:worldofword/core/settings/theme.dart';
 import 'package:worldofword/firebase_options.dart';
+import 'package:worldofword/main_provider.dart';
 import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart';
-import 'package:worldofword/module/saved_words/saved_words_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import 'module/auth/email_pass_auth/firebase_auth_bloc.dart';
-import 'module/auth/sign_up_auth/sign_up_bloc.dart';
-import 'module/main_page/word_load_bloc.dart';
-import 'module/menu/pages/user/user_page_bloc.dart';
-import 'module/word_details_page/word_details_bloc.dart';
 
 /* TODO 
 
-- add link to search field DONE
+ - Добавить фичу контекстное меню, новый пункт сохранения слова с словарь
+
+ - add link to search field DONE
 
  - add individual profile data( i mean saved words) 
 
- - add all about sharing
+ - add all about sharing 
 
- - add focus to search field
+ - add focus to search field DONE
+
+ - make global BLOC of app
 
 */
 
-void main() async {
+ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
@@ -48,21 +46,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider<WordLoadBloc>(
-            create: (context) => getIt.get<WordLoadBloc>()),
-        BlocProvider<FirebaseAuthBloc>(
-            create: (context) => getIt.get<FirebaseAuthBloc>()),
-        BlocProvider<SignUpBloc>(create: (context) => getIt.get<SignUpBloc>()),
-        BlocProvider<UserPageBloc>(
-            create: (context) => getIt.get<UserPageBloc>()),
-        BlocProvider<SavedWordsBloc>(
-            create: (context) => getIt.get<SavedWordsBloc>()),
-        BlocProvider<WordDetailsBloc>(
-            create: (context) => getIt.get<WordDetailsBloc>()),
-        BlocProvider<SettingsBloc>(
-            create: (context) => getIt.get<SettingsBloc>()),
-      ],
+      providers: MainProvider.listProviders,
       child: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
           return MaterialApp(

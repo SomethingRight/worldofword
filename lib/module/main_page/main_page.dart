@@ -1,31 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:provider/provider.dart';
 import 'package:worldofword/module/main_page/word_load_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../core/DI/service_locator.dart';
 import '../widgets/text_field_custom.dart';
 import '../widgets/word_card_icon.dart';
-
-//TODO
-//Добавить фичу контекстное меню, новый пункт сохранения слова с словарь
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key, required this.title});
 
   final String title;
+  static bool isFocused = false;
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  late WordLoadBloc _bloc;
-
+  FocusNode focusNode = FocusNode();
   @override
   void initState() {
+    if (MainPage.isFocused == true) {
+      Future.delayed(const Duration(milliseconds: 500))
+          .then((value) => FocusScope.of(context).requestFocus(focusNode));
+    }
+    setState(() {
+      MainPage.isFocused = false;
+    });
     super.initState();
-    _bloc = getIt<WordLoadBloc>();
   }
 
   @override
@@ -44,9 +47,16 @@ class _MainPageState extends State<MainPage> {
             children: [
               //TextField Custom
               TextFieldCustomWidget(
+                focusNode: focusNode,
                 obscureText: false,
                 onChanged: (String text) {
-                  _bloc.add(WordLoading(word: text));
+                  if (text.trim().isEmpty) {
+                    Provider.of<WordLoadBloc>(context, listen: false)
+                        .add(WordEmpty());
+                  } else {
+                    Provider.of<WordLoadBloc>(context, listen: false)
+                        .add(WordLoading(word: text));
+                  }
                 },
                 textInputAction: TextInputAction.search,
                 labelText: AppLocalizations.of(context)!.whatAreYouLookingFor,
@@ -60,7 +70,6 @@ class _MainPageState extends State<MainPage> {
               //Here will be results of search
 
               BlocBuilder<WordLoadBloc, WordLoadState>(
-                bloc: _bloc,
                 builder: (context, state) {
                   if (state is WordEmptyState) {
                     return Padding(

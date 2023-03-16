@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
-import 'package:worldofword/core/navigation/route_generator.dart';
 import 'package:worldofword/core/navigation/router.dart';
-import 'package:worldofword/module/home/home_page.dart';
 import 'package:worldofword/module/main_page/main_page.dart';
 import 'package:worldofword/module/saved_words/saved_words_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:worldofword/module/widgets/text_field_custom.dart';
 
 import '../widgets/word_card.dart';
 
@@ -23,14 +19,6 @@ class SavedWordsPage extends StatefulWidget {
 }
 
 class _SavedWordsPageState extends State<SavedWordsPage> {
-  late SavedWordsBloc _bloc;
-
-  @override
-  void initState() {
-    _bloc = GetIt.I<SavedWordsBloc>()..init();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,15 +33,16 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         child: BlocBuilder<SavedWordsBloc, SavedWordsState>(
-          bloc: _bloc,
           builder: (context, state) {
+          
             if (state is SavedWordsLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is SavedWordsLoaded) {
               if (state.savedList!.isNotEmpty) {
                 return RefreshIndicator(
                   onRefresh: () async {
-                    _bloc.add(StartSavedList());
+                    Provider.of<SavedWordsBloc>(context, listen: false)
+                        .add(StartSavedList());
                   },
                   child: SlidableAutoCloseBehavior(
                     closeWhenTapped: true,
@@ -71,10 +60,12 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
                                       borderRadius: BorderRadius.circular(15),
                                       onPressed: (context) {
                                         setState(() {
-                                          _bloc.add(RemoveFromSavedList(
-                                              translation: state
-                                                  .savedList![index]
-                                                  .translate!));
+                                          Provider.of<SavedWordsBloc>(context,
+                                                  listen: false)
+                                              .add(RemoveFromSavedList(
+                                                  translation: state
+                                                      .savedList![index]
+                                                      .translate!));
                                         });
 
                                         ScaffoldMessenger.of(context)
@@ -122,7 +113,8 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
                             onPressed: () {
                               Navigator.of(context).pushReplacementNamed(
                                   RouterI.homePage,
-                                  arguments: 1);
+                                  arguments: {'index': 1});
+                              MainPage.isFocused = true;
                             },
                             child: Text(
                               AppLocalizations.of(context)!.save,

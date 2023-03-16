@@ -15,4 +15,4 @@ class WordLoading extends WordLoadEvent{
   @override
   List<Object> get props => [word];
 }
-
+ class WordEmpty extends WordLoadEvent{}
