@@ -5,6 +5,7 @@ import 'package:worldofword/module/menu/pages/user/user_page_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../../../core/navigation/router.dart';
+import '../../../widgets/snackbar_global.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({super.key});
@@ -19,11 +20,8 @@ class _UserPageState extends State<UserPage> {
     return BlocConsumer<UserPageBloc, UserPageState>(
       listener: (context, state) async {
         if (state.status == StatusUser.loggedOut) {
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            backgroundColor: Theme.of(context).dialogBackgroundColor,
-            content: Text(AppLocalizations.of(context)!.signedOut),
-            duration: const Duration(seconds: 1),
-          ));
+          SnackbarGlobal.show(
+              message: AppLocalizations.of(context)!.signedOut, duration: 1500);
           await Future.delayed(const Duration(milliseconds: 1500));
           Navigator.pushReplacementNamed(context, RouterI.authPage);
         }

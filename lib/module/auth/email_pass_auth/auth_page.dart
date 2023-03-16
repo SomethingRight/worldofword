@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import 'package:worldofword/core/DI/service_locator.dart';
 import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/module/auth/email_pass_auth/firebase_auth_bloc.dart';
+import 'package:worldofword/module/widgets/snackbar_global.dart';
 import 'package:worldofword/module/widgets/stadium_custom_button.dart';
 import 'package:worldofword/module/widgets/text_field_custom.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -24,21 +24,15 @@ class _AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: BlocConsumer<FirebaseAuthBloc, FirebaseAuthState>(
-        listener: (context, state) async {
+        listener: (context, state) {
           if (state.status == StatusLogin.success) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                backgroundColor: Theme.of(context).dialogBackgroundColor,
-                duration: const Duration(milliseconds: 1500),
-                content: Text(
-                    '${AppLocalizations.of(context)!.loggedInAs} ${state.email}')));
+            SnackbarGlobal.show(
+                message:
+                    '${AppLocalizations.of(context)!.loggedInAs} ${state.email}',
+                duration: 1500);
 
             Navigator.of(context).pushReplacementNamed(RouterI.homePage,
                 arguments: {'index': 1});
-          }
-          if (state.status == StatusLogin.failure) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                backgroundColor: Theme.of(context).dialogBackgroundColor,
-                content: Text(state.errorMessage ?? 'something went wrong')));
           }
         },
         builder: (context, state) {
@@ -112,7 +106,7 @@ class _AuthPageState extends State<AuthPage> {
                         height: 25,
                       ),
                       StadiumCustomButton(
-                          buttonBody: Text(
+                          child: Text(
                             AppLocalizations.of(context)!.confirm,
                             style: TextStyle(
                                 color: Theme.of(context).hintColor,

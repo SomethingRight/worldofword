@@ -11,24 +11,21 @@ import 'package:worldofword/firebase_options.dart';
 import 'package:worldofword/main_provider.dart';
 import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:worldofword/module/widgets/snackbar_global.dart';
 
 /* TODO 
 
  - Добавить фичу контекстное меню, новый пункт сохранения слова с словарь
 
- - add link to search field DONE
-
  - add individual profile data( i mean saved words) 
 
  - add all about sharing 
-
- - add focus to search field DONE
 
  - make global BLOC of app
 
 */
 
- void main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
@@ -50,6 +47,7 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
           return MaterialApp(
+              scaffoldMessengerKey: SnackbarGlobal.key,
               debugShowCheckedModeBanner: false,
               title: 'WorldOfWord',
               theme: appThemeData[state.theme],

@@ -1,11 +1,10 @@
-import 'dart:developer';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
 import 'package:worldofword/api/exception/exception_handler.dart';
+import 'package:worldofword/module/widgets/snackbar_global.dart';
 
 @Injectable(as: FbAuthApiI)
 class FirebaseAuthApi implements FbAuthApiI {
@@ -26,6 +25,11 @@ class FirebaseAuthApi implements FbAuthApiI {
       user?.updateDisplayName(name);
       return user;
     } on FirebaseAuthException catch (e, stack) {
+      SnackbarGlobal.show(
+          message: fbLoginExceptionConverter
+              .fromFirebaseAuthException(e, stack)
+              .toString(),
+          duration: 2000);
       throw fbLoginExceptionConverter.fromFirebaseAuthException(e, stack);
     }
   }
@@ -49,15 +53,17 @@ class FirebaseAuthApi implements FbAuthApiI {
   Future<UserCredential> signInEmail(
       {required String? login, required String? password}) async {
     try {
-      final _auth = FirebaseAuth.instance;
-      final UserCredential userCredential = await _auth
+      final auth = FirebaseAuth.instance;
+      final UserCredential userCredential = await auth
           .signInWithEmailAndPassword(email: login!, password: password!);
       debugPrint('@@@ user is: ${userCredential.user?.email}');
       return userCredential;
     } on FirebaseAuthException catch (e, stack) {
-      log(fbLoginExceptionConverter
-          .fromFirebaseAuthException(e, stack)
-          .toString());
+      SnackbarGlobal.show(
+          message: fbLoginExceptionConverter
+              .fromFirebaseAuthException(e, stack)
+              .toString(),
+          duration: 2000);
       throw fbLoginExceptionConverter.fromFirebaseAuthException(e, stack);
     }
   }

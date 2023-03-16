@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 import 'package:worldofword/core/settings/theme.dart';
+import 'package:worldofword/module/widgets/snackbar_global.dart';
 import 'package:worldofword/module/word_details_page/word_details_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -17,14 +19,12 @@ class WordDetailsPage extends StatefulWidget {
 }
 
 class _WordDetailsPageState extends State<WordDetailsPage> {
-  late WordDetailsBloc _bloc;
-
-  @override
-  void initState() {
-    _bloc = GetIt.I<WordDetailsBloc>()..init(widget.word);
-    super.initState();
-  }
-
+  // late WordDetailsBloc _bloc;
+  // @override
+  // void initState() {
+  //   _bloc = GetIt.I<WordDetailsBloc>()..init(widget.word);
+  //   super.initState();
+  // }
   @override
   Widget build(BuildContext context) {
     final headerColor = Theme.of(context).primaryColor;
@@ -35,7 +35,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
           backgroundColor: headerColor,
           iconTheme: Theme.of(context).primaryIconTheme),
       body: BlocBuilder<WordDetailsBloc, WordDetailsState>(
-        bloc: _bloc,
+        //bloc: _bloc,
         builder: (context, state) {
           if (state is WordDetailsLoading) {
             return const Center(child: CircularProgressIndicator());
@@ -88,16 +88,10 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                         text: state.wordDetails.word);
                                     Clipboard.setData(copiedWord);
 
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            backgroundColor:
-                                                Theme.of(context)
-                                                    .dialogBackgroundColor,
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            content: Text(
-                                                AppLocalizations.of(context)!
-                                                    .copied)));
+                                    SnackbarGlobal.show(
+                                        message: AppLocalizations.of(context)!
+                                            .copied,
+                                        duration: 300);
                                   },
                                   icon: Icon(
                                     Icons.copy,
@@ -106,16 +100,10 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                               IconButton(
                                   splashRadius: 22,
                                   onPressed: () {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            backgroundColor:
-                                                Theme.of(context)
-                                                    .dialogBackgroundColor,
-                                            duration: const Duration(
-                                                milliseconds: 300),
-                                            content: Text(
-                                                AppLocalizations.of(context)!
-                                                    .wordSaved)));
+                                    SnackbarGlobal.show(
+                                        message: AppLocalizations.of(context)!
+                                            .wordSaved,
+                                        duration: 300);
                                   },
                                   icon: Icon(Icons.add,
                                       size: 30, color: iconColor)),
@@ -126,19 +114,16 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                               IconButton(
                                   splashRadius: 22,
                                   onPressed: () {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(
-                                            backgroundColor: Theme.of(context)
-                                                .dialogBackgroundColor,
-                                            duration:
-                                                const Duration(seconds: 1),
-                                            content: Text(
-                                                AppLocalizations.of(context)!
-                                                    .playing)));
+                                    SnackbarGlobal.show(
+                                        message: AppLocalizations.of(context)!
+                                            .playing,
+                                        duration: 1000);
 
-                                    _bloc.add(PlayAudio(
-                                        audioPath:
-                                            state.wordDetails.audioPath!));
+                                    Provider.of<WordDetailsBloc>(context,
+                                            listen: false)
+                                        .add(PlayAudio(
+                                            audioPath:
+                                                state.wordDetails.audioPath!));
                                   },
                                   icon:
                                       Icon(Icons.volume_up, color: iconColor)),
@@ -181,17 +166,11 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                             text: widget.translation);
                                         Clipboard.setData(copiedTranslation);
 
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                backgroundColor:
-                                                    Theme.of(context)
-                                                        .dialogBackgroundColor,
-                                                duration: const Duration(
-                                                    milliseconds: 300),
-                                                content: Text(
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .copied)));
+                                        SnackbarGlobal.show(
+                                            message:
+                                                AppLocalizations.of(context)!
+                                                    .copied,
+                                            duration: 300);
                                       },
                                       icon: Icon(
                                         Icons.copy,
@@ -247,17 +226,11 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                                 state.wordDetails.definitions);
                                         Clipboard.setData(copiedMeaning);
 
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                backgroundColor:
-                                                    Theme.of(context)
-                                                        .dialogBackgroundColor,
-                                                duration: const Duration(
-                                                    milliseconds: 300),
-                                                content: Text(
-                                                    AppLocalizations.of(
-                                                            context)!
-                                                        .copied)));
+                                        SnackbarGlobal.show(
+                                            message:
+                                                AppLocalizations.of(context)!
+                                                    .copied,
+                                            duration: 300);
                                       },
                                       icon: Icon(
                                         Icons.copy,

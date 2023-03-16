@@ -15,6 +15,7 @@ abstract class Variables {
 final Map<AppTheme, ThemeData> appThemeData = {
   AppTheme.light: ThemeData(
       primaryIconTheme: const IconThemeData(color: Colors.white),
+      snackBarTheme: SnackBarThemeData(backgroundColor: Colors.grey.shade600),
       dialogBackgroundColor: Colors.grey.shade600,
       backgroundColor: Colors.grey.shade300,
       cardColor: Colors.grey.shade100,
@@ -30,6 +31,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
           currentColor: Colors.black87, headerColor: Colors.white)),
   AppTheme.dark: ThemeData(
       primaryIconTheme: const IconThemeData(color: Colors.white70),
+      snackBarTheme: SnackBarThemeData(backgroundColor: Colors.grey.shade700),
       dialogBackgroundColor: Colors.grey.shade700,
       backgroundColor: Colors.grey.shade700,
       cardColor: Colors.grey.shade900,

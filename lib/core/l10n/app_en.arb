@@ -60,5 +60,7 @@
     "synonyms": "synonyms",
     "noMeanings": "no meanings",
     "noExamplesOfPhrases": "no examples of phrases",
-    "noExamplesOfSynonyms": "no examples of synonyms"
+    "noExamplesOfSynonyms": "no examples of synonyms",
+    "success": "success",
+    "failure": "failure"
 }

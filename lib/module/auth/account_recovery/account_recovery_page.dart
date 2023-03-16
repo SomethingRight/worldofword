@@ -53,7 +53,7 @@ class _AccountRecoveryPageState extends State<AccountRecoveryPage> {
                   height: 25,
                 ),
                 StadiumCustomButton(
-                    buttonBody: Text(
+                    child: Text(
                       AppLocalizations.of(context)!.sendCode,
                       style: Theme.of(context).textTheme.headline5,
                     ),

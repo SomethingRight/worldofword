@@ -59,5 +59,7 @@
     "synonyms": "синонимы",
     "noMeanings": "не нашли примеров значений",
     "noExamplesOfPhrases": "не нашли примеров фраз",
-    "noExamplesOfSynonyms": "не нашли примеров синонимов"
+    "noExamplesOfSynonyms": "не нашли примеров синонимов",
+    "success": "успешно",
+    "failure": "не вышло"
 }

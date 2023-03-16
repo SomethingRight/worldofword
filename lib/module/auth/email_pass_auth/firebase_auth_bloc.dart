@@ -9,30 +9,13 @@ part 'firebase_auth_state.dart';
 @Injectable()
 class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
   final FbAuthApiI _authService;
-
-  String? _emailError = '';
-  String? _passError = '';
-  String? _errorMessage = '';
-
   FirebaseAuthBloc({required FbAuthApiI authService})
       : _authService = authService,
         super(const FirebaseAuthState(
-          status: StatusLogin.inProcess,
-          email: '',
-          password: '',
-        )) {
-    on<EmailErrorEvent>((event, emit) {
-      _emailError = event.emailErrorText;
-
-      emit(state.copyWith(
-          emailErrorText: _emailError, passwordErrorText: _passError));
-    });
-    on<PasswordErrorEvent>((event, emit) {
-      _passError = event.passwordErrorText;
-
-      emit(state.copyWith(
-          passwordErrorText: _passError, emailErrorText: _emailError));
-    });
+            status: StatusLogin.inProcess,
+            email: '',
+            password: '',
+            errorMessage: '')) {
     on<ChangeEmailEvent>((event, emit) {
       emit(state.copyWith(email: event.email));
     });
@@ -47,7 +30,7 @@ class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
     });
     on<LoginFailureEvent>((event, emit) async {
       emit(state.copyWith(
-          status: StatusLogin.failure, errorMessage: event.errorMessage));
+          status: StatusLogin.failure, errorMessage: state.errorMessage));
     });
     on<LoginWithGoogle>((event, emit) async {
       final user = await _authService.signInWithGoogle();
@@ -59,7 +42,7 @@ class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
     _authService.signInEmail(login: email, password: password).then((value) {
       add(LoginSuccessEvent());
     }, onError: (dynamic e) {
-      add(LoginFailureEvent(errorMessage: e));
+      add(LoginFailureEvent(errorMessage: e.toString()));
     });
   }
 }

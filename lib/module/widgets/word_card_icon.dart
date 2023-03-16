@@ -4,6 +4,7 @@ import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/models/word_translate_model.dart';
 import 'package:worldofword/module/saved_words/saved_words_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:worldofword/module/widgets/snackbar_global.dart';
 
 class WordCardIcon extends StatelessWidget {
   final WordTranslateModel word;
@@ -53,9 +54,9 @@ class WordCardIcon extends StatelessWidget {
                 onPressed: () {
                   GetIt.I<SavedWordsBloc>().add(AddToSavedList(word: word));
 
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      duration: const Duration(milliseconds: 300),
-                      content: Text(AppLocalizations.of(context)!.wordSaved)));
+                  SnackbarGlobal.show(
+                      message: AppLocalizations.of(context)!.wordSaved,
+                      duration: 300);
                 },
                 icon: Icon(
                   Icons.add,

@@ -6,6 +6,7 @@ import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/module/main_page/main_page.dart';
 import 'package:worldofword/module/saved_words/saved_words_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:worldofword/module/widgets/snackbar_global.dart';
 
 import '../widgets/word_card.dart';
 
@@ -34,7 +35,6 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
         padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
         child: BlocBuilder<SavedWordsBloc, SavedWordsState>(
           builder: (context, state) {
-          
             if (state is SavedWordsLoading) {
               return const Center(child: CircularProgressIndicator());
             } else if (state is SavedWordsLoaded) {
@@ -68,19 +68,11 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
                                                       .translate!));
                                         });
 
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                backgroundColor:
-                                                    Theme.of(context)
-                                                        .dialogBackgroundColor,
-                                                duration: const Duration(
-                                                    milliseconds: 400),
-                                                content: Text(
-                                                  AppLocalizations.of(context)!
-                                                      .wordRemoved,
-                                                  style: const TextStyle(
-                                                      fontSize: 16),
-                                                )));
+                                        SnackbarGlobal.show(
+                                            message:
+                                                AppLocalizations.of(context)!
+                                                    .wordRemoved,
+                                            duration: 400);
                                       },
                                       backgroundColor: Colors.red.shade400,
                                       icon: Icons.delete,

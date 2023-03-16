@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:worldofword/core/DI/service_locator.dart';
 import 'package:worldofword/module/auth/sign_up_auth/sign_up_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:worldofword/module/widgets/snackbar_global.dart';
 
 import '../../widgets/stadium_custom_button.dart';
 import '../../widgets/text_field_custom.dart';
@@ -23,13 +24,11 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SignUpBloc, SignUpState>(
-      listenWhen: (previous, current) => previous.status != current.status,
       listener: (context, state) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: Theme.of(context).dialogBackgroundColor,
-          content: Text(state.status!.name),
-          duration: const Duration(milliseconds: 400),
-        ));
+        if (state.status == SignupStatus.success) {
+          SnackbarGlobal.show(
+              message: AppLocalizations.of(context)!.success, duration: 400);
+        }
       },
       builder: (context, state) {
         return Scaffold(
@@ -132,14 +131,15 @@ class _SignUpPageState extends State<SignUpPage> {
                         color: Theme.of(context).primaryColorDark,
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
-                            await Future.delayed(
-                                const Duration(seconds: 2), () {});
+                            // await Future.delayed(const Duration(seconds: 1),
+                            //     () {
 
                             Provider.of<SignUpBloc>(context, listen: false)
                                 .add(const ConfirmSignUpEvent());
+                            // });
                           }
                         },
-                        buttonBody: Text(AppLocalizations.of(context)!.confirm,
+                        child: Text(AppLocalizations.of(context)!.confirm,
                             style: Theme.of(context).textTheme.headline5),
                       ),
                       const SizedBox(
