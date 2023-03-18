@@ -1,9 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:worldofword/core/navigation/router.dart';
+import 'package:worldofword/models/app_state.dart';
 import 'package:worldofword/module/auth/email_pass_auth/firebase_auth_bloc.dart';
+import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart';
 import 'package:worldofword/module/widgets/snackbar_global.dart';
 import 'package:worldofword/module/widgets/stadium_custom_button.dart';
 import 'package:worldofword/module/widgets/text_field_custom.dart';
@@ -31,8 +34,8 @@ class _AuthPageState extends State<AuthPage> {
                     '${AppLocalizations.of(context)!.loggedInAs} ${state.email}',
                 duration: 1500);
 
-            Navigator.of(context).pushReplacementNamed(RouterI.homePage,
-                arguments: {'index': 1});
+            Provider.of<SettingsBloc>(context, listen: false)
+                .add(LoginStateChange(authState: LoginState()));
           }
         },
         builder: (context, state) {
@@ -106,12 +109,6 @@ class _AuthPageState extends State<AuthPage> {
                         height: 25,
                       ),
                       StadiumCustomButton(
-                          child: Text(
-                            AppLocalizations.of(context)!.confirm,
-                            style: TextStyle(
-                                color: Theme.of(context).hintColor,
-                                fontSize: 18),
-                          ),
                           color: Theme.of(context).primaryColorLight,
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
@@ -119,7 +116,13 @@ class _AuthPageState extends State<AuthPage> {
                                       listen: false)
                                   .add(ButtonLoginTapEvent());
                             }
-                          }),
+                          },
+                          child: Text(
+                            AppLocalizations.of(context)!.confirm,
+                            style: TextStyle(
+                                color: Theme.of(context).hintColor,
+                                fontSize: 18),
+                          )),
                       const SizedBox(
                         height: 10,
                       ),
@@ -128,8 +131,8 @@ class _AuthPageState extends State<AuthPage> {
                         children: [
                           TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(
-                                    context, RouterI.signUpPage);
+                                GetIt.I<RouterI>()
+                                    .navigateTo(RouterI.signUpPage);
                               },
                               child: Text(
                                 AppLocalizations.of(context)!.signUp,
@@ -141,8 +144,8 @@ class _AuthPageState extends State<AuthPage> {
                               )),
                           TextButton(
                               onPressed: () {
-                                Navigator.pushNamed(
-                                    context, RouterI.accountRecoveryPage);
+                                GetIt.I<RouterI>()
+                                    .navigateTo(RouterI.accountRecoveryPage);
                               },
                               child: Text(
                                 AppLocalizations.of(context)!.forgotPassword,

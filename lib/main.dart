@@ -1,17 +1,25 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:worldofword/core/DI/service_locator.dart';
 import 'package:worldofword/core/l10n/l10n.dart';
+import 'package:worldofword/core/navigation/context_provider.dart';
 import 'package:worldofword/core/navigation/route_generator.dart';
 import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/core/settings/settings_storage.dart';
 import 'package:worldofword/core/settings/theme.dart';
 import 'package:worldofword/firebase_options.dart';
 import 'package:worldofword/main_provider.dart';
+import 'package:worldofword/module/auth/email_pass_auth/auth_page.dart';
+import 'package:worldofword/module/home/home_page.dart';
 import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:worldofword/module/widgets/snackbar_global.dart';
+
+import 'models/app_state.dart';
 
 /* TODO 
 
@@ -47,17 +55,35 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<SettingsBloc, SettingsState>(
         builder: (context, state) {
           return MaterialApp(
-              scaffoldMessengerKey: SnackbarGlobal.key,
-              debugShowCheckedModeBanner: false,
-              title: 'WorldOfWord',
-              theme: appThemeData[state.theme],
-              onGenerateRoute: AppRouter.onGenerateRoute,
-              initialRoute: RouterI.authPage,
-              supportedLocales: L10n.all,
-              locale: state.locale,
-              localizationsDelegates: AppLocalizations.localizationsDelegates);
+            scaffoldMessengerKey: SnackbarGlobal.key,
+            debugShowCheckedModeBanner: false,
+            title: 'WorldOfWord',
+            theme: appThemeData[state.theme],
+            onGenerateRoute: AppRouter.onGenerateRoute,
+            navigatorKey: GetIt.I<ContextProviderI>().getNavigationKey(),
+            supportedLocales: L10n.all,
+            locale: state.locale,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            home: FlowBuilder<SettingsState>(
+              onGeneratePages: _onGeneratePages,
+              state: context.select((value) => state),
+            ),
+          );
         },
       ),
     );
+  }
+
+  List<MaterialPage<dynamic>> _onGeneratePages(
+      SettingsState state, List<Page<dynamic>> pages) {
+    debugPrint('@@@ app state $state');
+
+    if (state.authState is LoginState) {
+      return [MaterialPage(child: HomePage(indexPage: 1))];
+    }
+    if (state.authState is UnloginState) {
+      return [const MaterialPage(child: AuthPage())];
+    }
+    return [const MaterialPage(child: AuthPage())];
   }
 }

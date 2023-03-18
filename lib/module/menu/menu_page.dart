@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:worldofword/core/navigation/router.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -31,41 +32,42 @@ class _MenuPageState extends State<MenuPage> {
             children: [
               MenuCard(
                   title: AppLocalizations.of(context)!.settings,
-                  subtitle:  AppLocalizations.of(context)!.themeLanguageFontsize,
+                  subtitle: AppLocalizations.of(context)!.themeLanguageFontsize,
                   icon: Icon(
                     Icons.settings,
                     size: 30,
                     color: Theme.of(context).primaryColorDark,
                   ),
                   onTap: () {
-                    Navigator.pushNamed(context, RouterI.settingsPage);
+                    GetIt.I<RouterI>().navigateTo(RouterI.settingsPage);
                   }),
               const SizedBox(height: 7),
               MenuCard(
-                  title:  AppLocalizations.of(context)!.user,
-                  subtitle:  AppLocalizations.of(context)!.nameVerificationData,
+                  title: AppLocalizations.of(context)!.user,
+                  subtitle: AppLocalizations.of(context)!.nameVerificationData,
                   icon: Icon(Icons.people,
                       size: 30, color: Theme.of(context).primaryColorDark),
                   onTap: () {
-                    Navigator.pushNamed(context, RouterI.userPage);
+                    GetIt.I<RouterI>().navigateTo(RouterI.userPage);
                   }),
               const SizedBox(height: 7),
               MenuCard(
-                  title:  AppLocalizations.of(context)!.shareApp,
-                  subtitle:  AppLocalizations.of(context)!.emailMessageAndSocialMedia,
+                  title: AppLocalizations.of(context)!.shareApp,
+                  subtitle:
+                      AppLocalizations.of(context)!.emailMessageAndSocialMedia,
                   icon: Icon(Icons.share,
                       size: 30, color: Theme.of(context).primaryColorDark),
                   onTap: () {
-                    Navigator.pushNamed(context, RouterI.sharingPage);
+                    GetIt.I<RouterI>().navigateTo(RouterI.sharingPage);
                   }),
               const SizedBox(height: 7),
               MenuCard(
-                  title:  AppLocalizations.of(context)!.info,
-                  subtitle:  AppLocalizations.of(context)!.someInfoAboutApp,
+                  title: AppLocalizations.of(context)!.info,
+                  subtitle: AppLocalizations.of(context)!.someInfoAboutApp,
                   icon: Icon(Icons.info,
                       size: 30, color: Theme.of(context).primaryColorDark),
                   onTap: () {
-                    Navigator.pushNamed(context, RouterI.infoPage);
+                    GetIt.I<RouterI>().navigateTo(RouterI.infoPage);
                   }),
             ],
           ),

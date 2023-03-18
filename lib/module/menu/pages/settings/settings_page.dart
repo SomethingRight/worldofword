@@ -33,7 +33,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 PopupMenuItem(
                   onTap: () {
                     Provider.of<SettingsBloc>(context, listen: false)
-                        .add(const LocaleChanged(locale: Locale('en')));
+                        .add(const LocaleChange(locale: Locale('en')));
                   },
                   child: Image.asset(
                     'assets/images/png/usa_icon.png',
@@ -44,7 +44,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 PopupMenuItem(
                   onTap: () {
                     Provider.of<SettingsBloc>(context, listen: false)
-                        .add(const LocaleChanged(locale: Locale('ru')));
+                        .add(const LocaleChange(locale: Locale('ru')));
                   },
                   child: Image.asset(
                     'assets/images/png/rus_icon.png',
@@ -82,7 +82,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     onChanged: (value) {
                       setState(() {
                         Provider.of<SettingsBloc>(context, listen: false)
-                            .add(const ThemeChanged(theme: AppTheme.light));
+                            .add(const ThemeChange(theme: AppTheme.light));
 
                         Variables.toggledlight = !Variables.toggledlight;
                         Variables.toggledDark = !Variables.toggledDark;
@@ -97,7 +97,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     selected: Variables.toggledDark,
                     onChanged: (value) {
                       Provider.of<SettingsBloc>(context, listen: false)
-                          .add(const ThemeChanged(theme: AppTheme.dark));
+                          .add(const ThemeChange(theme: AppTheme.dark));
 
                       setState(() {
                         Variables.toggledDark = !Variables.toggledDark;
@@ -125,7 +125,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       label: '${Variables.fontSize.round()}',
                       onChanged: (double value) {
                         Provider.of<SettingsBloc>(context, listen: false)
-                            .add(FontSizeChanged(fontSize: value));
+                            .add(FontSizeChange(fontSize: value));
 
                         setState(() {
                           Variables.fontSize = value.roundToDouble();

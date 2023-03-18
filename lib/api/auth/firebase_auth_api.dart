@@ -13,6 +13,21 @@ class FirebaseAuthApi implements FbAuthApiI {
   final ExceptionHandlerI fbLoginExceptionConverter;
 
   @override
+  Stream<User?> getStateListener() {
+    final fbStream = FirebaseAuth.instance.authStateChanges().where((user) {
+      if (user == null) {
+        return true;
+      }
+      if (user.displayName != null) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    return fbStream;
+  }
+
+  @override
   Future<User?> signUpWithEmail(
       {required String email,
       required String password,
@@ -81,6 +96,7 @@ class FirebaseAuthApi implements FbAuthApiI {
 }
 
 abstract class FbAuthApiI {
+  Stream<User?> getStateListener();
   Future<User?> signUpWithEmail({
     required String email,
     required String password,

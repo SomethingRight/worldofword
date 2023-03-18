@@ -18,7 +18,7 @@ class AppRouter {
       case RouterI.homePage:
         final Map<String, dynamic> homePageArgs = args;
         return _navigate(HomePage(
-          indexPage: homePageArgs['index'],
+          indexPage: homePageArgs['index'] ?? 1,
         ));
       case RouterI.settingsPage:
         return _navigate(const SettingsPage());

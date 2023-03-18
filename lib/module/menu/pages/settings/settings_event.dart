@@ -7,26 +7,35 @@ abstract class SettingsEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ThemeChanged extends SettingsEvent {
-  const ThemeChanged({required this.theme});
+class ThemeChange extends SettingsEvent {
+  const ThemeChange({required this.theme});
   final AppTheme theme;
 
   @override
   List<Object> get props => [theme];
 }
 
-class FontSizeChanged extends SettingsEvent {
-  const FontSizeChanged({required this.fontSize});
+class FontSizeChange extends SettingsEvent {
+  const FontSizeChange({required this.fontSize});
   final double fontSize;
 
   @override
   List<Object> get props => [fontSize];
 }
 
-class LocaleChanged extends SettingsEvent {
-  const LocaleChanged({required this.locale});
+class LocaleChange extends SettingsEvent {
+  const LocaleChange({required this.locale});
   final Locale locale;
 
   @override
   List<Object> get props => [locale];
+}
+
+class LoginStateChange extends SettingsEvent {
+  const LoginStateChange({required this.authState});
+
+  final AppStateBase authState;
+
+  @override
+  List<Object> get props => [authState];
 }

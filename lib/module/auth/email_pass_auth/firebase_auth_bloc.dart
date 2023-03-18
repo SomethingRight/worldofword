@@ -34,7 +34,9 @@ class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
     });
     on<LoginWithGoogle>((event, emit) async {
       final user = await _authService.signInWithGoogle();
-      emit(state.copyWith(status: StatusLogin.success, email: user?.email));
+      if (user != null) {
+        emit(state.copyWith(status: StatusLogin.success, email: user.email));
+      }
     });
   }
 
