@@ -4,7 +4,8 @@ A new Flutter project.
 
 ## Getting Started
 
-flutter pub get
+-flutter pub get
+-flutter pub run build_runner build
 
 This project is a starting point for a Flutter application.
 

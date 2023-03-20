@@ -9,7 +9,7 @@ part 'word_load_state.dart';
 
 @Injectable()
 class WordLoadBloc extends Bloc<WordLoadEvent, WordLoadState> {
-  final WordTranslateRepository _repository;
+  final WordTranslateRepositoryI _repository;
   WordLoadBloc(this._repository) : super(WordEmptyState()) {
     on<WordLoading>((event, emit) async {
       try {

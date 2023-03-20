@@ -2,13 +2,19 @@ import 'package:injectable/injectable.dart';
 import 'package:worldofword/api/word_api/word_traslate/word_translate_api.dart';
 import 'package:worldofword/models/word_translate_model.dart';
 
+@LazySingleton(as: WordTranslateRepositoryI)
+class WordTranslateRepository implements WordTranslateRepositoryI {
+  const WordTranslateRepository({required this.wordTranslateApi});
 
-@lazySingleton
-class WordTranslateRepository {
-
+  @override
   Future<List<WordTranslateModel>> getWord(String currentWord) {
-    return _provider.getWord(currentWord);
+    return wordTranslateApi.getWord(currentWord);
   }
 
-  final _provider = WordTranslateApi();
+  final WordTranslateApiI wordTranslateApi;
 }
+
+abstract class WordTranslateRepositoryI {
+  Future<List<WordTranslateModel>> getWord(String currentWord);
+}
+

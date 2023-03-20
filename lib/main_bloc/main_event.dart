@@ -1,13 +1,13 @@
-part of 'settings_bloc.dart';
+part of 'main_bloc.dart';
 
-abstract class SettingsEvent extends Equatable {
-  const SettingsEvent();
+abstract class MainEvent extends Equatable {
+  const MainEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class ThemeChange extends SettingsEvent {
+class ThemeChange extends MainEvent {
   const ThemeChange({required this.theme});
   final AppTheme theme;
 
@@ -15,7 +15,7 @@ class ThemeChange extends SettingsEvent {
   List<Object> get props => [theme];
 }
 
-class FontSizeChange extends SettingsEvent {
+class FontSizeChange extends MainEvent {
   const FontSizeChange({required this.fontSize});
   final double fontSize;
 
@@ -23,7 +23,7 @@ class FontSizeChange extends SettingsEvent {
   List<Object> get props => [fontSize];
 }
 
-class LocaleChange extends SettingsEvent {
+class LocaleChange extends MainEvent {
   const LocaleChange({required this.locale});
   final Locale locale;
 
@@ -31,7 +31,7 @@ class LocaleChange extends SettingsEvent {
   List<Object> get props => [locale];
 }
 
-class LoginStateChange extends SettingsEvent {
+class LoginStateChange extends MainEvent {
   const LoginStateChange({required this.authState});
 
   final AppStateBase authState;

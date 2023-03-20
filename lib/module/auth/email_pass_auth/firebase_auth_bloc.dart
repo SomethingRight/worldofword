@@ -1,17 +1,16 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:worldofword/api/auth/firebase_auth_api.dart';
+import 'package:worldofword/api/auth/auth_repository.dart';
 
 part 'firebase_auth_event.dart';
 part 'firebase_auth_state.dart';
 
 @Injectable()
 class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
-  final FbAuthApiI _authService;
-  FirebaseAuthBloc({required FbAuthApiI authService})
-      : _authService = authService,
-        super(const FirebaseAuthState(
+  final AuthRepositoryI authRepository;
+  FirebaseAuthBloc({required this.authRepository})
+      : super(const FirebaseAuthState(
             status: StatusLogin.inProcess,
             email: '',
             password: '',
@@ -33,7 +32,7 @@ class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
           status: StatusLogin.failure, errorMessage: state.errorMessage));
     });
     on<LoginWithGoogle>((event, emit) async {
-      final user = await _authService.signInWithGoogle();
+      final user = await authRepository.signInWithGoogle();
       if (user != null) {
         emit(state.copyWith(status: StatusLogin.success, email: user.email));
       }
@@ -41,7 +40,7 @@ class FirebaseAuthBloc extends Bloc<FirebaseAuthEvent, FirebaseAuthState> {
   }
 
   void logIn({required String email, required String password}) async {
-    _authService.signInEmail(login: email, password: password).then((value) {
+    authRepository.signInEmail(login: email, password: password).then((value) {
       add(LoginSuccessEvent());
     }, onError: (dynamic e) {
       add(LoginFailureEvent(errorMessage: e.toString()));

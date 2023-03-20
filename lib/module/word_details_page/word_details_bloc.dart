@@ -11,7 +11,7 @@ part 'word_details_state.dart';
 
 @Injectable()
 class WordDetailsBloc extends Bloc<WordDetailsEvent, WordDetailsState> {
-  final WordDetailsRepository _repository;
+  final WordDetailsRepositoryI _repository;
   AudioPlayer audioPlayer = AudioPlayer();
   WordDetailsBloc(this._repository) : super(WordDetailsEmpty()) {
     on<LoadWordDetails>((event, emit) async {

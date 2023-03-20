@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/module/auth/account_recovery/account_recovery_page.dart';
@@ -37,7 +39,7 @@ class AppRouter {
       case RouterI.signUpPage:
         return _navigate(const SignUpPage());
       case RouterI.accountRecoveryPage:
-        return _navigate(const AccountRecoveryPage());
+        _navigate(const AccountRecoveryPage());
     }
     return null;
   }

@@ -2,16 +2,16 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
+import 'package:worldofword/api/auth/auth_repository.dart';
 import 'package:worldofword/models/user_model.dart';
-
-import '../../../../api/auth/firebase_auth_api.dart';
 
 part 'user_page_event.dart';
 part 'user_page_state.dart';
 
 @Injectable()
 class UserPageBloc extends Bloc<UserPageEvent, UserPageState> {
-  UserPageBloc(this.fbAuthApi)
+  final AuthRepositoryI authRepository;
+  UserPageBloc({required this.authRepository})
       : super(const UserPageState(
             email: 'e-mail',
             userName: 'user name',
@@ -29,15 +29,14 @@ class UserPageBloc extends Bloc<UserPageEvent, UserPageState> {
     setUser();
   }
 
-  final FbAuthApiI fbAuthApi;
   void setUser() {
-    User? userData = fbAuthApi.getUserCredentials();
+    User? userData = authRepository.getUserCredentials();
     add(SetUser(
         email: userData!.email.toString(),
         userName: userData.displayName.toString()));
   }
 
   void signOut() {
-    fbAuthApi.signOut();
+    authRepository.signOut();
   }
 }

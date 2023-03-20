@@ -10,42 +10,36 @@ abstract class Keys {
 
 @Injectable()
 class SettingsStorage {
-  static late SharedPreferences _storage;
+  static late SharedPreferences storage;
 
   static Future<dynamic> init() async {
-    _storage = await SharedPreferences.getInstance();
+    storage = await SharedPreferences.getInstance();
   }
 
   static String readTheme() {
-    final storage = _storage;
     final theme = storage.getString(Keys.themeKey);
     return theme ?? ThemeEnam().themeColorFromEnum(AppTheme.light);
   }
 
   static Future<dynamic> setTheme(String theme) async {
-    final storage = _storage;
     await storage.setString(Keys.themeKey, theme);
   }
 
   static double readFontSize() {
-    final storage = _storage;
     final fontSize = storage.getDouble(Keys.fontSizeKey);
     return fontSize ?? 20;
   }
 
   static Future<dynamic> setFontSize(double fontSize) async {
-    final storage = _storage;
     await storage.setDouble(Keys.fontSizeKey, fontSize);
   }
 
   static String readLocale() {
-    final storage = _storage;
     final locale = storage.getString(Keys.localeKey);
     return locale ?? 'en';
   }
 
   static Future<dynamic> setLocale(String locale) async {
-    final storage = _storage;
     await storage.setString(Keys.localeKey, locale);
   }
 }

@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:worldofword/core/settings/settings_storage.dart';
 
@@ -105,5 +108,17 @@ class ThemeEnam {
         }
     }
     return themeColorStr!;
+  }
+}
+
+class MyStream {
+  late Stream<int> stream;
+  late StreamSubscription subscription;
+
+  void main() {
+    stream = Stream.periodic(const Duration(seconds: 1), (tick) => tick);
+    subscription = stream.listen((event) {
+      print(event);
+    });
   }
 }

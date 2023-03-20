@@ -1,10 +1,9 @@
-import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
+import 'package:worldofword/main_bloc/main_bloc.dart';
 import 'package:worldofword/models/app_state.dart';
-import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart';
 import 'package:worldofword/module/menu/pages/user/user_page_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -27,7 +26,7 @@ class _UserPageState extends State<UserPage> {
           SnackbarGlobal.show(
               message: AppLocalizations.of(context)!.signedOut, duration: 1500);
 
-          Provider.of<SettingsBloc>(context, listen: false)
+          Provider.of<MainBloc>(context, listen: false)
               .add(LoginStateChange(authState: UnloginState()));
               
           GetIt.I<RouterI>().pop();

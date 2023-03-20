@@ -9,15 +9,15 @@ import 'package:worldofword/core/settings/settings_storage.dart';
 import 'package:worldofword/core/settings/theme.dart';
 import 'package:worldofword/models/app_state.dart';
 
-part 'settings_event.dart';
-part 'settings_state.dart';
+part 'main_event.dart';
+part 'main_state.dart';
 
 @Injectable()
-class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
+class MainBloc extends Bloc<MainEvent, MainState> {
   final AuthRepositoryI authRepository;
-  late StreamSubscription<dynamic> sub;
-  SettingsBloc({required this.authRepository})
-      : super(SettingsState(
+  late StreamSubscription<AppStateBase> sub;
+  MainBloc({required this.authRepository})
+      : super(MainState(
             authState: UnknownState(),
             fontSize: Variables.fontSize,
             theme: Variables.initialTheme,

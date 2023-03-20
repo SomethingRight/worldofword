@@ -1,7 +1,7 @@
-part of 'settings_bloc.dart';
+part of 'main_bloc.dart';
 
-class SettingsState extends Equatable {
-  const SettingsState(
+class MainState extends Equatable {
+  const MainState(
       {required this.theme,
       required this.fontSize,
       required this.locale,
@@ -12,12 +12,12 @@ class SettingsState extends Equatable {
   final Locale locale;
   final AppStateBase authState;
 
-  SettingsState copyWith(
+  MainState copyWith(
       {AppTheme? theme,
       double? fontSize,
       Locale? locale,
       AppStateBase? authState}) {
-    return SettingsState(
+    return MainState(
         authState: authState ?? this.authState,
         locale: locale ?? this.locale,
         theme: theme ?? this.theme,

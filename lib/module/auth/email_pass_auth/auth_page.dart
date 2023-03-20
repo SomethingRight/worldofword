@@ -4,9 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:worldofword/core/navigation/router.dart';
+import 'package:worldofword/main_bloc/main_bloc.dart';
 import 'package:worldofword/models/app_state.dart';
 import 'package:worldofword/module/auth/email_pass_auth/firebase_auth_bloc.dart';
-import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart';
+import 'package:worldofword/module/home/home_page.dart';
 import 'package:worldofword/module/widgets/snackbar_global.dart';
 import 'package:worldofword/module/widgets/stadium_custom_button.dart';
 import 'package:worldofword/module/widgets/text_field_custom.dart';
@@ -34,7 +35,7 @@ class _AuthPageState extends State<AuthPage> {
                     '${AppLocalizations.of(context)!.loggedInAs} ${state.email}',
                 duration: 1500);
 
-            Provider.of<SettingsBloc>(context, listen: false)
+            Provider.of<MainBloc>(context, listen: false)
                 .add(LoginStateChange(authState: LoginState()));
           }
         },

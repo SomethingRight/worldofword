@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:worldofword/core/settings/theme.dart';
-import 'package:worldofword/module/menu/pages/settings/settings_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:worldofword/main_bloc/main_bloc.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -32,7 +32,7 @@ class _SettingsPageState extends State<SettingsPage> {
               return [
                 PopupMenuItem(
                   onTap: () {
-                    Provider.of<SettingsBloc>(context, listen: false)
+                    Provider.of<MainBloc>(context, listen: false)
                         .add(const LocaleChange(locale: Locale('en')));
                   },
                   child: Image.asset(
@@ -43,7 +43,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 PopupMenuItem(
                   onTap: () {
-                    Provider.of<SettingsBloc>(context, listen: false)
+                    Provider.of<MainBloc>(context, listen: false)
                         .add(const LocaleChange(locale: Locale('ru')));
                   },
                   child: Image.asset(
@@ -81,7 +81,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     selected: Variables.toggledlight,
                     onChanged: (value) {
                       setState(() {
-                        Provider.of<SettingsBloc>(context, listen: false)
+                        Provider.of<MainBloc>(context, listen: false)
                             .add(const ThemeChange(theme: AppTheme.light));
 
                         Variables.toggledlight = !Variables.toggledlight;
@@ -96,7 +96,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     secondary: const Icon(Icons.dark_mode),
                     selected: Variables.toggledDark,
                     onChanged: (value) {
-                      Provider.of<SettingsBloc>(context, listen: false)
+                      Provider.of<MainBloc>(context, listen: false)
                           .add(const ThemeChange(theme: AppTheme.dark));
 
                       setState(() {
@@ -124,7 +124,7 @@ class _SettingsPageState extends State<SettingsPage> {
                       divisions: 15,
                       label: '${Variables.fontSize.round()}',
                       onChanged: (double value) {
-                        Provider.of<SettingsBloc>(context, listen: false)
+                        Provider.of<MainBloc>(context, listen: false)
                             .add(FontSizeChange(fontSize: value));
 
                         setState(() {
