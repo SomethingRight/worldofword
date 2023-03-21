@@ -19,12 +19,13 @@ class WordDetailsPage extends StatefulWidget {
 }
 
 class _WordDetailsPageState extends State<WordDetailsPage> {
-  // late WordDetailsBloc _bloc;
-  // @override
-  // void initState() {
-  //   _bloc = GetIt.I<WordDetailsBloc>()..init(widget.word);
-  //   super.initState();
-  // }
+  late WordDetailsBloc _bloc;
+  @override
+  void initState() {
+    _bloc = GetIt.I<WordDetailsBloc>()..init(widget.word);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final headerColor = Theme.of(context).primaryColor;
@@ -35,11 +36,12 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
           backgroundColor: headerColor,
           iconTheme: Theme.of(context).primaryIconTheme),
       body: BlocBuilder<WordDetailsBloc, WordDetailsState>(
-        //bloc: _bloc,
+        bloc: _bloc,
         builder: (context, state) {
           if (state is WordDetailsLoading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is WordDetailsLoaded) {
+            debugPrint(state.wordDetails.phrases.toString());
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -294,31 +296,53 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                           shrinkWrap: true,
                           itemCount: state.wordDetails.phrases?.length ?? 1,
                           itemBuilder: (context, index) {
-                            return ListTile(
-                                dense: true,
-                                horizontalTitleGap: 2,
-                                leading: Padding(
-                                    padding: EdgeInsets.only(
-                                        top:
-                                            MediaQuery.of(context).size.height /
-                                                130),
-                                    child: const Icon(Icons.circle, size: 8)),
-                                title: Text(
-                                    state.wordDetails.phrases?[index]['text'] ??
-                                        AppLocalizations.of(context)!
-                                            .noExamplesOfPhrases,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline3
-                                        ?.copyWith(
-                                            fontSize: Variables.fontSize)));
+                            if (state.wordDetails.phrases?[index] != null) {
+                              return ListTile(
+                                  dense: true,
+                                  horizontalTitleGap: 2,
+                                  leading: Padding(
+                                      padding: EdgeInsets.only(
+                                          top: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              130),
+                                      child: const Icon(Icons.circle, size: 8)),
+                                  title: Text(state.wordDetails.phrases?[index],
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline3
+                                          ?.copyWith(
+                                              fontSize: Variables.fontSize)));
+                            }
+                            if (state.wordDetails.phrases == null) {
+                              return ListTile(
+                                  dense: true,
+                                  horizontalTitleGap: 2,
+                                  leading: Padding(
+                                      padding: EdgeInsets.only(
+                                          top: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              130),
+                                      child: const Icon(Icons.circle, size: 8)),
+                                  title: Text(
+                                      AppLocalizations.of(context)!
+                                          .noExamplesOfPhrases,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline3
+                                          ?.copyWith(
+                                              fontSize: Variables.fontSize)));
+                            } else {
+                              return const Offstage();
+                            }
                           },
                         ),
                       ],
                     ),
                   ),
 
-                  // synonims
+                  // synonyms
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(15),
@@ -354,7 +378,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                         ),
                         ListView.builder(
                           shrinkWrap: true,
-                          itemCount: state.wordDetails.synonims?.length ?? 1,
+                          itemCount: state.wordDetails.synonyms?.length ?? 1,
                           itemBuilder: (context, index) {
                             return ListTile(
                                 dense: true,
@@ -366,8 +390,7 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                                 130),
                                     child: const Icon(Icons.circle, size: 8)),
                                 title: Text(
-                                    state.wordDetails.synonims?[index]
-                                            ['text'] ??
+                                    state.wordDetails.synonyms?[index] ??
                                         AppLocalizations.of(context)!
                                             .noExamplesOfSynonyms,
                                     style: Theme.of(context)

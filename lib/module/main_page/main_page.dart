@@ -84,11 +84,11 @@ class _MainPageState extends State<MainPage> {
                   } else if (state is WordLoadedState) {
                     return ListView.builder(
                         shrinkWrap: true,
-                        itemCount: state.words.length,
+                        itemCount: 1,
                         itemBuilder: (context, index) {
                           return Container(
                               padding: const EdgeInsets.all(10),
-                              child: WordCardIcon(word: state.words[index]));
+                              child: WordCardIcon(word: state.word));
                         });
                   }
                   return Center(

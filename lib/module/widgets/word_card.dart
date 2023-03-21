@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import '../../core/navigation/router.dart';
 import '../../models/word_translate_model.dart';
@@ -11,8 +12,8 @@ class WordCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          Navigator.pushNamed(context, RouterI.wordDetailsPage,
-              arguments: {'word': word.word, 'translation': word.translate});
+          GetIt.I<RouterI>().navigateTo(RouterI.wordDetailsPage,
+              arg: {'word': word.word, 'translation': word.translate});
         },
         child: Container(
           padding: const EdgeInsets.all(25),
@@ -25,7 +26,7 @@ class WordCard extends StatelessWidget {
             children: [
               Text('${word.word} ',
                   style: Theme.of(context).textTheme.bodyText2),
-              Text('(${word.lexicalCategory})',
+              Text('(${word.languageCode})',
                   style: Theme.of(context)
                       .textTheme
                       .bodyText1

@@ -14,8 +14,8 @@ class WordCardIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, RouterI.wordDetailsPage,
-            arguments: {'word': word.word, 'translation': word.translate});
+        GetIt.I<RouterI>().navigateTo(RouterI.wordDetailsPage,
+            arg: {'word': word.word, 'translation': word.translate});
       },
       child: Container(
         padding:
@@ -33,7 +33,7 @@ class WordCardIcon extends StatelessWidget {
                 children: [
                   Text('${word.word} ',
                       style: Theme.of(context).textTheme.bodyText2),
-                  Text('(${word.lexicalCategory})',
+                  Text('(${word.languageCode})',
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1

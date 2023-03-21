@@ -7,7 +7,7 @@ class WordTranslateRepository implements WordTranslateRepositoryI {
   const WordTranslateRepository({required this.wordTranslateApi});
 
   @override
-  Future<List<WordTranslateModel>> getWord(String currentWord) {
+  Future<WordTranslateModel> getWord(String currentWord) {
     return wordTranslateApi.getWord(currentWord);
   }
 
@@ -15,6 +15,5 @@ class WordTranslateRepository implements WordTranslateRepositoryI {
 }
 
 abstract class WordTranslateRepositoryI {
-  Future<List<WordTranslateModel>> getWord(String currentWord);
+  Future<WordTranslateModel> getWord(String currentWord);
 }
-

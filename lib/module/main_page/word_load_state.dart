@@ -12,12 +12,12 @@ class WordEmptyState extends WordLoadState {}
 class WordLoadingState extends WordLoadState {}
 
 class WordLoadedState extends WordLoadState {
-  const WordLoadedState({required this.words});
+  const WordLoadedState({required this.word});
 
-  final List<WordTranslateModel> words;
+  final WordTranslateModel word;
 
   @override
-  List<Object> get props => [words];
+  List<Object> get props => [word];
 }
 
 class WordError extends WordLoadState {

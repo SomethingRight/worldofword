@@ -14,9 +14,9 @@ class WordLoadBloc extends Bloc<WordLoadEvent, WordLoadState> {
     on<WordLoading>((event, emit) async {
       try {
         emit(WordLoadingState());
-        final wordList = await _repository.getWord(event.word);
+        final word = await _repository.getWord(event.word);
 
-        emit(WordLoadedState(words: wordList));
+        emit(WordLoadedState(word: word));
       } catch (e) {
         emit(WordError(e.toString()));
       }

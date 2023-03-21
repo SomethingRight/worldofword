@@ -14,7 +14,7 @@ class FirestoreProvider implements FirestoreProviderI {
   Future<String> getId(String translation) async {
     final snapshot = await FirebaseFirestore.instance
         .collection('words')
-        .where("translate", isEqualTo: translation)
+        .where("translatedText", isEqualTo: translation)
         .get();
     final wordId = snapshot.docs.first.id;
     return wordId;

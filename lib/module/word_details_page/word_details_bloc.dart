@@ -29,7 +29,7 @@ class WordDetailsBloc extends Bloc<WordDetailsEvent, WordDetailsState> {
       });
     });
   }
-  void init(String word) {
+  void init(String word) async {
     add(LoadWordDetails(word: word));
   }
 }

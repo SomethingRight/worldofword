@@ -25,7 +25,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
       primaryColor: Colors.teal,
       primaryColorLight: Colors.teal.shade200,
       primaryColorDark: Colors.teal.shade700,
-      fontFamily: 'TiltNeon',
+      //fontFamily: 'TiltNeon',
       iconTheme: const IconThemeData(color: Colors.white),
       splashColor: Colors.teal.shade300,
       colorScheme: ColorScheme.fromSwatch(
@@ -41,7 +41,7 @@ final Map<AppTheme, ThemeData> appThemeData = {
       primaryColor: Colors.teal.shade800,
       primaryColorLight: Colors.teal.shade500,
       primaryColorDark: Colors.teal.shade900,
-      fontFamily: 'TiltNeon',
+      //fontFamily: 'TiltNeon',
       iconTheme: const IconThemeData(color: Colors.grey),
       splashColor: Colors.teal.shade500,
       colorScheme: ColorScheme.fromSwatch(
@@ -108,17 +108,5 @@ class ThemeEnam {
         }
     }
     return themeColorStr!;
-  }
-}
-
-class MyStream {
-  late Stream<int> stream;
-  late StreamSubscription subscription;
-
-  void main() {
-    stream = Stream.periodic(const Duration(seconds: 1), (tick) => tick);
-    subscription = stream.listen((event) {
-      print(event);
-    });
   }
 }
