@@ -1,5 +1,4 @@
 import 'package:audioplayers/audioplayers.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
@@ -21,7 +20,7 @@ class WordDetailsBloc extends Bloc<WordDetailsEvent, WordDetailsState> {
             .getWordsDetails(event.word)
             .then((value) => emit(WordDetailsLoaded(wordDetails: value)));
       } catch (e) {
-        throw ErrorWidget(e);
+        emit(WordDetailsError(errorText: e.toString() ));
       }
       on<PlayAudio>((event, emit) async {
         final Source audioUrl = UrlSource(event.audioPath);

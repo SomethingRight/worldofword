@@ -24,4 +24,3 @@ class PlayAudio extends WordDetailsEvent{
   @override
   List<Object> get props => [audioPath];
 }
-

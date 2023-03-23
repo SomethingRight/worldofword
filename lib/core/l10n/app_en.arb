@@ -62,5 +62,7 @@
     "noExamplesOfPhrases": "no examples of phrases",
     "noExamplesOfSynonyms": "no examples of synonyms",
     "success": "success",
-    "failure": "failure"
+    "failure": "failure",
+    "sorryWeDidntFindAudio": "sorry, we didn't find audio",
+    "incorrectWord": "incorrect word"
 }

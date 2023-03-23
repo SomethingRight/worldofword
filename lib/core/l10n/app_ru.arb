@@ -61,5 +61,7 @@
     "noExamplesOfPhrases": "не нашли примеров фраз",
     "noExamplesOfSynonyms": "не нашли примеров синонимов",
     "success": "успешно",
-    "failure": "не вышло"
+    "failure": "не вышло",
+    "sorryWeDidntFindAudio": "извините, мы не нашли аудио",
+    "incorrectWord": "неверное слово"
 }

@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flow_builder/flow_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
@@ -23,11 +22,9 @@ import 'models/app_state.dart';
 
  - Добавить фичу контекстное меню, новый пункт сохранения слова с словарь
 
- - add individual profile data( i mean saved words) 
+ - add individual profile data( i mean saved words) DONE
 
  - add all about sharing 
-
- - make global BLOC of app DONE
 
 */
 
@@ -62,26 +59,22 @@ class MyApp extends StatelessWidget {
             supportedLocales: L10n.all,
             locale: state.locale,
             localizationsDelegates: AppLocalizations.localizationsDelegates,
-            home: FlowBuilder<MainState>(
-              onGeneratePages: _onGeneratePages,
-              state: context.select((value) => state),
-            ),
+            home: home(state),
           );
         },
       ),
     );
   }
 
-  List<MaterialPage<dynamic>> _onGeneratePages(
-      MainState state, List<Page<dynamic>> pages) {
-    debugPrint('@@@ app state $state');
-
+  Widget home(MainState state) {
+    debugPrint('@@@state is $state');
     if (state.authState is LoginState) {
-      return [MaterialPage(child: HomePage(indexPage: 1))];
+      return HomePage(indexPage: 1);
     }
     if (state.authState is UnloginState) {
-      return [const MaterialPage(child: AuthPage())];
+      return const AuthPage();
+    } else {
+      return const AuthPage();
     }
-    return [const MaterialPage(child: AuthPage())];
   }
 }

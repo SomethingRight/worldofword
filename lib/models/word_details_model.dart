@@ -2,8 +2,6 @@
 
 import 'package:equatable/equatable.dart';
 
-// TODO add phrases
-
 class WordDetailsModel extends Equatable {
   const WordDetailsModel(
       {this.word,
@@ -16,44 +14,41 @@ class WordDetailsModel extends Equatable {
       this.synonyms});
 
   factory WordDetailsModel.fromJson(Map<String, dynamic> json) {
-    // List<dynamic>? finalPhrases;
-    // List<dynamic>? syn;
-    // List<dynamic>? syn2;
-    // Map<String, dynamic>? syn3;
-    // if (json['entries'][0]['senses'][0]['synonyms'] != null) {
-    //   syn = json['entries'][0]['senses'][0]['synonyms'];
-    // }
-    // if (json['entries'][0]['senses'][0]['synonyms'] == null &&
-    //     json['entries'][0]['senses'][0]['subsenses'] != null) {
-    //   syn2 = json['entries'][0]['senses'][0]['subsenses'];
-    //   syn3 = syn2?.firstWhere((element) => element['synonyms'] != null);
-    // } else if (json['phrases'] != null) {
-    //   finalPhrases = json['phrases'];
-    // }
-    // if (json['phrases'] == null) {
-    //   finalPhrases = json['entries'][0]['senses'][0]['examples'];
-    // }
+    
+    //phoneticSpelling
     String? phonetic;
-    Map<String, dynamic>? phonetic1;
-    final List<dynamic>? phonetic2;
+    String? phonetic3;
+    Map<String, dynamic>? phonetic2;
+    final List<dynamic>? phonetic1;
     if (json['phonetic'] != null) {
       phonetic = json['phonetic'];
     } else {
-      phonetic2 = json['phonetics'] as List<dynamic>;
-      phonetic1 = phonetic2.firstWhere((element) => element['text'] != null);
+      phonetic1 = json['phonetics'] as List<dynamic>;
+      phonetic2 = phonetic1.firstWhere((element) => element['text'] != null);
+      phonetic3 = phonetic2?['text'];
     }
+    final String? finalPhotetic = phonetic?.substring(1, phonetic.length - 1);
+    final String? finalPhonetic1 = phonetic3?.substring(1, phonetic3.length - 1);
 
+    // synonyms
     final List<dynamic>? meanings = json['meanings'];
-    final List<dynamic>? finalSynonymsList;
-    Map<String, dynamic>? syn =
-        meanings?.firstWhere((element) => element['synonyms'] != null);
+    List<dynamic>? finalSynonymsList;
+    Map<String, dynamic>? syn = meanings?.firstWhere((element) {
+      final List<dynamic> list = element['synonyms'];
+      if (list.isNotEmpty) {
+        return true;
+      } else {
+        return false;
+      }
+    }, orElse: () => null);
     List<dynamic>? synonymsList = syn?['synonyms'];
-    if (synonymsList!.isEmpty) {
+    if (syn == null) {
       finalSynonymsList = null;
     } else {
       finalSynonymsList = synonymsList;
     }
 
+    // phrases
     final List<dynamic>? jsonPhrases = meanings
         ?.map((element) => element['definitions'][0]['example'])
         .skipWhile((value) => value == null)
@@ -65,13 +60,38 @@ class WordDetailsModel extends Equatable {
       finalPhrases = null;
     }
 
+    // lexical categories
+    final List<dynamic>? lexicalCategories =
+        meanings?.map((e) => e['partOfSpeech']).toList();
+
+    // audio path
+    final List<dynamic>? audioList = json['phonetics'];
+    String? finalAudio;
+    Map<String, dynamic>? audioMap = audioList?.firstWhere(
+      (element) {
+        final String? isAudio = element['audio'];
+        if (isAudio != '') {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      orElse: () => null,
+    );
+    String? audio = audioMap?['audio'];
+    if (audioMap == null) {
+      finalAudio = null;
+    } else {
+      finalAudio = audio;
+    }
+
     return WordDetailsModel(
         word: json['word'] as String?,
-        phoneticSpelling: phonetic ?? phonetic1?['text'] as String?,
+        phoneticSpelling: finalPhotetic ?? finalPhonetic1,
         definitions:
             json['meanings'][0]['definitions'][0]['definition'] as String?,
-        lexicalCategory: json['meanings'][0]['partOfSpeech'] as String?,
-        audioPath: json['phonetics'][0]['audio'] as String?,
+        lexicalCategory: lexicalCategories,
+        audioPath: finalAudio,
         synonyms: finalSynonymsList,
         phrases: finalPhrases);
   }
@@ -80,7 +100,7 @@ class WordDetailsModel extends Equatable {
   final String? phoneticSpelling;
   final String? translate;
   final String? definitions;
-  final String? lexicalCategory;
+  final List<dynamic>? lexicalCategory;
   final String? audioPath;
   final List<dynamic>? phrases;
   final List<dynamic>? synonyms;

@@ -21,14 +21,13 @@ class _UserPageState extends State<UserPage> {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<UserPageBloc, UserPageState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state.status == StatusUser.loggedOut) {
           SnackbarGlobal.show(
               message: AppLocalizations.of(context)!.signedOut, duration: 1500);
 
-          Provider.of<MainBloc>(context, listen: false)
-              .add(LoginStateChange(authState: UnloginState()));
-              
+          GetIt.I<MainBloc>().add(LoginStateChange(authState: UnloginState()));
+
           GetIt.I<RouterI>().pop();
         }
       },
@@ -160,9 +159,10 @@ class _UserPageState extends State<UserPage> {
                 )),
             TextButton(
                 onPressed: () {
-                  GetIt.I<RouterI>().pop();
                   Provider.of<UserPageBloc>(context, listen: false)
                       .add(SignOut());
+
+                  GetIt.I<RouterI>().pop();
                 },
                 child: Text(
                   AppLocalizations.of(context)!.yes,

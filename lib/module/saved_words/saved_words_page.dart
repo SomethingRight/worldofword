@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get_it/get_it.dart';
-import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 import 'package:worldofword/core/navigation/router.dart';
 import 'package:worldofword/module/main_page/main_page.dart';
@@ -55,6 +54,7 @@ class _SavedWordsPageState extends State<SavedWordsPage> {
                           return Padding(
                             padding: const EdgeInsets.only(bottom: 15),
                             child: Slidable(
+                                key: ValueKey(index),
                                 endActionPane: ActionPane(
                                   motion: const ScrollMotion(),
                                   children: [

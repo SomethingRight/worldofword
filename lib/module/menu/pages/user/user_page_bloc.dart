@@ -22,7 +22,7 @@ class UserPageBloc extends Bloc<UserPageEvent, UserPageState> {
           userName: event.userName,
           status: StatusUser.loggedIn));
     });
-    on<SignOut>((event, emit) {
+    on<SignOut>((event, emit) async  {
       signOut();
       emit(state.copyWith(status: StatusUser.loggedOut));
     });

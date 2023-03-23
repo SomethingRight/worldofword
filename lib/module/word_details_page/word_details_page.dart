@@ -1,12 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:provider/provider.dart';
 import 'package:worldofword/core/settings/theme.dart';
+import 'package:worldofword/models/word_translate_model.dart';
 import 'package:worldofword/module/widgets/snackbar_global.dart';
 import 'package:worldofword/module/word_details_page/word_details_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../saved_words/saved_words_bloc.dart';
 
 class WordDetailsPage extends StatefulWidget {
   const WordDetailsPage(
@@ -40,8 +44,39 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
         builder: (context, state) {
           if (state is WordDetailsLoading) {
             return const Center(child: CircularProgressIndicator());
-          } else if (state is WordDetailsLoaded) {
-            debugPrint(state.wordDetails.phrases.toString());
+          }
+          if (state is WordDetailsError) {
+            return Center(
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/images/png/incorrect_word.png'),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 18),
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    state.errorText!,
+                      style: Theme.of(context).textTheme.headline4),
+                ),
+              ],
+            ));
+          }
+          if (state is WordDetailsLoaded) {
+            log(state.wordDetails.toString());
+            // final int length = state.wordDetails.lexicalCategory!.length;
+            // List<bool> isSelected = List<bool>.generate(length, (index) {
+            //   if (index == 0) {
+            //     return true;
+            //   }
+            //   if (index == 1) {
+            //     return false;
+            //   }
+            //   if (index == 2) {
+            //     return false;
+            //   } else {
+            //     return true;
+            //   }
+            // });
             return SingleChildScrollView(
               child: Column(
                 children: [
@@ -102,6 +137,13 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                               IconButton(
                                   splashRadius: 22,
                                   onPressed: () {
+                                    GetIt.I<SavedWordsBloc>().add(
+                                        AddToSavedList(
+                                            word: WordTranslateModel(
+                                                languageCode: 'en',
+                                                translate: widget.translation,
+                                                word: widget.word)));
+
                                     SnackbarGlobal.show(
                                         message: AppLocalizations.of(context)!
                                             .wordSaved,
@@ -115,17 +157,22 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                                   icon: Icon(Icons.share, color: iconColor)),
                               IconButton(
                                   splashRadius: 22,
-                                  onPressed: () {
-                                    SnackbarGlobal.show(
-                                        message: AppLocalizations.of(context)!
-                                            .playing,
-                                        duration: 1000);
+                                  onPressed: () async {
+                                    if (state.wordDetails.audioPath != null) {
+                                      SnackbarGlobal.show(
+                                          message: AppLocalizations.of(context)!
+                                              .playing,
+                                          duration: 1600);
 
-                                    Provider.of<WordDetailsBloc>(context,
-                                            listen: false)
-                                        .add(PlayAudio(
-                                            audioPath:
-                                                state.wordDetails.audioPath!));
+                                      _bloc.add(PlayAudio(
+                                          audioPath:
+                                              state.wordDetails.audioPath!));
+                                    } else {
+                                      SnackbarGlobal.show(
+                                          message: AppLocalizations.of(context)!
+                                              .sorryWeDidntFindAudio,
+                                          duration: 1600);
+                                    }
                                   },
                                   icon:
                                       Icon(Icons.volume_up, color: iconColor)),
@@ -194,6 +241,38 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                       ],
                     ),
                   ),
+
+                  // lexicalCategories
+                  // Container(
+                  //   decoration: BoxDecoration(
+                  //       color: Theme.of(context).cardColor,
+                  //       borderRadius:
+                  //           const BorderRadius.all(Radius.circular(15))),
+                  //   child: ToggleButtons(
+                  //       borderRadius: BorderRadius.circular(15),
+                  //       borderWidth: 2.0,
+                  //       isSelected: isSelected,
+                  //       onPressed: (int newIndex) {
+                  //         setState(() {
+                  //           for (int index = 0;
+                  //               index < isSelected.length;
+                  //               index++) {
+                  //             if (newIndex == index) {
+                  //               isSelected[index] = true;
+                  //             } else {
+                  //               isSelected[index] = false;
+                  //             }
+                  //           }
+                  //         });
+                  //       },
+                  //       children: state.wordDetails.lexicalCategory!
+                  //           .map<Widget>((e) => Padding(
+                  //                 padding: const EdgeInsets.symmetric(
+                  //                     horizontal: 12, vertical: 8),
+                  //                 child: Text(e.toString()),
+                  //               ))
+                  //           .toList()),
+                  // ),
 
                   //meaning
                   Container(
@@ -380,24 +459,47 @@ class _WordDetailsPageState extends State<WordDetailsPage> {
                           shrinkWrap: true,
                           itemCount: state.wordDetails.synonyms?.length ?? 1,
                           itemBuilder: (context, index) {
-                            return ListTile(
-                                dense: true,
-                                horizontalTitleGap: 2,
-                                leading: Padding(
-                                    padding: EdgeInsets.only(
-                                        top:
-                                            MediaQuery.of(context).size.height /
-                                                130),
-                                    child: const Icon(Icons.circle, size: 8)),
-                                title: Text(
-                                    state.wordDetails.synonyms?[index] ??
-                                        AppLocalizations.of(context)!
-                                            .noExamplesOfSynonyms,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline3
-                                        ?.copyWith(
-                                            fontSize: Variables.fontSize)));
+                            if (state.wordDetails.synonyms != null) {
+                              return ListTile(
+                                  dense: true,
+                                  horizontalTitleGap: 2,
+                                  leading: Padding(
+                                      padding: EdgeInsets.only(
+                                          top: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              130),
+                                      child: const Icon(Icons.circle, size: 8)),
+                                  title: Text(
+                                      state.wordDetails.synonyms![index],
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline3
+                                          ?.copyWith(
+                                              fontSize: Variables.fontSize)));
+                            }
+                            if (state.wordDetails.synonyms == null) {
+                              return ListTile(
+                                  dense: true,
+                                  horizontalTitleGap: 2,
+                                  leading: Padding(
+                                      padding: EdgeInsets.only(
+                                          top: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              130),
+                                      child: const Icon(Icons.circle, size: 8)),
+                                  title: Text(
+                                      AppLocalizations.of(context)!
+                                          .noExamplesOfSynonyms,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headline3
+                                          ?.copyWith(
+                                              fontSize: Variables.fontSize)));
+                            } else {
+                              return const Offstage();
+                            }
                           },
                         ),
                       ],
