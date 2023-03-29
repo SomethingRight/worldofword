@@ -7,7 +7,7 @@ import 'package:worldofword/models/word_translate_model.dart';
 
 @LazySingleton(as: WordTranslateApiI)
 class WordTranslateApi implements WordTranslateApiI {
-  static const String _apiKey = 'AIzaSyBf_30i2oRO3YE-hCLt6e_GCLrNm12XvFA';
+  static const String _apiKey = 'apiKey';
   static const String languageCode = 'ru';
 
   @override
